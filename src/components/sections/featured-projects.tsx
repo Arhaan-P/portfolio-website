@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/motion/reveal"
 import { featuredProjects } from "@/data/projects"
 import { ProjectPlaceholder } from "@/components/sections/project-placeholder"
+import { ProjectImage } from "@/components/sections/project-image"
 
 export function FeaturedProjects() {
   return (
-    <section id="projects" className="mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:py-28">
+    <section id="projects" className="mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:pt-28 sm:pb-12">
       <Reveal>
         <p className="font-mono text-sm text-primary">Featured Projects</p>
       </Reveal>
@@ -24,13 +25,17 @@ export function FeaturedProjects() {
           return (
             <Reveal key={project.slug}>
               <article
-                className={`grid gap-8 lg:grid-cols-2 lg:gap-12 ${
-                  reversed ? "lg:[&>*:first-child]:order-2" : ""
+                className={`grid gap-8 ${
+                  project.images && project.images.length > 0
+                    ? `lg:grid-cols-2 lg:gap-12 ${reversed ? "lg:[&>*:first-child]:order-2" : ""}`
+                    : ""
                 }`}
               >
-                <div className="aspect-video lg:aspect-auto">
-                  <ProjectPlaceholder name={project.name} />
-                </div>
+                {project.images && project.images.length > 0 && (
+                  <div className="aspect-video">
+                    <ProjectImage images={project.images} alt={project.name} />
+                  </div>
+                )}
 
                 <div className="flex flex-col justify-center">
                   {project.period && (
@@ -86,7 +91,7 @@ export function FeaturedProjects() {
                     </div>
                   )}
 
-                  {project.links.length > 0 && (
+                  {project.links?.length > 0 && (
                     <div className="mt-5 flex flex-wrap gap-3">
                       {project.links.map((link) => (
                         <Button

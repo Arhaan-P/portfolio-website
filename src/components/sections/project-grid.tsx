@@ -97,7 +97,7 @@ export function ProjectGrid() {
                 </div>
               </CardContent>
 
-              {project.links.length > 0 && (
+              {project.links?.length > 0 && (
                 <CardFooter className="flex flex-wrap gap-4 bg-transparent">
                   {project.links.map((link) => (
                     <a

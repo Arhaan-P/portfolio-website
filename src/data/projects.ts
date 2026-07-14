@@ -17,6 +17,7 @@ export type Project = {
   metrics: string[]
   links: ProjectLink[]
   tags: string[]
+  images?: string[]
 }
 
 export const projects: Project[] = [
@@ -54,8 +55,12 @@ export const projects: Project[] = [
       "Android + desktop gateway interoperability via a shared Python core",
       "Offline-first failsafe engine independent of cloud connectivity",
     ],
-    links: [],
+    links: [
+      { label: "Landing Page Repo", href: "https://github.com/PolarisGCS/Landing-Page/" },
+      { label: "Website", href: "http://polarisgcs.pages.dev/" },
+    ],
     tags: ["Systems", "Drones", "FastAPI", "React", "Kotlin"],
+    images: ["/projects/drones.png"],
   },
   {
     slug: "vhelp",
@@ -83,11 +88,12 @@ export const projects: Project[] = [
     ],
     links: [],
     tags: ["Flutter", "Supabase", "Firebase", "Full-Stack"],
+    images: ["/projects/vhelp1.png", "/projects/vhelp2.png"],
   },
   {
     slug: "queez",
     name: "Queez",
-    tier: "featured",
+    tier: "standard",
     period: "Ongoing",
     oneLiner:
       "A cross-platform learning app where students take quizzes and flashcards solo or in real-time multiplayer sessions, with AI turning uploaded documents into ready-made study material.",
@@ -106,12 +112,10 @@ export const projects: Project[] = [
       "Partial-credit scoring engine for multi-select questions",
       "AI-generated quizzes/flashcards/notes from uploaded documents",
     ],
-    links: [
-      { label: "Backend repo", href: "https://github.com/ABBEY-ANYTHING/Queez-Backend" },
-      { label: "Frontend repo", href: "https://github.com/ABBEY-ANYTHING/QUEEZ" },
-      { label: "Live API", href: "https://queez-backend.onrender.com" },
-    ],
     tags: ["Flutter", "FastAPI", "Real-Time", "AI"],
+    links:[
+      
+    ]
   },
   {
     slug: "deepfake-detection",
@@ -143,7 +147,7 @@ export const projects: Project[] = [
   {
     slug: "pawguard",
     name: "PawGuard",
-    tier: "standard",
+    tier: "featured",
     period: "2026",
     oneLiner:
       "A cross-platform Flutter app for animal rescue, pet adoption, lost-pet networking, wellness crowdfunding, a pet-supplies marketplace, and vet records — backed by a blockchain trust layer.",
@@ -172,7 +176,7 @@ export const projects: Project[] = [
     ],
     stack: ["Flutter", "AWS Cognito", "AWS S3", "DynamoDB"],
     metrics: [],
-    links: [],
+    links: [{ label: "GitHub", href: "https://github.com/JUNK-WUNK/Junk_Wunk" }],
     tags: ["Flutter", "AWS", "Hackathon"],
   },
 ]

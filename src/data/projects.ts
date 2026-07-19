@@ -60,7 +60,7 @@ export const projects: Project[] = [
       { label: "Website", href: "http://polarisgcs.pages.dev/" },
     ],
     tags: ["Systems", "Drones", "FastAPI", "React", "Kotlin"],
-    images: ["/projects/drones.png"],
+    images: ["/projects/drones.webp"],
   },
   {
     slug: "vhelp",
@@ -73,9 +73,9 @@ export const projects: Project[] = [
     problem:
       "Campus services at VIT Chennai were scattered across websites, WhatsApp groups, and PDFs — VHELP replaces them with one mobile-first ecosystem for students, plus a management dashboard for the vendors and admins running those services.",
     approach: [
-      "Engineered a production campus super-app scaling to a 13,000+ student body, adopted by 1,000+ users in the first hour, unifying 16+ workflows across Android, iOS, and Web.",
+      "Led development as top contributor (446/896 commits) over one year on a 178,000-line Flutter campus super-app scaling to a 13,000+ student body, adopted by 1,000+ users in the first hour, unifying 16+ workflows across Android, iOS, and Web.",
       "Designed a hybrid backend on Supabase PostgreSQL (Row-Level Security) plus Firebase Firestore, bridging two separate Firebase projects and Supabase auth through a custom JWT edge function.",
-      "Deployed 33 serverless Deno Edge Functions handling business logic, FCM push notifications, and cron jobs — reducing manual backend operations to zero.",
+      "Deployed 24 serverless Supabase Edge Functions handling business logic, FCM push notifications, and cron jobs — reducing manual backend operations to zero.",
       "Built an offline-first client with dedicated SQLite/offline sync layers so core features degrade gracefully without connectivity.",
       "Solved deep-linking for a shareable-cart flow using a custom vhelp:// scheme and Android digital asset links.",
     ],
@@ -84,11 +84,11 @@ export const projects: Project[] = [
       "13,000+ student body",
       "1,000+ users in the first hour",
       "16+ unified campus workflows",
-      "33 serverless Deno Edge Functions",
+      "24 serverless Supabase Edge Functions",
     ],
     links: [],
     tags: ["Flutter", "Supabase", "Firebase", "Full-Stack"],
-    images: ["/projects/vhelp1.png", "/projects/vhelp2.png"],
+    images: ["/projects/vhelp1.webp", "/projects/vhelp2.webp"],
   },
   {
     slug: "queez",
@@ -100,9 +100,9 @@ export const projects: Project[] = [
     problem:
       "Static notes and single-purpose study apps — Kahoot for live quizzes, Quizlet for flashcards — don't combine active recall, gamified competition, and content creation in one place. Queez bundles quiz building, flashcards, notes, and live multiplayer into one app, with AI cutting the time needed to turn source documents into study material.",
     approach: [
-      "Built real-time multiplayer quiz sessions over WebSockets with join codes/QR codes, live leaderboards, host controls, and reconnection support.",
+      "Built real-time multiplayer quiz sessions (182/209 commits) over WebSockets with join codes/QR codes, live leaderboards, host controls, and reconnection support.",
       "Designed a speed- and streak-based scoring engine: a time-decayed point multiplier, per-answer partial credit for multi-select questions, and a capped streak bonus.",
-      "Solved race-condition-safe scoring with per-user and session-wide Redis locks (retry/backoff) to prevent concurrent answers from clobbering shared session state.",
+      "Solved race-condition-safe scoring with per-user and session-wide Redis locks (retry/backoff) to prevent concurrent answers from clobbering shared session state, and hardened scoring integrity against spoofing and overflow exploits with server-side validation.",
       "Added anti-cheat timestamp validation that clamps client-reported answer timing and caps score to block exploit attempts.",
       "Integrated Google Gemini to auto-generate quizzes, flashcards, and notes from uploaded PDF/PPTX/DOCX files via a secured, resumable upload flow that keeps the API key server-side.",
     ],

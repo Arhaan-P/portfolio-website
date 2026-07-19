@@ -3,6 +3,7 @@
 import * as React from "react"
 import Image from "next/image"
 import { ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react"
+import { motion, useInView } from "framer-motion"
 
 /**
  * Displays one or more project screenshots.
@@ -19,6 +20,8 @@ export function ProjectImage({
   const [active, setActive] = React.useState(0)
   const [lightboxOpen, setLightboxOpen] = React.useState(false)
   const count = images.length
+  const ref = React.useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: "-10%" })
 
   const prev = React.useCallback(
     () => setActive((i) => (i - 1 + count) % count),
@@ -63,23 +66,40 @@ export function ProjectImage({
   return (
     <>
       {/* ─── Inline carousel ─── */}
-      <div className="group relative h-full w-full overflow-hidden rounded-lg border border-border bg-secondary/40">
-        {images.map((src, i) => (
-          <div
-            key={src}
-            className="absolute inset-0 flex items-center justify-center transition-opacity duration-700 ease-in-out"
-            style={{ opacity: i === active ? 1 : 0 }}
-          >
-            <Image
-              src={src}
-              alt={`${alt} — screenshot ${i + 1}`}
-              fill
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              className="object-contain"
-              priority={i === 0}
-            />
-          </div>
-        ))}
+      <div ref={ref} className="group relative w-full aspect-[4/3] sm:aspect-[16/10] overflow-hidden rounded-lg border border-border bg-secondary/40">
+        
+        {/* Reveal Overlay */}
+        <motion.div
+          className="absolute inset-0 z-40 bg-background"
+          initial={{ scaleY: 1 }}
+          animate={{ scaleY: isInView ? 0 : 1 }}
+          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
+          style={{ transformOrigin: "bottom" }}
+        />
+
+        <motion.div 
+          className="absolute inset-0 w-full h-full"
+          initial={{ scale: 1.2 }}
+          animate={{ scale: isInView ? 1 : 1.2 }}
+          transition={{ duration: 1.2, ease: [0.33, 1, 0.68, 1], delay: 0.1 }}
+        >
+          {images.map((src, i) => (
+            <div
+              key={src}
+              className="absolute inset-0 flex items-center justify-center transition-opacity duration-700 ease-in-out"
+              style={{ opacity: i === active ? 1 : 0 }}
+            >
+              <Image
+                src={src}
+                alt={`${alt} — screenshot ${i + 1}`}
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-contain"
+                priority={i === 0}
+              />
+            </div>
+          ))}
+        </motion.div>
 
         {/* Click-to-zoom overlay */}
         <button
@@ -148,6 +168,8 @@ export function ProjectImage({
       {/* ─── Lightbox overlay ─── */}
       {lightboxOpen && (
         <div
+          role="dialog"
+          aria-modal="true"
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm"
           onClick={() => setLightboxOpen(false)}
         >

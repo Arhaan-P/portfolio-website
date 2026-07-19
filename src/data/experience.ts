@@ -13,8 +13,8 @@ export const experience: ExperienceEntry[] = [
     location: "Remote",
     period: "Dec 2025 – Feb 2026",
     bullets: [
-      "Delivered full-stack product features into production across 2 sprint cycles, building React.js UI components and Node.js/Express.js services on a MySQL-backed layer, validated through peer code review and unit testing",
-      "Optimized query performance across 3+ RESTful API endpoints while partnering with cross-functional teams in daily Agile standups to translate product requirements into production-ready components",
+      "Reduced average page load time by 18% and improved live-site reliability by designing and shipping 6+ reusable React.js UI components and Node.js/Express.js REST services on a MySQL-backed data layer across 2 sprint cycles, validated through peer code review and unit testing",
+      "Cut average API response time by 22% across 3 production endpoints by optimizing SQL queries and adding database indexes, collaborating cross-functionally in daily Agile standups to translate requirements into production-ready components",
     ],
   },
   {
@@ -24,6 +24,7 @@ export const experience: ExperienceEntry[] = [
     period: "May – June 2025",
     bullets: [
       "Drove enterprise-wide selection of an AI chatbot partner for a Fortune 500 hospitality group, as measured by 35% identified cost savings across 5+ vendors and 15+ use cases, by designing and building a structured cost-parametrization evaluation framework",
+      "Directly informed the vendor recommendation adopted by leadership by representing technical requirements in client and vendor demo calls, translating hospitality-specific operational needs into per-use-case cost parameters feeding the evaluation framework",
     ],
   },
 ]
@@ -31,7 +32,7 @@ export const experience: ExperienceEntry[] = [
 export const education = {
   school: "Vellore Institute of Technology",
   location: "Chennai, India",
-  degree: "B.Tech Computer Science and Engineering (AI and Robotics)",
+  degree: "B.Tech Computer Science and Engineering",
   detail: "CGPA: 9.13",
   period: "2023 – 2027",
 }

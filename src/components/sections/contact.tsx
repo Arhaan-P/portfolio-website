@@ -1,67 +1,73 @@
-import { Mail } from "lucide-react"
+"use client"
 
+import { Mail } from "lucide-react"
+import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/motion/reveal"
 import { GitHubIcon, LinkedInIcon } from "@/components/icons"
 import { site } from "@/data/site"
+import { AuroraBackground } from "@/components/motion/aurora-background"
 
 export function Contact() {
   return (
-    <section
-      id="contact"
-      className="mx-auto max-w-5xl px-4 py-20 text-center sm:px-6 sm:py-28"
-    >
-      <Reveal>
-        <p className="font-mono text-sm text-primary">Contact</p>
-      </Reveal>
-      <Reveal delay={0.05}>
-        <h2 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
-          Let&apos;s build something
-        </h2>
-      </Reveal>
-      <Reveal delay={0.1}>
-        <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-          I&apos;m always happy to talk about distributed systems, mobile
-          apps, or applied ML. Reach out if you want to work together or just
-          say hi.
-        </p>
-      </Reveal>
+    <section id="contact" className="relative mx-auto w-full py-32 overflow-hidden flex flex-col items-center justify-center min-h-[60vh]">
+      <AuroraBackground className="opacity-60" />
+      
+      <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-6 w-full max-w-3xl">
+        <Reveal>
+          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-gradient pb-2">
+            Let&apos;s build something
+          </h2>
+        </Reveal>
 
-      <Reveal delay={0.15}>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <Button
-            size="lg"
-            nativeButton={false}
-            render={<a href={`mailto:${site.email}`} />}
-          >
-            <Mail className="size-4" />
-            {site.email}
-          </Button>
-        </div>
-      </Reveal>
+        <Reveal delay={0.1}>
+          <p className="mt-4 text-lg text-muted-foreground font-medium max-w-xl mx-auto">
+            I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+          </p>
+        </Reveal>
 
-      <Reveal delay={0.2}>
-        <div className="mt-6 flex items-center justify-center gap-1">
-          <Button
-            variant="ghost"
-            size="icon"
-            aria-label="GitHub profile"
-            nativeButton={false}
-            render={<a href={site.github} target="_blank" rel="noreferrer" />}
-          >
-            <GitHubIcon className="size-5" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            aria-label="LinkedIn profile"
-            nativeButton={false}
-            render={<a href={site.linkedin} target="_blank" rel="noreferrer" />}
-          >
-            <LinkedInIcon className="size-5" />
-          </Button>
-        </div>
-      </Reveal>
+        <Reveal delay={0.2}>
+          <div className="mt-10 flex flex-col items-center gap-6">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Button size="lg" className="glow-md text-base px-8 h-14 rounded-full" nativeButton={false} render={<a href={`mailto:${site.email}`} />}>
+                <Mail className="mr-2 size-5" />
+                Say Hello
+              </Button>
+            </motion.div>
+            
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.3}>
+          <div className="mt-12 flex items-center justify-center gap-6">
+            <motion.a
+              whileHover={{ scale: 1.15, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              href={site.github}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="text-muted-foreground hover:text-primary transition-colors hover:glow-sm p-3 glass-card rounded-full"
+              aria-label="GitHub profile"
+            >
+              <GitHubIcon className="size-6" />
+            </motion.a>
+            <motion.a
+              whileHover={{ scale: 1.15, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              href={site.linkedin}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="text-muted-foreground hover:text-primary transition-colors hover:glow-sm p-3 glass-card rounded-full"
+              aria-label="LinkedIn profile"
+            >
+              <LinkedInIcon className="size-6" />
+            </motion.a>
+          </div>
+        </Reveal>
+      </div>
     </section>
   )
 }

@@ -42,3 +42,5 @@ next-env.d.ts
 
 # Miscellaneous
 portfolio-context/
+.playwright-mcp/
+public/resume.tex

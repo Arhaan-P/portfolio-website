@@ -1,125 +1,131 @@
-import { ExternalLink } from "lucide-react"
+"use client"
 
+import { ExternalLink } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/motion/reveal"
+import { TiltCard } from "@/components/motion/tilt-card"
 import { featuredProjects } from "@/data/projects"
-import { ProjectPlaceholder } from "@/components/sections/project-placeholder"
-import { ProjectImage } from "@/components/sections/project-image"
+import { ProjectImage } from "./project-image"
 
 export function FeaturedProjects() {
   return (
-    <section id="projects" className="mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:pt-28 sm:pb-12">
-      <Reveal>
-        <p className="font-mono text-sm text-primary">Featured Projects</p>
-      </Reveal>
-      <Reveal delay={0.05}>
-        <h2 className="mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
-          Selected case studies
-        </h2>
-      </Reveal>
+    <div className="flex flex-col gap-16 md:gap-24">
+      {featuredProjects.map((project, index) => {
+        const isEven = index % 2 === 0
 
-      <div className="mt-14 flex flex-col gap-24">
-        {featuredProjects.map((project, i) => {
-          const reversed = i % 2 === 1
-          return (
-            <Reveal key={project.slug}>
-              <article
-                className={`grid gap-8 ${
-                  project.images && project.images.length > 0
-                    ? `lg:grid-cols-2 lg:gap-12 ${reversed ? "lg:[&>*:first-child]:order-2" : ""}`
-                    : ""
-                }`}
-              >
-                {project.images && project.images.length > 0 && (
-                  <div className="aspect-video">
-                    <ProjectImage images={project.images} alt={project.name} />
-                  </div>
-                )}
-
-                <div className="flex flex-col justify-center">
-                  {project.period && (
-                    <p className="font-mono text-xs text-muted-foreground">
-                      {project.period}
-                    </p>
-                  )}
-                  <h3 className="mt-1 text-2xl font-semibold tracking-tight">
-                    {project.name}
-                  </h3>
-                  {project.role && (
-                    <p className="mt-1 text-sm text-primary">{project.role}</p>
-                  )}
-
-                  {project.problem && (
-                    <p className="mt-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
-                      {project.problem}
-                    </p>
-                  )}
-
-                  <ul className="mt-4 space-y-2">
-                    {project.approach.slice(0, 4).map((point) => (
-                      <li
-                        key={point}
-                        className="flex gap-2 text-sm leading-relaxed text-muted-foreground"
-                      >
-                        <span aria-hidden className="text-primary">
-                          ▹
+        return (
+          <Reveal key={project.slug} delay={0.1}>
+            <div className="gradient-border rounded-2xl">
+              <TiltCard maxTilt={3} glare glareOpacity={0.1}>
+                <div className="glass-card flex flex-col overflow-hidden rounded-2xl lg:flex-row bg-background/50">
+                  {/* Image/Placeholder Side */}
+                  <div
+                    className={`relative w-full lg:w-1/2 p-6 lg:p-8 ${
+                      isEven ? "lg:order-1" : "lg:order-2"
+                    } flex items-center justify-center`}
+                  >
+                    {project.images && project.images.length > 0 ? (
+                      <div className="w-full relative group">
+                        <ProjectImage
+                          images={project.images}
+                          alt={project.name}
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-full aspect-[4/3] sm:aspect-[16/10] m-4 lg:m-8 rounded-lg flex items-center justify-center bg-gradient-to-br from-aurora-1/20 to-aurora-2/20 relative overflow-hidden">
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[length:24px_24px] opacity-50" />
+                        <span className="text-6xl font-bold text-white/20 tracking-tighter mix-blend-overlay">
+                          {project.name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase()}
                         </span>
-                        <span>{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="mt-5 flex flex-wrap gap-1.5">
-                    {project.stack.map((tech) => (
-                      <Badge key={tech} variant="outline">
-                        {tech}
-                      </Badge>
-                    ))}
+                      </div>
+                    )}
                   </div>
 
-                  {project.metrics.length > 0 && (
-                    <div className="mt-5 grid gap-1.5 border-l-2 border-primary/40 pl-4">
-                      {project.metrics.map((metric) => (
-                        <p
-                          key={metric}
-                          className="text-sm font-medium text-foreground"
-                        >
-                          {metric}
-                        </p>
-                      ))}
+                  {/* Content Side */}
+                  <div
+                    className={`flex w-full flex-col justify-center p-6 sm:p-8 lg:w-1/2 lg:p-10 ${
+                      isEven ? "lg:order-2" : "lg:order-1"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
+                        {project.period}
+                      </span>
+                      {project.role && (
+                        <span className="text-sm text-muted-foreground font-medium">
+                          {project.role}
+                        </span>
+                      )}
                     </div>
-                  )}
 
-                  {project.links?.length > 0 && (
-                    <div className="mt-5 flex flex-wrap gap-3">
-                      {project.links.map((link) => (
-                        <Button
-                          key={link.href}
-                          variant="ghost"
-                          size="sm"
-                          className="gap-1.5 px-0 text-primary hover:bg-transparent hover:underline"
-                          nativeButton={false}
-                          render={
-                            <a
-                              href={link.href}
-                              target="_blank"
-                              rel="noreferrer"
-                            />
-                          }
-                        >
-                          {link.label}
-                          <ExternalLink className="size-3.5" />
-                        </Button>
+                    <h3 className="mt-4 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+                      {project.name}
+                    </h3>
+
+                    <p className="mt-3 text-lg font-medium text-foreground/90">
+                      {project.oneLiner}
+                    </p>
+
+                    <div className="mt-4 space-y-3 text-sm text-muted-foreground leading-relaxed">
+                      {project.problem && <p><strong className="text-foreground/80">Problem:</strong> {project.problem}</p>}
+                      {project.approach && project.approach.length > 0 && (
+                        <div className="space-y-1">
+                          <strong className="text-foreground/80">Approach:</strong>
+                          <ul className="list-inside space-y-1 pl-2">
+                            {project.approach.slice(0, 4).map((item, i) => (
+                              <li key={i} className="flex gap-2">
+                                <span className="text-primary mt-1 shrink-0">▹</span>
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+
+                    {project.metrics && project.metrics.length > 0 && (
+                      <div className="mt-6 border-l-2 border-primary pl-4 py-1">
+                        <ul className="space-y-1.5">
+                          {project.metrics.map((metric, i) => (
+                            <li key={i} className="text-sm font-medium text-foreground/90">
+                              {metric}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    <div className="mt-6 flex flex-wrap gap-2">
+                      {project.stack.map((tech) => (
+                        <Badge key={tech} variant="outline" className="bg-background/50 hover:glow-sm transition-all hover:bg-white/5 border-white/10">
+                          {tech}
+                        </Badge>
                       ))}
                     </div>
-                  )}
+
+                    {project.links && project.links.length > 0 && (
+                      <div className="mt-8 flex flex-wrap gap-4">
+                        {project.links.map((link) => (
+                          <a
+                            key={link.href}
+                            href={link.href}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-aurora-1 transition-colors group"
+                          >
+                            {link.label}
+                            <ExternalLink className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </article>
-            </Reveal>
-          )
-        })}
-      </div>
-    </section>
+              </TiltCard>
+            </div>
+          </Reveal>
+        )
+      })}
+    </div>
   )
 }

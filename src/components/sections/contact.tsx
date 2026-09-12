@@ -13,7 +13,7 @@ export function Contact() {
     <section id="contact" className="relative mx-auto w-full py-32 overflow-hidden flex flex-col items-center justify-center min-h-[60vh]">
       <AuroraBackground className="opacity-60" />
       
-      <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-6 w-full max-w-3xl">
+      <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-6 w-full max-w-5xl">
         <Reveal>
           <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-gradient pb-2">
             Let&apos;s build something

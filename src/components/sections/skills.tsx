@@ -5,7 +5,7 @@ import { skillGroups } from "@/data/skills"
 
 export function Skills() {
   return (
-    <section id="skills" className="relative mx-auto max-w-6xl px-6 py-24 overflow-hidden">
+    <section id="skills" className="relative mx-auto max-w-5xl px-6 py-24 overflow-hidden">
       <div className="glow-bg"></div>
       
       <div className="relative z-10">

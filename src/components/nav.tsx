@@ -113,7 +113,7 @@ export function Nav() {
                 <a
                   href={link.href}
                   onClick={(e) => handleLinkClick(e, link.href)}
-                  className={`relative px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none rounded-full ${
+                  className={`relative px-4 py-2 text-sm font-medium transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50 rounded-full ${
                     isActive ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -169,7 +169,7 @@ export function Nav() {
                       handleLinkClick(e, link.href)
                       setOpen(false)
                     }}
-                    className={`rounded-lg px-4 py-3 text-sm font-medium transition-colors focus-visible:outline-none ${
+                    className={`rounded-lg px-4 py-3 text-sm font-medium transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50 ${
                       activeLink === link.href
                         ? "bg-primary/20 text-primary border border-primary/30 glow-sm"
                         : "text-muted-foreground hover:bg-white/5 hover:text-foreground"

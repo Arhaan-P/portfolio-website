@@ -1,20 +1,21 @@
 "use client"
 
 import { useRef, useState } from "react"
-import { motion } from "framer-motion"
+import { motion, useReducedMotion } from "framer-motion"
 
-export function Magnetic({ 
-  children, 
-  intensity = 0.2 
-}: { 
-  children: React.ReactNode, 
-  intensity?: number 
+export function Magnetic({
+  children,
+  intensity = 0.2
+}: {
+  children: React.ReactNode,
+  intensity?: number
 }) {
   const ref = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState({ x: 0, y: 0 })
+  const shouldReduceMotion = useReducedMotion()
 
   const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return
+    if (shouldReduceMotion || !ref.current) return
     const { clientX, clientY } = e
     const { height, width, left, top } = ref.current.getBoundingClientRect()
     const middleX = clientX - (left + width / 2)

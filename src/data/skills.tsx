@@ -50,7 +50,7 @@ export const skillGroups: SkillGroup[] = [
     ),
     skills: [
       { name: "React.js", iconClass: "devicon-react-original colored text-lg" },
-      { name: "Next.js", iconClass: "devicon-nextjs-plain text-slate-200 text-lg" },
+      { name: "Next.js", iconClass: "devicon-nextjs-plain text-lg" },
       { name: "Tailwind CSS", iconClass: "devicon-tailwindcss-plain colored text-lg" },
       { name: "HTML5", iconClass: "devicon-html5-plain colored text-lg" },
       { name: "CSS3", iconClass: "devicon-css3-plain colored text-lg" },
@@ -69,13 +69,13 @@ export const skillGroups: SkillGroup[] = [
     ),
     skills: [
       { name: "Node.js", iconClass: "devicon-nodejs-plain colored text-lg" },
-      { name: "Express.js", iconClass: "devicon-express-original text-slate-200 text-lg" },
+      { name: "Express.js", iconClass: "devicon-express-original text-lg" },
       { name: "FastAPI", iconClass: "devicon-fastapi-plain colored text-lg" },
-      { name: "Deno Edge", iconClass: "devicon-denojs-original text-slate-200 text-lg" },
+      { name: "Deno Edge", iconClass: "devicon-denojs-original text-lg" },
       { 
         name: "WebSockets", 
         iconNode: (
-          <svg className="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
           </svg>
         ) 
@@ -94,7 +94,7 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       { name: "PyTorch", iconClass: "devicon-pytorch-original colored text-lg" },
       { name: "Scikit-learn", iconClass: "devicon-scikitlearn-plain colored text-lg" },
-      { name: "Pandas", iconClass: "devicon-pandas-original colored text-lg" },
+      { name: "Pandas", iconClass: "devicon-pandas-plain text-lg" },
       { name: "XGBoost" },
       { name: "MediaPipe" },
       { 
@@ -127,7 +127,7 @@ export const skillGroups: SkillGroup[] = [
       { name: "MySQL", iconClass: "devicon-mysql-plain colored text-lg" },
       { name: "MongoDB", iconClass: "devicon-mongodb-plain colored text-lg" },
       { name: "Redis", iconClass: "devicon-redis-plain colored text-lg" },
-      { name: "GitHub Actions", iconClass: "devicon-githubactions-plain text-slate-200 text-lg" },
+      { name: "GitHub Actions", iconClass: "devicon-githubactions-plain colored text-lg" },
       { name: "Git", iconClass: "devicon-git-plain colored text-lg" },
       { name: "Kubernetes", iconClass: "devicon-kubernetes-plain colored text-lg" },
     ],

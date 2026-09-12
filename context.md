@@ -133,7 +133,7 @@ Projects currently listed:
 5. **PawGuard** (featured, 2026) — Flutter app for animal rescue/adoption/marketplace with a blockchain trust layer (Polygon Amoy, Solidity/Hardhat, server-side on-chain writes so users never touch a wallet directly), Firebase Auth bridged into Supabase RLS.
 6. **Junk-Wunk** (standard, 2025) — Hackathon project (2nd place, Hack-N-Droid), Flutter marketplace with AWS Cognito auth and manual SigV4-signed S3 uploads.
 
-Deeper narrative writeups for 5 of these projects live in `portfolio-context/<slug>/context-<slug>.md` (polaris-gcs, vhelp, queez, deepfake-detection, pawguard) — these are the authoring source material that was condensed into the `approach`/`problem`/`metrics` fields above; Junk-Wunk has no separate context file.
+Deeper narrative writeups live in `portfolio-context/<slug>/context-<slug>.md` for polaris-gcs, vhelp, queez, deepfake-detection, pawguard, and mutafix (MutaFix is not yet in `data/projects.ts` — it's added in PRD Phase 2) — these are the authoring source material that was condensed into the `approach`/`problem`/`metrics` fields above; Junk-Wunk has no separate context file.
 
 ### `experience.ts`
 Two work experience entries plus one education entry:

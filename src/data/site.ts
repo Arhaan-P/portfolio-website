@@ -3,13 +3,10 @@ export const site = {
   role: "Software Engineer",
   roles: [
     "Software Engineer",
-    "Software Development Engineer",
-    "Full-Stack Developer",
-    "AI Researcher",
-    "Machine Learning Engineer",
+    "AI/ML Engineer",
   ],
   tagline:
-    "I build distributed systems, scalable architectures, and applied ML pipelines — from a multi-drone ground control system to a campus super-app used by thousands.",
+    "I build distributed systems, scalable architectures, and applied ML pipelines — from a multi-drone ground control system to a campus super-app serving over a thousand students.",
   email: "arhaanpenwala9@gmail.com",
   github: "https://github.com/Arhaan-P",
   linkedin: "https://linkedin.com/in/arhaan-penwala",

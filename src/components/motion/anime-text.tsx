@@ -1,10 +1,11 @@
 "use client"
 
 import React, { useEffect, useRef, useState } from "react"
+import { useReducedMotion } from "framer-motion"
 import anime from "animejs"
 
 interface AnimeTextProps {
-  strings: string[]
+  strings: readonly string[]
   className?: string
   pause?: number
 }
@@ -12,8 +13,18 @@ interface AnimeTextProps {
 export function AnimeText({ strings, className = "", pause = 2500 }: AnimeTextProps) {
   const [index, setIndex] = useState(0)
   const containerRef = useRef<HTMLSpanElement>(null)
+  const shouldReduceMotion = useReducedMotion()
+
+  // Reduced motion: still cycle through the roles (they're content, not
+  // decoration) but swap the text instantly instead of flying characters in.
+  useEffect(() => {
+    if (!shouldReduceMotion || strings.length <= 1) return
+    const id = setInterval(() => setIndex((prev) => prev + 1), pause)
+    return () => clearInterval(id)
+  }, [shouldReduceMotion, strings.length, pause])
 
   useEffect(() => {
+    if (shouldReduceMotion) return
     if (!containerRef.current) return
     if (strings.length === 0) return
 
@@ -62,11 +73,19 @@ export function AnimeText({ strings, className = "", pause = 2500 }: AnimeTextPr
     return () => {
       anime.remove(chars)
     }
-  }, [index, strings, pause])
+  }, [index, strings, pause, shouldReduceMotion])
+
+  if (shouldReduceMotion) {
+    return (
+      <span className={`inline-flex items-center justify-center ${className}`}>
+        {strings[index % strings.length] ?? ""}
+      </span>
+    )
+  }
 
   return (
-    <span 
-      ref={containerRef} 
+    <span
+      ref={containerRef}
       className={`inline-flex flex-wrap items-center justify-center ${className}`}
       style={{ perspective: "1000px" }}
     />

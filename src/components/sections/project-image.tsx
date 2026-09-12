@@ -3,7 +3,8 @@
 import * as React from "react"
 import Image from "next/image"
 import { ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react"
-import { motion, useInView } from "framer-motion"
+import { motion } from "framer-motion"
+import { useScrollReveal } from "@/components/motion/reveal"
 
 /**
  * Displays one or more project screenshots.
@@ -21,7 +22,7 @@ export function ProjectImage({
   const [lightboxOpen, setLightboxOpen] = React.useState(false)
   const count = images.length
   const ref = React.useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, margin: "-10%" })
+  const covered = useScrollReveal(ref) === "hidden"
 
   const prev = React.useCallback(
     () => setActive((i) => (i - 1 + count) % count),
@@ -71,17 +72,17 @@ export function ProjectImage({
         {/* Reveal Overlay */}
         <motion.div
           className="absolute inset-0 z-40 bg-background"
-          initial={{ scaleY: 1 }}
-          animate={{ scaleY: isInView ? 0 : 1 }}
-          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
+          initial={false}
+          animate={{ scaleY: covered ? 1 : 0 }}
+          transition={covered ? { duration: 0 } : { duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
           style={{ transformOrigin: "bottom" }}
         />
 
         <motion.div 
           className="absolute inset-0 w-full h-full"
-          initial={{ scale: 1.2 }}
-          animate={{ scale: isInView ? 1 : 1.2 }}
-          transition={{ duration: 1.2, ease: [0.33, 1, 0.68, 1], delay: 0.1 }}
+          initial={false}
+          animate={{ scale: covered ? 1.2 : 1 }}
+          transition={covered ? { duration: 0 } : { duration: 1.2, ease: [0.33, 1, 0.68, 1], delay: 0.1 }}
         >
           {images.map((src, i) => (
             <div

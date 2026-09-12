@@ -1,7 +1,10 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { useInView, useMotionValue, useSpring } from "framer-motion"
+import { useMotionValue, useSpring } from "framer-motion"
+import { useScrollReveal } from "@/components/motion/reveal"
+
+const format = (n: number) => Intl.NumberFormat("en-US").format(Math.floor(n))
 
 export function Counter({
   value,
@@ -13,31 +16,33 @@ export function Counter({
   delay?: number
 }) {
   const ref = useRef<HTMLSpanElement>(null)
-  const motionValue = useMotionValue(direction === "down" ? value : 0)
+  const from = direction === "down" ? value : 0
+  const to = direction === "down" ? 0 : value
+  const motionValue = useMotionValue(from)
   const springValue = useSpring(motionValue, {
     damping: 40,
     stiffness: 100,
   })
-  const isInView = useInView(ref, { once: true, margin: "-50px" })
+  const state = useScrollReveal(ref)
 
+  // The final value is always rendered; it only counts up when the reveal was armed.
   useEffect(() => {
-    if (isInView) {
-      const timeout = setTimeout(() => {
-        motionValue.set(direction === "down" ? 0 : value)
-      }, delay * 1000)
-      return () => clearTimeout(timeout)
+    if (state === "static") return
+    const write = (n: number) => {
+      const text = ref.current?.firstChild
+      if (text) text.nodeValue = format(n)
     }
-  }, [motionValue, isInView, delay, value, direction])
+    if (state === "hidden") {
+      const frame = requestAnimationFrame(() => write(from))
+      return () => cancelAnimationFrame(frame)
+    }
+    const unsubscribe = springValue.on("change", write)
+    const timeout = setTimeout(() => motionValue.set(to), delay * 1000)
+    return () => {
+      clearTimeout(timeout)
+      unsubscribe()
+    }
+  }, [state, from, to, delay, motionValue, springValue])
 
-  useEffect(() => {
-    return springValue.on("change", (latest) => {
-      if (ref.current) {
-        ref.current.textContent = Intl.NumberFormat("en-US").format(
-          Math.floor(latest)
-        )
-      }
-    })
-  }, [springValue])
-
-  return <span ref={ref} />
+  return <span ref={ref}>{format(to)}</span>
 }

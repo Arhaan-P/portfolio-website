@@ -4,10 +4,9 @@ import { Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/motion/reveal"
 import { GitHubIcon, LinkedInIcon } from "@/components/icons"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import { site } from "@/data/site"
 import { AuroraBackground } from "@/components/motion/aurora-background"
-import { Spotlight } from "@/components/motion/spotlight"
 import { AnimeText } from "@/components/motion/anime-text"
 
 const staggerContainer = {
@@ -27,6 +26,7 @@ const staggerItem = {
 }
 
 export function Hero() {
+  const shouldReduceMotion = useReducedMotion()
   const { scrollY } = useScroll()
   const y = useTransform(scrollY, [0, 800], [0, 200])
   const opacity = useTransform(scrollY, [0, 500], [1, 0])
@@ -38,35 +38,37 @@ export function Hero() {
       className="relative mx-auto flex min-h-[90vh] w-full flex-col items-center justify-center px-4 py-24 sm:px-6 text-center overflow-hidden"
     >
       <AuroraBackground className="opacity-80" />
-      <Spotlight radius={400} className="opacity-50" />
 
-      <motion.div 
-        style={{ y, opacity, scale }}
+      <motion.div
+        style={shouldReduceMotion ? undefined : { y, opacity, scale }}
         className="w-full flex flex-col items-center justify-center gap-6 z-10"
       >
-        <Reveal delay={0.1}>
+        <Reveal delay={0.1} appear>
           <p className="font-mono text-sm sm:text-base text-primary uppercase tracking-wider font-semibold">
             Hi, I&apos;m
           </p>
         </Reveal>
 
         <div className="relative z-10 flex flex-col items-center gap-2">
-          <motion.h1 
+          <motion.h1
             className="text-5xl font-bold tracking-tighter sm:text-7xl md:text-8xl text-gradient pb-2 flex flex-wrap justify-center gap-[0.2em]"
             variants={{
               hidden: { opacity: 0 },
               visible: {
                 opacity: 1,
-                transition: { staggerChildren: 0.1, delayChildren: 0.2 }
+                transition: shouldReduceMotion ? { duration: 0 } : { staggerChildren: 0.1, delayChildren: 0.2 }
               }
             }}
             initial="hidden"
             animate="visible"
           >
             {site.name.split(" ").map((word, i) => (
-              <motion.span 
+              <motion.span
                 key={i}
-                variants={{
+                variants={shouldReduceMotion ? {
+                  hidden: { opacity: 0 },
+                  visible: { opacity: 1, transition: { duration: 0 } },
+                } : {
                   hidden: { opacity: 0, y: 50, rotateX: -60 },
                   visible: { opacity: 1, y: 0, rotateX: 0, transition: { type: "spring", stiffness: 200, damping: 15 } }
                 }}
@@ -81,7 +83,7 @@ export function Hero() {
           </div>
         </div>
 
-      <Reveal delay={0.8}>
+      <Reveal delay={0.8} appear>
         <p className="max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg mt-4">
           {site.tagline}
         </p>

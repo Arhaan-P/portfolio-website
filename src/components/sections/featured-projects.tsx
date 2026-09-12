@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Reveal } from "@/components/motion/reveal"
 import { TiltCard } from "@/components/motion/tilt-card"
 import { featuredProjects } from "@/data/projects"
+import { ProjectDemo } from "./project-demo"
 import { ProjectImage } from "./project-image"
 
 export function FeaturedProjects() {
@@ -16,7 +17,7 @@ export function FeaturedProjects() {
         return (
           <Reveal key={project.slug} delay={0.1}>
             <div className="gradient-border rounded-2xl">
-              <TiltCard maxTilt={3} glare glareOpacity={0.1}>
+              <TiltCard maxTilt={3} glare glareOpacity={0.1} disabled={!!project.demoUrl}>
                 <div className="glass-card flex flex-col overflow-hidden rounded-2xl lg:flex-row bg-background/50">
                   {/* Image/Placeholder Side */}
                   <div
@@ -24,7 +25,9 @@ export function FeaturedProjects() {
                       isEven ? "lg:order-1" : "lg:order-2"
                     } flex items-center justify-center`}
                   >
-                    {project.images && project.images.length > 0 ? (
+                    {project.demoUrl ? (
+                      <ProjectDemo src={project.demoUrl} title={project.name} />
+                    ) : project.images && project.images.length > 0 ? (
                       <div className="w-full relative group">
                         <ProjectImage
                           images={project.images}
@@ -48,7 +51,7 @@ export function FeaturedProjects() {
                     }`}
                   >
                     <div className="flex items-center justify-between gap-4">
-                      <span className="text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
+                      <span className="text-sm font-medium text-accent-foreground bg-accent px-3 py-1 rounded-full">
                         {project.period}
                       </span>
                       {project.role && (

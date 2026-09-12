@@ -1,6 +1,6 @@
 "use client"
 
-import { MapPin, GraduationCap, Briefcase, Code } from "lucide-react"
+import { MapPin, GraduationCap, Code } from "lucide-react"
 import { Reveal } from "@/components/motion/reveal"
 import { site } from "@/data/site"
 import { education } from "@/data/experience"
@@ -26,10 +26,10 @@ export function About() {
             <div className="flex flex-col h-full justify-center space-y-4">
               <h3 className="text-xl font-semibold">Who I am</h3>
               <p className="text-base leading-relaxed text-muted-foreground">
-                I am a passionate software engineer with a deep interest in distributed systems, scalable architectures, and applied machine learning. My journey started with a fascination for how complex systems interact, and it has evolved into a career focused on crafting elegant solutions to intricate problems.
+                I build systems that have to hold up under real constraints — a multi-drone control system coordinating live telemetry, a campus platform serving real students, and an agent-evaluation benchmark rigorous enough to catch its own false positives. I care as much about the failure modes as the happy path.
               </p>
               <p className="text-base leading-relaxed text-muted-foreground">
-                When I&apos;m not writing code or debugging infrastructure, you can usually find me exploring new technologies, contributing to open source, or diving deep into algorithmic challenges. I believe in continuous learning and the power of technology to make a meaningful impact.
+                Outside of that, I&apos;m usually deep in a new paper, contributing to open source, or picking apart an algorithmic problem for the fun of it.
               </p>
             </div>
           </Reveal>
@@ -77,16 +77,16 @@ export function About() {
           <Reveal delay={0.4}>
             <div className="flex flex-col h-full justify-center gap-6">
               <div>
-                <p className="text-3xl font-bold text-gradient"><Counter value={13} delay={0.4} />k+</p>
+                <p className="text-3xl font-bold text-gradient"><Counter value={1} delay={0.4} />k+</p>
                 <p className="text-sm text-muted-foreground font-medium mt-1">Users Served (VHELP)</p>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-2xl font-bold text-white"><Counter value={6} delay={0.4} /></p>
+                  <p className="text-2xl font-bold text-foreground"><Counter value={6} delay={0.4} /></p>
                   <p className="text-xs text-muted-foreground mt-1">Projects Shipped</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-white"><Counter value={1} delay={0.4} /></p>
+                  <p className="text-2xl font-bold text-foreground"><Counter value={1} delay={0.4} /></p>
                   <p className="text-xs text-muted-foreground mt-1">Dataset Published</p>
                 </div>
               </div>

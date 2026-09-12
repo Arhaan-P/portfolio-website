@@ -11,6 +11,8 @@ interface TiltCardProps {
   glare?: boolean
   /** Glare max opacity */
   glareOpacity?: number
+  /** Turn the effect off, e.g. when the card hosts interactive content like an iframe */
+  disabled?: boolean
 }
 
 export function TiltCard({
@@ -19,6 +21,7 @@ export function TiltCard({
   maxTilt = 8,
   glare = true,
   glareOpacity = 0.15,
+  disabled = false,
 }: TiltCardProps) {
   const cardRef = React.useRef<HTMLDivElement>(null)
   const [isHovered, setIsHovered] = React.useState(false)
@@ -30,7 +33,7 @@ export function TiltCard({
 
   const handleMouseMove = React.useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
-      if (reducedMotion.current || !cardRef.current) return
+      if (disabled || reducedMotion.current || !cardRef.current) return
 
       const rect = cardRef.current.getBoundingClientRect()
       const x = (e.clientX - rect.left) / rect.width  // 0 to 1
@@ -47,7 +50,7 @@ export function TiltCard({
         cardRef.current.style.setProperty("--glare-y", `${y * 100}%`)
       }
     },
-    [maxTilt, glare]
+    [maxTilt, glare, disabled]
   )
 
   const handleMouseLeave = React.useCallback(() => {
@@ -71,7 +74,7 @@ export function TiltCard({
     >
       {children}
       {/* Glare overlay */}
-      {glare && (
+      {glare && !disabled && (
         <div
           className="pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity duration-300"
           style={{

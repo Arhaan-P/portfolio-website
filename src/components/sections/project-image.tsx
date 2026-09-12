@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Image from "next/image"
-import { ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react"
-import { motion } from "framer-motion"
-import { useScrollReveal } from "@/components/motion/reveal"
+import { useScrollReveal } from "@/components/motion/reveal";
+import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react";
+import Image from "next/image";
+import * as React from "react";
 
 /**
  * Displays one or more project screenshots.
@@ -15,74 +15,84 @@ export function ProjectImage({
   images,
   alt,
 }: {
-  images: string[]
-  alt: string
+  images: string[];
+  alt: string;
 }) {
-  const [active, setActive] = React.useState(0)
-  const [lightboxOpen, setLightboxOpen] = React.useState(false)
-  const count = images.length
-  const ref = React.useRef<HTMLDivElement>(null)
-  const covered = useScrollReveal(ref) === "hidden"
+  const [active, setActive] = React.useState(0);
+  const [lightboxOpen, setLightboxOpen] = React.useState(false);
+  const count = images.length;
+  const ref = React.useRef<HTMLDivElement>(null);
+  const covered = useScrollReveal(ref) === "hidden";
 
   const prev = React.useCallback(
     () => setActive((i) => (i - 1 + count) % count),
     [count],
-  )
+  );
   const next = React.useCallback(
     () => setActive((i) => (i + 1) % count),
     [count],
-  )
+  );
 
   /* auto-rotate every 4 s when there are multiple images (pause when lightbox is open) */
   React.useEffect(() => {
-    if (count <= 1 || lightboxOpen) return
-    const id = setInterval(() => setActive((i) => (i + 1) % count), 4000)
-    return () => clearInterval(id)
-  }, [count, lightboxOpen])
+    if (count <= 1 || lightboxOpen) return;
+    const id = setInterval(() => setActive((i) => (i + 1) % count), 4000);
+    return () => clearInterval(id);
+  }, [count, lightboxOpen]);
 
   /* keyboard nav for lightbox */
   React.useEffect(() => {
-    if (!lightboxOpen) return
+    if (!lightboxOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setLightboxOpen(false)
-      if (e.key === "ArrowLeft") prev()
-      if (e.key === "ArrowRight") next()
-    }
-    document.addEventListener("keydown", onKey)
-    return () => document.removeEventListener("keydown", onKey)
-  }, [lightboxOpen, prev, next])
+      if (e.key === "Escape") setLightboxOpen(false);
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [lightboxOpen, prev, next]);
 
   /* lock body scroll when lightbox is open */
   React.useEffect(() => {
     if (lightboxOpen) {
-      document.body.style.overflow = "hidden"
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = ""
+      document.body.style.overflow = "";
     }
     return () => {
-      document.body.style.overflow = ""
-    }
-  }, [lightboxOpen])
+      document.body.style.overflow = "";
+    };
+  }, [lightboxOpen]);
 
   return (
     <>
       {/* ─── Inline carousel ─── */}
-      <div ref={ref} className="group relative w-full aspect-[4/3] sm:aspect-[16/10] overflow-hidden rounded-lg border border-border bg-secondary/40">
-        
+      <div
+        ref={ref}
+        className="group relative w-full aspect-[4/3] sm:aspect-[16/10] overflow-hidden rounded-lg border border-border bg-secondary/40"
+      >
         {/* Reveal Overlay */}
         <motion.div
           className="absolute inset-0 z-40 bg-background"
           initial={false}
           animate={{ scaleY: covered ? 1 : 0 }}
-          transition={covered ? { duration: 0 } : { duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.1 }}
+          transition={
+            covered
+              ? { duration: 0 }
+              : { duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.1 }
+          }
           style={{ transformOrigin: "bottom" }}
         />
 
-        <motion.div 
+        <motion.div
           className="absolute inset-0 w-full h-full"
           initial={false}
           animate={{ scale: covered ? 1.2 : 1 }}
-          transition={covered ? { duration: 0 } : { duration: 1.2, ease: [0.33, 1, 0.68, 1], delay: 0.1 }}
+          transition={
+            covered
+              ? { duration: 0 }
+              : { duration: 1.2, ease: [0.33, 1, 0.68, 1], delay: 0.1 }
+          }
         >
           {images.map((src, i) => (
             <div
@@ -92,7 +102,7 @@ export function ProjectImage({
             >
               <Image
                 src={src}
-                alt={`${alt} — screenshot ${i + 1}`}
+                alt={`${alt}, screenshot ${i + 1}`}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-contain"
@@ -122,8 +132,8 @@ export function ProjectImage({
               type="button"
               aria-label="Previous screenshot"
               onClick={(e) => {
-                e.stopPropagation()
-                prev()
+                e.stopPropagation();
+                prev();
               }}
               className="absolute left-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/50 p-1.5 text-white opacity-0 backdrop-blur-sm transition-opacity hover:bg-black/70 group-hover:opacity-100"
             >
@@ -133,8 +143,8 @@ export function ProjectImage({
               type="button"
               aria-label="Next screenshot"
               onClick={(e) => {
-                e.stopPropagation()
-                next()
+                e.stopPropagation();
+                next();
               }}
               className="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/50 p-1.5 text-white opacity-0 backdrop-blur-sm transition-opacity hover:bg-black/70 group-hover:opacity-100"
             >
@@ -152,8 +162,8 @@ export function ProjectImage({
                 type="button"
                 aria-label={`Show screenshot ${i + 1}`}
                 onClick={(e) => {
-                  e.stopPropagation()
-                  setActive(i)
+                  e.stopPropagation();
+                  setActive(i);
                 }}
                 className={`size-2 rounded-full transition-all ${
                   i === active
@@ -204,7 +214,7 @@ export function ProjectImage({
               >
                 <Image
                   src={src}
-                  alt={`${alt} — screenshot ${i + 1}`}
+                  alt={`${alt}, screenshot ${i + 1}`}
                   fill
                   sizes="90vw"
                   className="object-contain"
@@ -221,8 +231,8 @@ export function ProjectImage({
                 type="button"
                 aria-label="Previous screenshot"
                 onClick={(e) => {
-                  e.stopPropagation()
-                  prev()
+                  e.stopPropagation();
+                  prev();
                 }}
                 className="absolute left-4 top-1/2 z-50 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/25"
               >
@@ -232,8 +242,8 @@ export function ProjectImage({
                 type="button"
                 aria-label="Next screenshot"
                 onClick={(e) => {
-                  e.stopPropagation()
-                  next()
+                  e.stopPropagation();
+                  next();
                 }}
                 className="absolute right-4 top-1/2 z-50 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/25"
               >
@@ -251,8 +261,8 @@ export function ProjectImage({
                   type="button"
                   aria-label={`Show screenshot ${i + 1}`}
                   onClick={(e) => {
-                    e.stopPropagation()
-                    setActive(i)
+                    e.stopPropagation();
+                    setActive(i);
                   }}
                   className={`size-2.5 rounded-full transition-all ${
                     i === active
@@ -266,5 +276,5 @@ export function ProjectImage({
         </div>
       )}
     </>
-  )
+  );
 }

@@ -1,4 +1,52 @@
 import React from "react";
+import { BadgeCheck, Cpu, Network, Blocks } from "lucide-react";
+import {
+  SiGoogle,
+  SiCisco,
+  SiPython,
+  SiTypescript,
+  SiJavascript,
+  SiOpenjdk,
+  SiCplusplus,
+  SiDart,
+  SiKotlin,
+  SiPostgresql,
+  SiReact,
+  SiNextdotjs,
+  SiVite,
+  SiTailwindcss,
+  SiHtml5,
+  SiCss,
+  SiFlutter,
+  SiJetpackcompose,
+  SiQt,
+  SiLeaflet,
+  SiNodedotjs,
+  SiExpress,
+  SiFastapi,
+  SiSocketdotio,
+  SiJsonwebtokens,
+  SiDeno,
+  SiLangchain,
+  SiPydantic,
+  SiPytorch,
+  SiScikitlearn,
+  SiPandas,
+  SiNumpy,
+  SiMysql,
+  SiMongodb,
+  SiRedis,
+  SiSqlite,
+  SiSupabase,
+  SiFirebase,
+  SiDocker,
+  SiGithubactions,
+  SiGit,
+  SiLinux,
+  SiKubernetes,
+  SiSolidity,
+  SiPolygon,
+} from "react-icons/si";
 
 export type Skill = {
   name: string;
@@ -15,10 +63,13 @@ export type SkillGroup = {
   colSpan?: number;
 };
 
+const ic = (Icon: React.ComponentType<{ className?: string }>, colorClass: string) => (
+  <Icon className={`w-4 h-4 ${colorClass}`} />
+);
+
 export const skillGroups: SkillGroup[] = [
   {
     label: "Languages",
-    colSpan: 2,
     iconColorClass: "text-blue-400 group-hover:text-blue-300",
     iconBgClass: "bg-blue-500/10 group-hover:bg-blue-500/20",
     icon: (
@@ -27,20 +78,19 @@ export const skillGroups: SkillGroup[] = [
       </svg>
     ),
     skills: [
-      { name: "Python", iconClass: "devicon-python-plain colored text-lg" },
-      { name: "TypeScript", iconClass: "devicon-typescript-plain colored text-lg" },
-      { name: "JavaScript", iconClass: "devicon-javascript-plain colored text-lg" },
-      { name: "Java", iconClass: "devicon-java-plain colored text-lg" },
-      { name: "C#", iconClass: "devicon-csharp-plain colored text-lg" },
-      { name: "Go", iconClass: "devicon-go-plain colored text-lg" },
-      { name: "Dart", iconClass: "devicon-dart-plain colored text-lg" },
-      { name: "C/C++", iconClass: "devicon-cplusplus-plain colored text-lg" },
-      { name: "Kotlin", iconClass: "devicon-kotlin-plain colored text-lg" },
-      { name: "SQL", iconClass: "devicon-azuresqldatabase-plain colored text-lg" },
+      { name: "Python", iconNode: ic(SiPython, "text-[#3776AB]") },
+      { name: "TypeScript", iconNode: ic(SiTypescript, "text-[#3178C6]") },
+      { name: "JavaScript", iconNode: ic(SiJavascript, "text-[#F7DF1E]") },
+      { name: "Java", iconNode: ic(SiOpenjdk, "text-[#EA2D2E]") },
+      { name: "C/C++", iconNode: ic(SiCplusplus, "text-[#00599C]") },
+      { name: "Dart", iconNode: ic(SiDart, "text-[#0175C2]") },
+      { name: "Kotlin", iconNode: ic(SiKotlin, "text-[#7F52FF]") },
+      { name: "SQL", iconNode: ic(SiPostgresql, "text-[#4169E1]") },
     ],
   },
   {
     label: "Frontend",
+    colSpan: 2,
     iconColorClass: "text-cyan-400 group-hover:text-cyan-300",
     iconBgClass: "bg-cyan-500/10 group-hover:bg-cyan-500/20",
     icon: (
@@ -49,13 +99,18 @@ export const skillGroups: SkillGroup[] = [
       </svg>
     ),
     skills: [
-      { name: "React.js", iconClass: "devicon-react-original colored text-lg" },
-      { name: "Next.js", iconClass: "devicon-nextjs-plain text-lg" },
-      { name: "Tailwind CSS", iconClass: "devicon-tailwindcss-plain colored text-lg" },
-      { name: "HTML5", iconClass: "devicon-html5-plain colored text-lg" },
-      { name: "CSS3", iconClass: "devicon-css3-plain colored text-lg" },
-      { name: "Flutter", iconClass: "devicon-flutter-plain colored text-lg" },
-      { name: "Jetpack Compose", iconClass: "devicon-android-plain colored text-lg" },
+      { name: "React.js", iconNode: ic(SiReact, "text-[#61DAFB]") },
+      { name: "Next.js", iconNode: ic(SiNextdotjs, "text-foreground") },
+      { name: "TypeScript", iconNode: ic(SiTypescript, "text-[#3178C6]") },
+      { name: "Vite", iconNode: ic(SiVite, "text-[#646CFF]") },
+      { name: "Tailwind CSS", iconNode: ic(SiTailwindcss, "text-[#06B6D4]") },
+      { name: "HTML5", iconNode: ic(SiHtml5, "text-[#E34F26]") },
+      { name: "CSS3", iconNode: ic(SiCss, "text-[#1572B6]") },
+      { name: "Flutter", iconNode: ic(SiFlutter, "text-[#02569B]") },
+      { name: "Riverpod", iconNode: <Blocks className="w-4 h-4 text-[#00D2B4]" /> },
+      { name: "Jetpack Compose", iconNode: ic(SiJetpackcompose, "text-[#4285F4]") },
+      { name: "PySide6", iconNode: ic(SiQt, "text-[#41CD52]") },
+      { name: "Leaflet", iconNode: ic(SiLeaflet, "text-[#199900]") },
     ],
   },
   {
@@ -68,22 +123,19 @@ export const skillGroups: SkillGroup[] = [
       </svg>
     ),
     skills: [
-      { name: "Node.js", iconClass: "devicon-nodejs-plain colored text-lg" },
-      { name: "Express.js", iconClass: "devicon-express-original text-lg" },
-      { name: "FastAPI", iconClass: "devicon-fastapi-plain colored text-lg" },
-      { name: "Deno Edge", iconClass: "devicon-denojs-original text-lg" },
-      { 
-        name: "WebSockets", 
-        iconNode: (
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
-          </svg>
-        ) 
-      },
+      { name: "Node.js", iconNode: ic(SiNodedotjs, "text-[#5FA04E]") },
+      { name: "Express.js", iconNode: ic(SiExpress, "text-foreground") },
+      { name: "FastAPI", iconNode: ic(SiFastapi, "text-[#009688]") },
+      { name: "REST APIs", iconNode: <Network className="w-4 h-4 text-emerald-400" /> },
+      { name: "WebSockets", iconNode: <Network className="w-4 h-4 text-emerald-400" /> },
+      { name: "Socket.IO", iconNode: ic(SiSocketdotio, "text-foreground") },
+      { name: "Deno Edge Functions", iconNode: ic(SiDeno, "text-foreground") },
+      { name: "JWT Authentication", iconNode: ic(SiJsonwebtokens, "text-[#000000] dark:text-white") },
     ],
   },
   {
-    label: "ML & AI",
+    label: "AI & LLM Engineering",
+    colSpan: 2,
     iconColorClass: "text-purple-400 group-hover:text-purple-300",
     iconBgClass: "bg-purple-500/10 group-hover:bg-purple-500/20",
     icon: (
@@ -92,24 +144,48 @@ export const skillGroups: SkillGroup[] = [
       </svg>
     ),
     skills: [
-      { name: "PyTorch", iconClass: "devicon-pytorch-original colored text-lg" },
-      { name: "Scikit-learn", iconClass: "devicon-scikitlearn-plain colored text-lg" },
-      { name: "Pandas", iconClass: "devicon-pandas-plain text-lg" },
-      { name: "XGBoost" },
-      { name: "MediaPipe" },
-      { 
-        name: "Gemini API", 
+      { name: "LangGraph", iconNode: ic(SiLangchain, "text-[#1C3C3C] dark:text-[#3ECF8E]") },
+      { name: "pydantic-ai", iconNode: ic(SiPydantic, "text-[#E92063]") },
+      {
+        name: "Gemini API",
         iconNode: (
           <svg className="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="currentColor">
             <path d="M11 2L12.5 8.5L19 10L12.5 11.5L11 18L9.5 11.5L3 10L9.5 8.5L11 2ZM17.5 15.5L18.25 18.75L21.5 19.5L18.25 20.25L17.5 23.5L16.75 20.25L13.5 19.5L16.75 18.75L17.5 15.5Z"></path>
           </svg>
-        ) 
+        ),
       },
+      { name: "PyTorch", iconNode: ic(SiPytorch, "text-[#EE4C2C]") },
+      { name: "Scikit-learn", iconNode: ic(SiScikitlearn, "text-[#F7931E]") },
+      { name: "XGBoost", iconNode: <Cpu className="w-4 h-4 text-purple-400" /> },
+      { name: "Pandas", iconNode: ic(SiPandas, "text-[#150458] dark:text-white") },
+      { name: "NumPy", iconNode: ic(SiNumpy, "text-[#013243] dark:text-[#4DABCF]") },
+      { name: "MediaPipe", iconNode: <Cpu className="w-4 h-4 text-purple-400" /> },
+      { name: "Grad-CAM", iconNode: <Cpu className="w-4 h-4 text-purple-400" /> },
+      { name: "tree-sitter", iconNode: <Cpu className="w-4 h-4 text-purple-400" /> },
     ],
   },
   {
-    label: "Cloud & DevOps",
-    colSpan: 2,
+    label: "Databases & Data",
+    iconColorClass: "text-sky-400 group-hover:text-sky-300",
+    iconBgClass: "bg-sky-500/10 group-hover:bg-sky-500/20",
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 7c0-1.657 3.582-3 8-3s8 1.343 8 3-3.582 3-8 3-8-1.343-8-3zm0 0v10c0 1.657 3.582 3 8 3s8-1.343 8-3V7m-16 5c0 1.657 3.582 3 8 3s8-1.343 8-3"></path>
+      </svg>
+    ),
+    skills: [
+      { name: "PostgreSQL", iconNode: ic(SiPostgresql, "text-[#4169E1]") },
+      { name: "TimescaleDB", iconNode: ic(SiPostgresql, "text-[#FDB515]") },
+      { name: "MySQL", iconNode: ic(SiMysql, "text-[#4479A1]") },
+      { name: "MongoDB", iconNode: ic(SiMongodb, "text-[#47A248]") },
+      { name: "Redis", iconNode: ic(SiRedis, "text-[#FF4438]") },
+      { name: "SQLite", iconNode: ic(SiSqlite, "text-[#003B57] dark:text-[#7DACC5]") },
+      { name: "Supabase", iconNode: ic(SiSupabase, "text-[#3ECF8E]") },
+      { name: "Firebase/Firestore", iconNode: ic(SiFirebase, "text-[#FFCA28]") },
+    ],
+  },
+  {
+    label: "Cloud & Infra",
     iconColorClass: "text-orange-400 group-hover:text-orange-300",
     iconBgClass: "bg-orange-500/10 group-hover:bg-orange-500/20",
     icon: (
@@ -118,18 +194,49 @@ export const skillGroups: SkillGroup[] = [
       </svg>
     ),
     skills: [
-      { name: "Azure", iconClass: "devicon-azure-plain colored text-lg" },
+      { name: "Docker", iconNode: ic(SiDocker, "text-[#2496ED]") },
       { name: "AWS (EC2, Cognito, S3)", iconClass: "devicon-amazonwebservices-plain-wordmark colored text-2xl" },
-      { name: "Firebase", iconClass: "devicon-firebase-plain colored text-lg" },
-      { name: "Supabase", iconClass: "devicon-supabase-plain colored text-lg" },
-      { name: "Docker", iconClass: "devicon-docker-plain colored text-lg" },
-      { name: "PostgreSQL", iconClass: "devicon-postgresql-plain colored text-lg" },
-      { name: "MySQL", iconClass: "devicon-mysql-plain colored text-lg" },
-      { name: "MongoDB", iconClass: "devicon-mongodb-plain colored text-lg" },
-      { name: "Redis", iconClass: "devicon-redis-plain colored text-lg" },
-      { name: "GitHub Actions", iconClass: "devicon-githubactions-plain colored text-lg" },
-      { name: "Git", iconClass: "devicon-git-plain colored text-lg" },
-      { name: "Kubernetes", iconClass: "devicon-kubernetes-plain colored text-lg" },
+      { name: "Azure", iconClass: "devicon-azure-plain colored text-lg" },
+      { name: "GitHub Actions", iconNode: ic(SiGithubactions, "text-[#2088FF]") },
+      { name: "CI/CD", iconNode: <Network className="w-4 h-4 text-orange-400" /> },
+      { name: "Git", iconNode: ic(SiGit, "text-[#F05032]") },
+      { name: "Linux", iconNode: ic(SiLinux, "text-[#FCC624]") },
+      { name: "Kubernetes", iconNode: ic(SiKubernetes, "text-[#326CE5]") },
+    ],
+  },
+  {
+    label: "Blockchain",
+    iconColorClass: "text-violet-400 group-hover:text-violet-300",
+    iconBgClass: "bg-violet-500/10 group-hover:bg-violet-500/20",
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+      </svg>
+    ),
+    skills: [
+      { name: "Solidity", iconNode: ic(SiSolidity, "text-foreground") },
+      { name: "Hardhat", iconNode: <Blocks className="w-4 h-4 text-[#FFF100]" /> },
+      { name: "Polygon Amoy", iconNode: ic(SiPolygon, "text-[#8247E5]") },
+    ],
+  },
+  {
+    label: "Concepts",
+    colSpan: 2,
+    iconColorClass: "text-rose-400 group-hover:text-rose-300",
+    iconBgClass: "bg-rose-500/10 group-hover:bg-rose-500/20",
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+      </svg>
+    ),
+    skills: [
+      { name: "System Design" },
+      { name: "Data Structures & Algorithms" },
+      { name: "OOP" },
+      { name: "Concurrency" },
+      { name: "Caching" },
+      { name: "Database Indexing" },
+      { name: "Agent Evaluation & Benchmark Design" },
     ],
   },
   {
@@ -142,8 +249,30 @@ export const skillGroups: SkillGroup[] = [
       </svg>
     ),
     skills: [
-      { name: "Google AI Essentials" },
-      { name: "Google Cloud Data Analytics" },
+      {
+        name: "Google AI Essentials",
+        iconNode: <SiGoogle className="w-4 h-4 text-[#4285F4]" />,
+      },
+      {
+        name: "Google Prompting Essentials",
+        iconNode: <SiGoogle className="w-4 h-4 text-[#4285F4]" />,
+      },
+      {
+        name: "Google AI Professional",
+        iconNode: <SiGoogle className="w-4 h-4 text-[#4285F4]" />,
+      },
+      {
+        name: "Cisco Introduction to Cybersecurity",
+        iconNode: <SiCisco className="w-4 h-4 text-[#1BA0D7]" />,
+      },
+      {
+        name: "IBM AI Fundamentals",
+        iconNode: <BadgeCheck className="w-4 h-4 text-[#052FAD]" />,
+      },
+      {
+        name: "AWS Academy Graduate: Cloud Architecting",
+        iconClass: "devicon-amazonwebservices-plain-wordmark colored text-2xl",
+      },
     ],
   },
 ];

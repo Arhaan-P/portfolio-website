@@ -3,31 +3,13 @@
 import { GitHubIcon, LinkedInIcon } from "@/components/icons";
 import { site } from "@/data/site";
 import { Mail } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
-  const [height, setHeight] = useState(150); // Default fallback height
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (!ref.current) return;
-    const observer = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        setHeight(entry.contentRect.height);
-      }
-    });
-    observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <>
-      <div style={{ height }} />
-      <footer
-        ref={ref}
-        className="fixed bottom-0 left-0 z-10 w-full bg-background/50 backdrop-blur-md border-t border-white/5 pt-8"
-      >
+      <footer className="relative w-full bg-background/50 backdrop-blur-md border-t border-white/5 pt-8">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
           {/* Gradient divider line */}
           <div

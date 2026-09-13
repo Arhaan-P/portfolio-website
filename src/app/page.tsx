@@ -16,11 +16,9 @@ export default function Home() {
       <SectionDivider />
       <About />
       <SectionDivider />
-      <Skills />
-      <SectionDivider />
       <Experience />
       <SectionDivider />
-      
+
       <section id="projects" className="mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:py-28 relative">
         <div className="mb-12">
           <p className="font-mono text-sm text-primary uppercase tracking-wider font-semibold">Portfolio</p>
@@ -36,6 +34,8 @@ export default function Home() {
 
       <SectionDivider />
       <ProjectGrid />
+      <SectionDivider />
+      <Skills />
       <SectionDivider />
       <Contact />
       </div>

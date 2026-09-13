@@ -31,16 +31,14 @@ export function About() {
               <div className="flex flex-col h-full justify-center space-y-4">
                 <h3 className="text-xl font-semibold">Who I am</h3>
                 <p className="text-base leading-relaxed text-muted-foreground">
-                  I build systems that have to hold up under real constraints: a
-                  multi-drone control system coordinating live telemetry, a
-                  campus platform serving real students, and an agent-evaluation
-                  benchmark rigorous enough to catch its own false positives. I
-                  care as much about the failure modes as the happy path.
+                  I build systems that hold up under real constraints: drone
+                  telemetry, a campus platform serving real students, an
+                  agent-eval benchmark rigorous enough to catch its own false
+                  positives. I care about failure modes as much as the happy path.
                 </p>
                 <p className="text-base leading-relaxed text-muted-foreground">
-                  Outside of that, I&apos;m usually deep in a new paper,
-                  contributing to open source, or picking apart an algorithmic
-                  problem for the fun of it.
+                  Outside that, I&apos;m usually deep in a paper or an
+                  algorithmic problem for fun.
                 </p>
               </div>
             </Reveal>

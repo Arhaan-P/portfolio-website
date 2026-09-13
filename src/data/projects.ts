@@ -100,9 +100,9 @@ export const projects: Project[] = [
       "16+ unified campus workflows",
       "24 serverless Supabase Edge Functions",
     ],
-    links: [],
+    links: [{ label: "Live Demo", href: "https://vhelp-demo.pages.dev/" }],
+    demoUrl: "https://vhelp-demo.pages.dev/",
     tags: ["Flutter", "Supabase", "Firebase", "Full-Stack"],
-    images: ["/projects/vhelp1.webp", "/projects/vhelp2.webp"],
   },
   {
     slug: "pawguard",

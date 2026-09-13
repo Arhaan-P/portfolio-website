@@ -7,7 +7,7 @@ export const site = {
   email: "arhaanpenwala9@gmail.com",
   github: "https://github.com/Arhaan-P",
   linkedin: "https://www.linkedin.com/in/arhaan-penwala/",
-  resumeUrl: "/resume.pdf",
+  resumeUrl: "/arhaan_sde.pdf",
   location: "Chennai, India",
 } as const;
 

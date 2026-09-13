@@ -69,7 +69,7 @@ export function ProjectImage({
       {/* ─── Inline carousel ─── */}
       <div
         ref={ref}
-        className="group relative w-full aspect-[4/3] sm:aspect-[16/10] overflow-hidden rounded-lg border border-border bg-secondary/40"
+        className="group relative w-full aspect-4/3 sm:aspect-16/10 overflow-hidden rounded-lg border border-border bg-secondary/40"
       >
         {/* Reveal Overlay */}
         <motion.div
@@ -123,7 +123,7 @@ export function ProjectImage({
         </button>
 
         {/* Gradient overlay */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/40 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-black/40 to-transparent" />
 
         {/* Arrow navigation */}
         {count > 1 && (

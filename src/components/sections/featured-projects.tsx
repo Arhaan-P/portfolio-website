@@ -37,6 +37,7 @@ export function FeaturedProjects() {
                         <ProjectImage
                           images={project.images}
                           alt={project.name}
+                          aspect={project.imageAspect}
                         />
                       </div>
                     ) : (

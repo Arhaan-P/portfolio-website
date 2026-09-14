@@ -18,6 +18,8 @@ export type Project = {
   links: ProjectLink[];
   tags: string[];
   images?: string[];
+  /** "wide" for banner-shaped diagrams; omit for phone/app screenshots. */
+  imageAspect?: "wide";
   /** Live web build embedded in place of screenshots (e.g. a Flutter web deploy). */
   demoUrl?: string;
 };
@@ -162,6 +164,8 @@ export const projects: Project[] = [
     ],
     links: [],
     tags: ["AI", "LLM", "Research"],
+    images: ["/projects/mutafix-architecture.svg"],
+    imageAspect: "wide",
   },
   {
     slug: "queez",

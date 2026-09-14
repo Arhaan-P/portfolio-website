@@ -14,9 +14,12 @@ import * as React from "react";
 export function ProjectImage({
   images,
   alt,
+  aspect = "standard",
 }: {
   images: string[];
   alt: string;
+  /** "standard" for phone/app screenshots, "wide" for banner-shaped diagrams. */
+  aspect?: "standard" | "wide";
 }) {
   const [active, setActive] = React.useState(0);
   const [lightboxOpen, setLightboxOpen] = React.useState(false);
@@ -69,7 +72,9 @@ export function ProjectImage({
       {/* ─── Inline carousel ─── */}
       <div
         ref={ref}
-        className="group relative w-full aspect-4/3 sm:aspect-16/10 overflow-hidden rounded-lg border border-border bg-secondary/40"
+        className={`group relative w-full overflow-hidden rounded-lg border border-border bg-secondary/40 ${
+          aspect === "wide" ? "aspect-video" : "aspect-4/3 sm:aspect-16/10"
+        }`}
       >
         {/* Reveal Overlay */}
         <motion.div
@@ -122,8 +127,10 @@ export function ProjectImage({
           <ZoomIn className="size-8 text-white opacity-0 drop-shadow-lg transition-opacity group-hover:opacity-80" />
         </button>
 
-        {/* Gradient overlay */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-black/40 to-transparent" />
+        {/* Gradient overlay (photo captions only; flat diagrams don't need it) */}
+        {aspect !== "wide" && (
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-linear-to-t from-black/40 to-transparent" />
+        )}
 
         {/* Arrow navigation */}
         {count > 1 && (

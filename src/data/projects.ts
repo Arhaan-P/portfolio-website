@@ -213,10 +213,10 @@ export const projects: Project[] = [
       "Most deepfake detectors analyze facial artifacts, which face-swap tools are increasingly good at faking convincingly. Gait, the biomechanical pattern of how someone walks, is much harder to forge, since face-swap tools only replace the face, not body motion.",
     approach: [
       "Built a custom feature pipeline extracting 12 gait keypoints per frame from MediaPipe pose estimation into 78-dimensional gait signatures, normalized to 60-frame sequences.",
-      "Designed a hybrid architecture: a 1D CNN encoder with residual blocks feeding a dual-path BiLSTM + Transformer temporal model, compared against an enrolled identity via a difference-based CNN classifier.",
-      "Resolved an embedding-collapse failure in an earlier Siamese/triplet-loss approach by switching to difference-feature classification (diff, abs-diff, product of gait sequences).",
+      "Kept the trained decision path deliberately lean: a 133K-parameter difference-based temporal CNN comparing observed vs. claimed gait (diff, abs-diff, product), separate from a larger auxiliary CNN+BiLSTM+Transformer embedding branch used only for enrollment diagnostics and explainability.",
+      "Validated that split with a paired 13-fold x 3-seed LOOCV ablation: every configuration that wires the auxiliary branch onto the decision path is significantly worse than the deployed raw-difference network (down to 50.70% AUC-ROC when the raw features are dropped entirely).",
       "Derived the AUTHENTIC / IDENTITY MISMATCH / SUSPECTED DEEPFAKE decision threshold empirically via Youden's J statistic over leave-one-out cross-validation, rather than hardcoding it.",
-      "Added Grad-CAM-style explainability identifying which joints and timesteps drive each classification decision.",
+      "Added gradient-times-input and Grad-CAM explainability identifying which joints and timesteps drive each classification decision, and validated the model on real FaceFusion face-swap clips.",
     ],
     stack: [
       "PyTorch",
@@ -228,10 +228,10 @@ export const projects: Project[] = [
       "Pandas",
     ],
     metrics: [
-      "94.95% ± 2.81% AUC-ROC (LOOCV)",
-      "87.27% accuracy",
-      "12.77% Equal Error Rate",
-      "13-fold leave-one-out cross-validation across 13 subjects",
+      "94.95% pooled AUC-ROC (95.10% ± 3.08% per-fold, 13-fold subject-disjoint LOOCV)",
+      "87.01% pooled accuracy (87.04% ± 3.65% per-fold)",
+      "12.77% pooled Equal Error Rate",
+      "3/3 real FaceFusion face-swap clips correctly rejected in end-to-end validation",
       "1,056 augmented training videos generated from 66 original recordings",
     ],
     links: [
@@ -241,6 +241,8 @@ export const projects: Project[] = [
       },
     ],
     tags: ["ML", "PyTorch", "Computer Vision", "Research"],
+    images: ["/projects/deepfake-detection-architecture.svg"],
+    imageAspect: "wide",
   },
   {
     slug: "junk-wunk",

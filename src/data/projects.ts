@@ -29,6 +29,8 @@ export type Project = {
   images?: string[];
   /** "wide" for banner-shaped diagrams; omit for phone/app screenshots. */
   imageAspect?: "wide";
+  /** CSS aspect-ratio for a "wide" image cropped tighter than 16:9, e.g. "1400 / 270". */
+  imageRatio?: string;
   /** Live web build embedded in place of screenshots (e.g. a Flutter web deploy). */
   demoUrl?: string;
 };
@@ -192,8 +194,9 @@ export const projects: Project[] = [
     ],
     links: [],
     tags: ["AI", "LLM", "Research"],
-    images: ["/projects/mutafix-architecture.svg"],
+    images: ["/projects/mutafix-architecture-cropped.svg"],
     imageAspect: "wide",
+    imageRatio: "1400 / 270",
   },
   {
     slug: "queez",

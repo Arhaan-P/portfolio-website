@@ -15,11 +15,14 @@ export function ProjectImage({
   images,
   alt,
   aspect = "standard",
+  ratio,
 }: {
   images: string[];
   alt: string;
   /** "standard" for phone/app screenshots, "wide" for banner-shaped diagrams. */
   aspect?: "standard" | "wide";
+  /** Overrides the 16:9 box for a wide diagram cropped tighter, e.g. "1400 / 270". */
+  ratio?: string;
 }) {
   const [active, setActive] = React.useState(0);
   const [lightboxOpen, setLightboxOpen] = React.useState(false);
@@ -75,8 +78,13 @@ export function ProjectImage({
       <div
         ref={ref}
         className={`group relative w-full overflow-hidden rounded-lg border border-border bg-secondary/40 ${
-          aspect === "wide" ? "aspect-video" : "aspect-4/3 sm:aspect-16/10"
+          aspect === "wide"
+            ? ratio
+              ? ""
+              : "aspect-video"
+            : "aspect-4/3 sm:aspect-16/10"
         }`}
+        style={aspect === "wide" && ratio ? { aspectRatio: ratio } : undefined}
       >
         {/* Reveal Overlay */}
         <motion.div

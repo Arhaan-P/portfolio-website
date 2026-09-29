@@ -131,14 +131,19 @@ export function ProjectImage({
         <button
           type="button"
           aria-label={`Zoom ${aspect === "wide" ? "diagram" : "image"}`}
+          // With a separate labelled button below the strip, this overlay is a mouse convenience only.
+          {...(aspect === "wide" && ratio ? { "aria-hidden": true, tabIndex: -1 } : {})}
           onClick={() => setLightboxOpen(true)}
           className="absolute inset-0 z-10 cursor-zoom-in bg-black/0 transition-colors hover:bg-black/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
         >
-          {/* Always visible so touch users (no hover) can find it too */}
-          <span className="absolute bottom-2 right-2 inline-flex items-center gap-1 rounded-md border border-border bg-background/85 px-2 py-1 text-xs font-medium text-foreground backdrop-blur-sm">
-            <ZoomIn aria-hidden className="size-3.5" />
-            Zoom
-          </span>
+          {/* Always visible so touch users (no hover) can find it too. Strip-shaped diagrams
+              are too short to hold it without covering labels, so theirs sits below the image. */}
+          {!(aspect === "wide" && ratio) && (
+            <span className="absolute bottom-2 right-2 inline-flex items-center gap-1 rounded-md border border-border bg-background/85 px-2 py-1 text-xs font-medium text-foreground backdrop-blur-sm">
+              <ZoomIn aria-hidden className="size-3.5" />
+              Zoom
+            </span>
+          )}
         </button>
 
         {/* Gradient overlay (photo captions only; flat diagrams don't need it) */}
@@ -196,6 +201,19 @@ export function ProjectImage({
           </div>
         )}
       </div>
+
+      {aspect === "wide" && ratio && (
+        <div className="mt-2 flex justify-end">
+          <button
+            type="button"
+            onClick={() => setLightboxOpen(true)}
+            className="inline-flex items-center gap-1 rounded-md border border-border bg-background/85 px-2 py-1 text-xs font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <ZoomIn aria-hidden className="size-3.5" />
+            Zoom diagram
+          </button>
+        </div>
+      )}
 
       {/* ─── Lightbox overlay ─── */}
       {lightboxOpen && (

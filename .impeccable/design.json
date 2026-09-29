@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-29T10:35:00Z",
+  "title": "Design System: Arhaan Penwala Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "primary": { "role": "primary", "displayName": "Lab Signal Cyan", "canonical": "oklch(0.75 0.17 230)", "tonalRamp": ["oklch(0.15 0.17 230)", "oklch(0.28 0.17 230)", "oklch(0.4 0.17 230)", "oklch(0.52 0.17 230)", "oklch(0.64 0.17 230)", "oklch(0.75 0.17 230)", "oklch(0.85 0.12 230)", "oklch(0.95 0.05 230)"] },
+      "aurora-violet": { "role": "secondary", "displayName": "Aurora Violet", "canonical": "oklch(0.5 0.25 290)", "tonalRamp": ["oklch(0.15 0.25 290)", "oklch(0.28 0.25 290)", "oklch(0.4 0.25 290)", "oklch(0.5 0.25 290)", "oklch(0.62 0.22 290)", "oklch(0.74 0.16 290)", "oklch(0.85 0.09 290)", "oklch(0.95 0.04 290)"] },
+      "background": { "role": "neutral", "displayName": "Night Indigo", "canonical": "oklch(0.13 0.015 270)", "tonalRamp": ["oklch(0.13 0.015 270)", "oklch(0.17 0.02 270)", "oklch(0.2 0.025 270)", "oklch(0.35 0.03 270)", "oklch(0.5 0.03 270)", "oklch(0.65 0.03 270)", "oklch(0.85 0.015 270)", "oklch(0.95 0.01 270)"] },
+      "surface": { "role": "neutral", "displayName": "Glass Panel", "canonical": "oklch(0.17 0.02 270)", "tonalRamp": ["oklch(0.13 0.02 270)", "oklch(0.17 0.02 270)", "oklch(0.22 0.02 270)", "oklch(0.32 0.02 270)", "oklch(0.45 0.02 270)", "oklch(0.6 0.02 270)", "oklch(0.8 0.015 270)", "oklch(0.95 0.01 270)"] },
+      "foreground": { "role": "neutral", "displayName": "Moonlit Text", "canonical": "oklch(0.95 0.01 270)", "tonalRamp": ["oklch(0.15 0.015 270)", "oklch(0.3 0.015 270)", "oklch(0.45 0.015 270)", "oklch(0.6 0.015 270)", "oklch(0.75 0.012 270)", "oklch(0.85 0.01 270)", "oklch(0.92 0.01 270)", "oklch(0.95 0.01 270)"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The hero name only, with the animated text gradient." },
+      "label": { "displayName": "Label", "purpose": "Geist Mono eyebrows and small technical asides." }
+    },
+    "shadows": [
+      { "name": "glow-sm", "value": "0 0 20px -5px var(--glow-primary)", "purpose": "Hover glow under accent elements." },
+      { "name": "glow-md", "value": "0 0 40px -10px var(--glow-primary)", "purpose": "Emphasis behind featured content." },
+      { "name": "chip-rest", "value": "0 1px 2px 0 rgb(0 0 0 / 0.05)", "purpose": "The only resting shadow, on skill badges." }
+    ],
+    "motion": [
+      { "name": "spin-border", "value": "4s linear infinite", "purpose": "Conic gradient border traversing a card on hover." },
+      { "name": "gradient-shift", "value": "4s ease-in-out infinite", "purpose": "Drifting gradient on the hero name." },
+      { "name": "pulse-ring", "value": "2s ease-out infinite", "purpose": "Live status dot." },
+      { "name": "reduced-motion", "value": "0.01ms durations", "purpose": "Global override under prefers-reduced-motion." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Solid signal-colored action, e.g. Contact or Resume.",
+      "html": "<button class=\"ds-btn-primary\">Get in touch</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; height: 32px; padding: 0 10px; border: 1px solid transparent; border-radius: 10px; background: var(--primary); color: var(--primary-foreground); font-size: 14px; font-weight: 500; cursor: pointer; transition: all .15s; } .ds-btn-primary:hover { background: color-mix(in oklch, var(--primary) 80%, transparent); } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent); } .ds-btn-primary:active { transform: translateY(1px); }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action with a hairline border.",
+      "html": "<button class=\"ds-btn-outline\">GitHub</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; justify-content: center; height: 32px; padding: 0 10px; border: 1px solid var(--border); border-radius: 10px; background: var(--background); color: var(--foreground); font-size: 14px; font-weight: 500; cursor: pointer; transition: all .15s; } .ds-btn-outline:hover { background: var(--muted); } .ds-btn-outline:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in oklch, var(--ring) 50%, transparent); }"
+    },
+    {
+      "name": "Skill Badge",
+      "kind": "chip",
+      "refersTo": "skill-badge",
+      "description": "Technology chip with an icon; fills with accent on hover.",
+      "html": "<span class=\"ds-skill-badge\">FastAPI</span>",
+      "css": ".ds-skill-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--background); border: 1px solid var(--border); border-radius: 10px; font-size: 14px; font-weight: 500; color: color-mix(in oklch, var(--foreground) 80%, transparent); box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); cursor: default; transition: all .15s; } .ds-skill-badge:hover { background: var(--accent); color: var(--accent-foreground); border-color: color-mix(in oklch, var(--primary) 40%, transparent); }"
+    },
+    {
+      "name": "Glass Card",
+      "kind": "card",
+      "refersTo": "glass-card",
+      "description": "Frosted panel used for projects and experience; glow appears on hover.",
+      "html": "<div class=\"ds-glass-card\"><h3>PolarisGCS</h3><p>Multi-drone ground control system.</p></div>",
+      "css": ".ds-glass-card { padding: 24px; border-radius: 10px; background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--card-foreground); backdrop-filter: blur(16px) saturate(1.8); transition: box-shadow .3s; } .ds-glass-card:hover { box-shadow: 0 0 40px -10px var(--glow-primary); } .ds-glass-card h3 { margin: 0 0 8px; font-size: 20px; font-weight: 600; } .ds-glass-card p { margin: 0; color: var(--muted-foreground); line-height: 1.6; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Night Lab",
+    "overview": "A late-night engineering bench. The page sits on deep indigo-black, and the only light in the room comes from one cool cyan-blue signal, a slow aurora wash behind the hero, and frosted panels that read like instrument screens. It is quiet by default. Content, diagrams, and live demos lead, and the chrome stays out of their way.",
+    "keyCharacteristics": [
+      "Dark-first, cool-tinted neutrals (hue 270); no pure black or white.",
+      "One accent hue family (blue-cyan), with violet used only inside gradients and aurora.",
+      "Frosted glass surfaces, flat at rest, with glow and the gradient border appearing only on hover or state.",
+      "Geist for text, Geist Mono for small technical labels.",
+      "All color comes from OKLCH tokens in globals.css."
+    ],
+    "rules": [
+      { "name": "The One Signal Rule", "body": "Cyan-blue is the only accent hue for interface meaning (interactive, current, focus). If a second saturated hue appears outside gradients, it is wrong.", "section": "colors" },
+      { "name": "The Token-Only Rule", "body": "No hex or rgb in components. The .glow-bg radial in globals.css is a legacy exception, not precedent.", "section": "colors" },
+      { "name": "The Mono-For-Machines Rule", "body": "Geist Mono is for labels and technical asides, never for paragraphs.", "section": "typography" },
+      { "name": "The Flat-Until-Touched Rule", "body": "Glow and the animated gradient border show up on hover, focus, or active state. At rest, a card is a flat pane of glass.", "section": "elevation" },
+      { "name": "The Blur Must Compile Rule", "body": "Glass is authored through Tailwind's backdrop-blur and backdrop-saturate utilities via @apply. A raw backdrop-filter declaration was silently dropped by the CSS pipeline, so do not rewrite it.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do take every color from the OKLCH tokens in globals.css, in both themes.",
+      "Do keep surfaces flat at rest and let glow and gradient borders appear on hover or focus.",
+      "Do use Geist Mono only for short labels and technical asides.",
+      "Do respect prefers-reduced-motion for every animation, and make content render fully without any reveal animation.",
+      "Do check contrast in dark and light mode whenever color changes."
+    ],
+    "donts": [
+      "Don't add a second saturated accent hue outside gradients and aurora.",
+      "Don't hardcode hex, rgb, or Tailwind slate/gray utilities in components.",
+      "Don't hide content behind scroll-triggered reveals that leave blank space when they haven't fired.",
+      "Don't reintroduce Marquee, Typewriter, TextGenerate, or GridPattern without an explicit job for them.",
+      "Don't write a raw backdrop-filter; use the Tailwind @apply route."
+    ]
+  }
+}

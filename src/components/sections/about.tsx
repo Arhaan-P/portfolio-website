@@ -5,7 +5,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { TiltCard } from "@/components/motion/tilt-card";
 import { education } from "@/data/experience";
 import { site } from "@/data/site";
-import { Code, GraduationCap, MapPin } from "lucide-react";
+import { GraduationCap, MapPin } from "lucide-react";
 
 export function About() {
   const cardHoverClass =
@@ -19,13 +19,9 @@ export function About() {
         </h2>
       </Reveal>
 
-      <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-3">
         {/* Bio Card - Large */}
-        <TiltCard
-          maxTilt={2}
-          glare={false}
-          className="sm:col-span-2 lg:col-span-2"
-        >
+        <TiltCard maxTilt={2} glare={false} className="lg:col-span-2">
           <div className={`glass-card rounded-xl p-6 h-full ${cardHoverClass}`}>
             <Reveal delay={0.1}>
               <div className="flex flex-col h-full justify-center space-y-4">
@@ -40,107 +36,64 @@ export function About() {
                   Outside that, I&apos;m usually deep in a paper or an
                   algorithmic problem for fun.
                 </p>
+                <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                  <MapPin className="size-4 text-primary" aria-hidden="true" />
+                  {site.location}
+                </p>
               </div>
             </Reveal>
           </div>
         </TiltCard>
 
-        {/* Current Focus Card */}
-        <TiltCard maxTilt={4} glare={false} className="h-full">
-          <div className={`glass-card rounded-xl p-6 h-full ${cardHoverClass}`}>
-            <Reveal delay={0.2}>
-              <div className="flex flex-col h-full gap-4">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                  <Code className="size-5" />
+        {/* Education + stats stacked beside the bio */}
+        <div className="flex flex-col gap-4">
+          <TiltCard maxTilt={4} glare={false} className="h-full">
+            <div className={`glass-card rounded-xl p-6 h-full ${cardHoverClass}`}>
+              <Reveal delay={0.2}>
+                <div className="flex flex-col h-full gap-4">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <GraduationCap className="size-5" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-lg">{education.degree}</p>
+                    <p className="text-sm font-medium text-muted-foreground mt-1">
+                      {education.school}
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {education.detail}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    Currently building
-                  </p>
-                  <p className="mt-1 font-semibold text-lg">
-                    Distributed systems & Applied ML
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </TiltCard>
+              </Reveal>
+            </div>
+          </TiltCard>
 
-        {/* Education Card */}
-        <TiltCard maxTilt={4} glare={false} className="h-full">
-          <div className={`glass-card rounded-xl p-6 h-full ${cardHoverClass}`}>
-            <Reveal delay={0.3}>
-              <div className="flex flex-col h-full gap-4">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                  <GraduationCap className="size-5" />
+          {/* Stats Card */}
+          <TiltCard maxTilt={4} glare={false} className="h-full">
+            <div className={`glass-card rounded-xl p-6 h-full ${cardHoverClass}`}>
+              <Reveal delay={0.3}>
+                <div className="flex flex-col h-full justify-center gap-6">
+                  <div>
+                    <p className="text-2xl font-bold text-foreground">
+                      <Counter value={1} delay={0.4} />
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Dataset published (IEEE DataPort)
+                    </p>
+                  </div>
+                  <div className="border-t border-white/5 pt-3">
+                    <p className="text-[10px] font-bold text-primary uppercase tracking-wider">
+                      Research
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      Journal Paper in Progress
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-semibold text-lg">{education.degree}</p>
-                  <p className="text-sm font-medium text-muted-foreground mt-1">
-                    {education.school}
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    {education.detail}
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </TiltCard>
-
-        {/* Stats Card */}
-        <TiltCard maxTilt={4} glare={false} className="h-full">
-          <div className={`glass-card rounded-xl p-6 h-full ${cardHoverClass}`}>
-            <Reveal delay={0.4}>
-              <div className="flex flex-col h-full justify-center gap-6">
-                <div>
-                  <p className="text-3xl font-bold text-gradient">
-                    <Counter value={1} delay={0.4} />
-                    k+
-                  </p>
-                  <p className="text-sm text-muted-foreground font-medium mt-1">
-                    VHELP users in the first hour
-                  </p>
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-foreground">
-                    <Counter value={1} delay={0.4} />
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Dataset published (IEEE DataPort)
-                  </p>
-                </div>
-                <div className="border-t border-white/5 pt-3">
-                  <p className="text-[10px] font-bold text-primary uppercase tracking-wider">
-                    Research
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-0.5">
-                    Journal Paper in Progress
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </TiltCard>
-
-        {/* Location Card */}
-        <TiltCard maxTilt={4} glare={false} className="h-full">
-          <div className={`glass-card rounded-xl p-6 h-full ${cardHoverClass}`}>
-            <Reveal delay={0.5}>
-              <div className="flex flex-col h-full gap-4 justify-between">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                  <MapPin className="size-5" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    Based in
-                  </p>
-                  <p className="mt-1 font-semibold text-lg">{site.location}</p>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-        </TiltCard>
+              </Reveal>
+            </div>
+          </TiltCard>
+        </div>
       </div>
     </section>
   );

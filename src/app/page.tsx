@@ -14,11 +14,6 @@ export default function Home() {
       <div className="relative z-10 bg-background shadow-[0_10px_50px_rgba(0,0,0,0.5)] pb-10">
         <Hero />
         <SectionDivider />
-        <About />
-        <SectionDivider />
-        <Experience />
-        <SectionDivider />
-
         <section
           id="projects"
           className="mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:py-28 relative"
@@ -39,9 +34,13 @@ export default function Home() {
         </section>
 
         <SectionDivider />
+        <Experience />
+        <SectionDivider />
         <ProjectGrid />
         <SectionDivider />
         <Skills />
+        <SectionDivider />
+        <About />
         <SectionDivider />
         <Contact />
       </div>

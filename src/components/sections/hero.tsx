@@ -98,7 +98,7 @@ export function Hero() {
         <dl className="grid grid-cols-2 gap-x-6 gap-y-5 border-t border-border pt-6 sm:grid-cols-4">
           {proof.map((item) => (
             <div key={item.label} className="flex flex-col gap-1">
-              <dt className="order-2 text-xs leading-snug text-muted-foreground">
+              <dt className="order-2 text-sm leading-snug text-muted-foreground">
                 {item.label}
               </dt>
               <dd className="order-1 font-mono text-base font-semibold tabular-nums text-foreground">

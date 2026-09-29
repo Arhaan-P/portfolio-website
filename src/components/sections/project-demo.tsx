@@ -66,7 +66,7 @@ export function ProjectDemo({ src, title }: { src: string; title: string }) {
             onClick={() => setStatus("loading")}
             className="group absolute inset-0 flex flex-col items-center justify-center gap-3 bg-linear-to-br from-aurora-1/20 to-aurora-2/20 px-6 text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset disabled:cursor-wait"
           >
-            <span className="text-xs font-medium text-muted-foreground">
+            <span className="text-sm font-medium text-muted-foreground">
               Live demo · Flutter web build
             </span>
             <span className="text-xl font-bold tracking-tight text-foreground">
@@ -82,7 +82,7 @@ export function ProjectDemo({ src, title }: { src: string; title: string }) {
             <span className="text-base font-semibold text-foreground">
               {status === "loading" ? "Loading demo…" : "Launch live demo"}
             </span>
-            <span className="text-xs text-muted-foreground">
+            <span className="text-sm text-muted-foreground">
               Runs the app in your browser
             </span>
           </button>

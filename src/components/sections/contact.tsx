@@ -25,7 +25,7 @@ export function Contact() {
     <section id="contact" className="relative mx-auto w-full py-32 overflow-hidden flex flex-col items-center justify-center min-h-[60vh]">
       <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-6 w-full max-w-5xl">
         <Reveal>
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground pb-2">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground pb-2">
             Let&apos;s build something
           </h2>
         </Reveal>

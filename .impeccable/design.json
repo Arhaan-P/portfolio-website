@@ -83,11 +83,27 @@
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "The hero name only, with the animated text gradient."
+        "purpose": "The hero name only, in solid foreground colour."
       },
       "label": {
         "displayName": "Label",
         "purpose": "Geist Mono eyebrows and small technical asides."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Every section heading, one size (2.25rem)."
+      },
+      "readout": {
+        "displayName": "Readout",
+        "purpose": "Metric value on featured cards, Geist Mono 600 at 1.25rem."
+      },
+      "body-small": {
+        "displayName": "Body-small",
+        "purpose": "Sentences at reduced weight, 0.875rem: captions, bullets, supporting lines."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Chips and tags, Geist Mono 0.75rem. The minimum size on the page."
       }
     },
     "shadows": [
@@ -198,6 +214,11 @@
         "name": "The Blur Must Compile Rule",
         "body": "Glass is authored through Tailwind's backdrop-blur and backdrop-saturate utilities via @apply. A raw backdrop-filter declaration was silently dropped by the CSS pipeline, so do not rewrite it.",
         "section": "elevation"
+      },
+      {
+        "name": "The 12/14 Floor Rule",
+        "body": "Chips and mono labels are never below 12px; anything a person reads as a sentence is never below 14px. No literal sizes such as text-[10px].",
+        "section": "typography"
       }
     ],
     "dos": [

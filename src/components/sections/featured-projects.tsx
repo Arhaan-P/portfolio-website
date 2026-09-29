@@ -38,10 +38,10 @@ function CardHeader({ project }: { project: Project }) {
         >
           {project.readouts.map((r) => (
             <div key={r.from} className="flex flex-col gap-1">
-              <dt className="order-2 text-xs leading-snug text-muted-foreground">
+              <dt className="order-2 text-sm leading-snug text-muted-foreground">
                 {r.label}
               </dt>
-              <dd className="order-1 font-mono text-base font-semibold tabular-nums text-foreground">
+              <dd className="order-1 font-mono text-xl font-semibold tabular-nums text-foreground">
                 {r.value}
               </dd>
             </div>
@@ -49,7 +49,7 @@ function CardHeader({ project }: { project: Project }) {
         </dl>
       )}
 
-      <p className="mt-5 text-base font-medium text-foreground/90 sm:text-lg">
+      <p className="mt-5 text-base text-foreground/90">
         {project.oneLiner}
       </p>
     </>

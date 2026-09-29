@@ -57,7 +57,7 @@ export function About() {
                     <p className="text-sm font-medium text-muted-foreground mt-1">
                       {education.school}
                     </p>
-                    <p className="text-xs text-muted-foreground mt-1">
+                    <p className="text-sm text-muted-foreground mt-1">
                       {education.detail}
                     </p>
                   </div>
@@ -75,15 +75,15 @@ export function About() {
                     <p className="text-2xl font-bold text-foreground">
                       1
                     </p>
-                    <p className="text-xs text-muted-foreground mt-1">
+                    <p className="text-sm text-muted-foreground mt-1">
                       Dataset published (IEEE DataPort)
                     </p>
                   </div>
                   <div className="border-t border-white/5 pt-3">
-                    <p className="text-[10px] font-bold text-primary uppercase tracking-wider">
+                    <p className="text-xs font-bold text-primary uppercase tracking-wider">
                       Research
                     </p>
-                    <p className="text-xs text-muted-foreground mt-0.5">
+                    <p className="text-sm text-muted-foreground mt-0.5">
                       Journal Paper in Progress
                     </p>
                   </div>

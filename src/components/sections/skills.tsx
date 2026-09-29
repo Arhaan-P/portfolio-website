@@ -12,7 +12,7 @@ export function Skills() {
         <Reveal>
           <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-3 text-foreground">
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3 text-foreground">
                 Skills
               </h2>
               <p className="text-muted-foreground text-lg max-w-2xl">

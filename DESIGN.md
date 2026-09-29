@@ -41,12 +41,27 @@ typography:
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.625
+  body-small:
+    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "0.875rem"
+    fontWeight: 400
+    lineHeight: 1.5
+  readout:
+    fontFamily: "Geist Mono, ui-monospace, monospace"
+    fontSize: "1.25rem"
+    fontWeight: 600
+    lineHeight: 1.2
   label:
     fontFamily: "Geist Mono, ui-monospace, monospace"
     fontSize: "0.875rem"
     fontWeight: 600
     lineHeight: 1.4
     letterSpacing: "0.05em"
+  caption:
+    fontFamily: "Geist Mono, ui-monospace, monospace"
+    fontSize: "0.75rem"
+    fontWeight: 500
+    lineHeight: 1.4
 rounded:
   sm: "6px"
   md: "8px"
@@ -133,13 +148,18 @@ A near-monochrome indigo-black palette with a single luminous blue-cyan signal; 
 
 ### Hierarchy
 - **Display** (700, `clamp(3rem, 8vw, 6rem)`, 1, tracking -0.05em): The name in the hero only, in solid foreground colour.
-- **Headline** (700, 2.25rem, 1.15, tracking -0.025em): Section headings.
-- **Title** (600, 1.25rem, 1.3): Project names, role titles, card headings.
-- **Body** (400, 1rem, 1.625): Descriptions and bullets. Cap paragraphs near 65–75ch; the hero tagline is capped at `max-w-2xl`.
+- **Headline** (700, 2.25rem, 1.15, tracking -0.025em): Every section heading, including Skills and Contact (`text-3xl sm:text-4xl`). One size, no exceptions.
+- **Title** (600, 1.25rem, 1.3): Role titles and card headings. Featured project names step up to 1.5rem→1.875rem so the name leads its card.
+- **Body** (400, 1rem, 1.625): Descriptions and the featured one-liner (weight 400, so it reads as prose under the readouts). Cap paragraphs near 65–75ch; the hero tagline is capped at `max-w-2xl`.
+- **Readout** (Geist Mono 600, 1.25rem, 1.2, tabular numerals): The value in a metric readout on featured cards. Highest-contrast small text; the hero strip uses the 1rem step.
+- **Body-small** (400, 0.875rem, 1.5): Anything read as a sentence at reduced weight: readout captions, education line, bullets inside the disclosure, demo captions.
 - **Label** (Geist Mono 600, 0.875rem, tracking 0.05em, uppercase): Eyebrows like "Hi, I'm" and small metadata.
+- **Caption** (Geist Mono 500, 0.75rem): Chips and tags only (tech-stack badges, period tags, Research label). This is the floor: nothing on the page is smaller.
 
 ### Named Rules
-**The Mono-For-Machines Rule.** Geist Mono is for labels and technical asides, never for paragraphs.
+**The Mono-For-Machines Rule.** Geist Mono is for labels, readouts and technical asides, never for paragraphs.
+
+**The 12/14 Floor Rule.** Chips and mono labels are never below 12px; anything a person reads as a sentence is never below 14px. No literal sizes such as `text-[10px]`.
 
 ## Layout
 

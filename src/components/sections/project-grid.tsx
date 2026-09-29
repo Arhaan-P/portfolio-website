@@ -57,7 +57,7 @@ export function ProjectGrid() {
                           {project.approach.slice(0, 3).map((point) => (
                             <li
                               key={point}
-                              className="flex gap-2 text-xs leading-relaxed text-muted-foreground/90"
+                              className="flex gap-2 text-sm leading-relaxed text-muted-foreground/90"
                             >
                               <span aria-hidden className="text-primary mt-0.5 shrink-0">
                                 ▹
@@ -70,7 +70,7 @@ export function ProjectGrid() {
 
                       <div className="mt-auto pt-4 flex flex-wrap gap-1.5">
                         {project.stack.map((tech) => (
-                          <Badge key={tech} variant="outline" className="text-[10px] bg-background/50 border-white/10 hover:glow-sm hover:border-white/20 transition-colors">
+                          <Badge key={tech} variant="outline" className="text-xs bg-background/50 border-white/10 hover:glow-sm hover:border-white/20 transition-colors">
                             {tech}
                           </Badge>
                         ))}

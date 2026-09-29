@@ -4,19 +4,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ── Animated gradient border support ────────────────────────── */
-@property --angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-@property --gradient-position {
-  syntax: "<percentage>";
-  initial-value: 0%;
-  inherits: false;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -191,7 +178,7 @@
     @apply backdrop-blur-lg backdrop-saturate-[1.8];
   }
 
-  /* Animated gradient border */
+  /* Gradient border: fades in on hover, static (no rotation) */
   .gradient-border {
     position: relative;
     overflow: hidden;
@@ -204,7 +191,7 @@
     padding: 1px;
     border-radius: inherit;
     background: conic-gradient(
-      from var(--angle),
+      from 135deg,
       var(--aurora-1),
       var(--aurora-2),
       var(--aurora-3),
@@ -218,9 +205,8 @@
       linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
-    animation: spin-border 4s linear infinite;
     opacity: 0;
-    transition: opacity 0.4s ease;
+    transition: opacity 200ms ease-out;
   }
   .gradient-border:hover::before {
     opacity: 1;
@@ -233,11 +219,6 @@
       color-mix(in oklch, var(--primary) 8%, transparent),
       transparent 70%
     );
-  }
-
-  /* Glow effect */
-  .glow-sm {
-    box-shadow: 0 0 20px -5px var(--glow-primary);
   }
 
   /* Skills Section */
@@ -258,27 +239,34 @@
   }
 
   .skill-badge {
-    @apply inline-flex items-center gap-2 px-3 py-2 bg-background border border-border rounded-lg text-sm font-medium text-foreground/80 hover:bg-accent hover:text-accent-foreground hover:border-primary/40 transition-all cursor-default shadow-sm;
-  }
-}
-
-/* ── Keyframes ───────────────────────────────────────────────── */
-@keyframes spin-border {
-  from {
-    --angle: 0deg;
-  }
-  to {
-    --angle: 360deg;
+    @apply inline-flex items-center gap-2 px-3 py-2 bg-background border border-border rounded-lg text-sm font-medium text-foreground/80 hover:bg-accent hover:text-accent-foreground hover:border-primary/40 transition-colors duration-150 ease-out cursor-default shadow-sm;
   }
 }
 
 /* ── Reduced motion ──────────────────────────────────────────── */
+/* Pure CSS, so markup is identical on server and client. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ── Disclosure body: short fade and rise when "How it's built" opens ── */
+@media (prefers-reduced-motion: no-preference) {
+  details[open] > .disclosure-body {
+    animation: disclosure-in 250ms ease-out;
+  }
+}
+@keyframes disclosure-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

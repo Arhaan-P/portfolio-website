@@ -69,7 +69,7 @@ function CardFooter({ project }: { project: Project }) {
           <Badge
             key={tech}
             variant="outline"
-            className="bg-background/50 hover:glow-sm transition-all hover:bg-muted border-input"
+            className="bg-background/50 transition-colors duration-150 ease-out hover:bg-muted border-input"
           >
             {tech}
           </Badge>
@@ -86,7 +86,7 @@ function CardFooter({ project }: { project: Project }) {
             How it&apos;s built
           </summary>
 
-          <div className="mt-4 space-y-4 text-sm leading-relaxed text-muted-foreground">
+          <div className="disclosure-body mt-4 space-y-4 text-sm leading-relaxed text-muted-foreground">
             {project.problem && (
               <p>
                 <strong className="text-foreground/80">Problem:</strong>{" "}

@@ -18,10 +18,10 @@ export function SectionDivider({ className = "" }: SectionDividerProps) {
         style={{
           background: "linear-gradient(90deg, transparent, var(--primary), var(--aurora-2), transparent)",
         }}
-        initial={{ scaleX: 0, opacity: 0 }}
-        whileInView={{ scaleX: 1, opacity: 0.5 }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 0.5 }}
         viewport={{ once: true, margin: "-50px" }}
-        transition={shouldReduceMotion ? { duration: 0 } : { duration: 1, ease: "easeInOut" }}
+        transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25, ease: "easeOut" }}
       />
     </div>
   )

@@ -1,7 +1,5 @@
 "use client";
 
-import { useScrollReveal } from "@/components/motion/reveal";
-import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react";
 import Image from "next/image";
 import { Dialog } from "@base-ui/react/dialog";
@@ -29,8 +27,6 @@ export function ProjectImage({
   const [lightboxOpen, setLightboxOpen] = React.useState(false);
   const closeRef = React.useRef<HTMLButtonElement>(null);
   const count = images.length;
-  const ref = React.useRef<HTMLDivElement>(null);
-  const covered = useScrollReveal(ref) === "hidden";
   const label = (i: number) =>
     aspect === "wide" ? `${alt} architecture diagram` : `${alt}, screenshot ${i + 1}`;
 
@@ -42,13 +38,6 @@ export function ProjectImage({
     () => setActive((i) => (i + 1) % count),
     [count],
   );
-
-  /* auto-rotate every 4 s when there are multiple images (pause when lightbox is open) */
-  React.useEffect(() => {
-    if (count <= 1 || lightboxOpen) return;
-    const id = setInterval(() => setActive((i) => (i + 1) % count), 4000);
-    return () => clearInterval(id);
-  }, [count, lightboxOpen]);
 
   /* arrow keys in the lightbox (the dialog handles Escape, focus and scroll lock) */
   React.useEffect(() => {
@@ -65,7 +54,6 @@ export function ProjectImage({
     <>
       {/* ─── Inline carousel ─── */}
       <div
-        ref={ref}
         className={`group relative w-full overflow-hidden rounded-lg border border-border bg-secondary/40 ${
           aspect === "wide"
             ? ratio
@@ -75,33 +63,11 @@ export function ProjectImage({
         }`}
         style={aspect === "wide" && ratio ? { aspectRatio: ratio } : undefined}
       >
-        {/* Reveal Overlay */}
-        <motion.div
-          className="absolute inset-0 z-40 bg-background"
-          initial={false}
-          animate={{ scaleY: covered ? 1 : 0 }}
-          transition={
-            covered
-              ? { duration: 0 }
-              : { duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.1 }
-          }
-          style={{ transformOrigin: "bottom" }}
-        />
-
-        <motion.div
-          className="absolute inset-0 w-full h-full"
-          initial={false}
-          animate={{ scale: covered ? 1.2 : 1 }}
-          transition={
-            covered
-              ? { duration: 0 }
-              : { duration: 1.2, ease: [0.33, 1, 0.68, 1], delay: 0.1 }
-          }
-        >
+        <div className="absolute inset-0 h-full w-full">
           {images.map((src, i) => (
             <div
               key={src}
-              className="absolute inset-0 flex items-center justify-center transition-opacity duration-700 ease-in-out"
+              className="absolute inset-0 flex items-center justify-center transition-opacity duration-200 ease-out"
               style={{ opacity: i === active ? 1 : 0 }}
             >
               <Image
@@ -114,7 +80,7 @@ export function ProjectImage({
               />
             </div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Click-to-zoom overlay */}
         <button
@@ -180,9 +146,9 @@ export function ProjectImage({
                   e.stopPropagation();
                   setActive(i);
                 }}
-                className={`size-2 rounded-full transition-all ${
+                className={`size-2 rounded-full transition-colors duration-150 ${
                   i === active
-                    ? "scale-110 bg-white"
+                    ? "bg-white"
                     : "bg-white/40 hover:bg-white/70"
                 }`}
               />
@@ -243,7 +209,7 @@ export function ProjectImage({
               {images.map((src, i) => (
                 <div
                   key={src}
-                  className="absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out"
+                  className="absolute inset-0 flex items-center justify-center transition-opacity duration-200 ease-out"
                   style={{ opacity: i === active ? 1 : 0 }}
                 >
                   <Image
@@ -298,9 +264,9 @@ export function ProjectImage({
                       e.stopPropagation();
                       setActive(i);
                     }}
-                    className={`size-2.5 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
+                    className={`size-2.5 rounded-full transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
                       i === active
-                        ? "scale-110 bg-white"
+                        ? "bg-white"
                         : "bg-white/30 hover:bg-white/60"
                     }`}
                   />

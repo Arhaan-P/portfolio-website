@@ -1,22 +1,13 @@
 "use client"
 
 import { useRef, type ReactNode } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
-import { useReducedMotion } from "@/lib/use-reduced-motion"
+import { motion } from "framer-motion"
 import { Briefcase, GraduationCap, MapPin } from "lucide-react"
 import { Reveal, useScrollReveal } from "@/components/motion/reveal"
 import { experience, education } from "@/data/experience"
 
 export function Experience() {
   const sectionRef = useRef<HTMLElement>(null)
-  const shouldReduceMotion = useReducedMotion()
-  
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start center", "end center"],
-  })
-
-  const scaleY = useTransform(scrollYProgress, [0, 1], [0, 1])
 
   return (
     <section id="experience" ref={sectionRef} className="mx-auto max-w-5xl px-4 py-20 sm:px-6 relative">
@@ -31,11 +22,8 @@ export function Experience() {
         {/* Static Background Line */}
         <div className="absolute left-4 top-0 bottom-0 w-[2px] bg-border sm:left-1/2 sm:-translate-x-1/2" />
         
-        {/* Animated Glowing Line */}
-        <motion.div
-          className="absolute left-4 top-0 bottom-0 w-[2px] origin-top bg-gradient-to-b from-primary via-aurora-2 to-transparent sm:left-1/2 sm:-translate-x-1/2"
-          style={shouldReduceMotion ? undefined : { scaleY }}
-        />
+        {/* Gradient line (static) */}
+        <div className="absolute left-4 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary via-aurora-2 to-transparent sm:left-1/2 sm:-translate-x-1/2" />
 
         <div className="flex flex-col gap-12">
           {/* Work Experience */}
@@ -54,7 +42,7 @@ export function Experience() {
                 <div className={`w-full pl-12 sm:pl-0 sm:w-[calc(50%-2rem)] ${isEven ? 'sm:text-right sm:pr-8' : 'sm:ml-auto sm:pl-8'}`}>
                   <Reveal delay={0.1}>
                     <div className="relative">
-                      <div className="glass-card rounded-xl p-5 hover:-translate-y-0.5 hover:glow-sm transition-all duration-300 text-left">
+                      <div className="glass-card rounded-xl p-5 hover:-translate-y-0.5 transition-transform duration-200 ease-out text-left">
                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
                           <h3 className="font-semibold text-lg text-foreground">{job.role}</h3>
                           <span className="text-sm font-medium text-accent-foreground bg-accent px-2 py-1 rounded-md shrink-0 w-fit">
@@ -99,7 +87,7 @@ export function Experience() {
             <div className={`w-full pl-12 sm:pl-0 sm:w-[calc(50%-2rem)] ${experience.length % 2 === 0 ? 'sm:text-right sm:pr-8' : 'sm:ml-auto sm:pl-8'}`}>
               <Reveal delay={0.1}>
                 <div className="relative">
-                  <div className="glass-card rounded-xl p-5 hover:-translate-y-0.5 hover:glow-sm transition-all duration-300 text-left border-aurora-2/20">
+                  <div className="glass-card rounded-xl p-5 hover:-translate-y-0.5 transition-transform duration-200 ease-out text-left border-aurora-2/20">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
                       <h3 className="font-semibold text-lg text-foreground">{education.degree}</h3>
                       <span className="text-sm font-medium text-foreground bg-aurora-2/10 px-2 py-1 rounded-md shrink-0 w-fit">
@@ -138,8 +126,8 @@ function TimelineDot({ className, children }: { className: string; children: Rea
     <motion.div
       ref={ref}
       initial={false}
-      animate={{ scale: hidden ? 0 : 1 }}
-      transition={hidden ? { duration: 0 } : undefined}
+      animate={{ opacity: hidden ? 0 : 1 }}
+      transition={hidden ? { duration: 0 } : { duration: 0.25, ease: "easeOut" }}
       className={className}
     >
       {children}

@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import { Check, Copy, Download, Mail } from "lucide-react"
-import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/motion/reveal"
 import { GitHubIcon, LinkedInIcon } from "@/components/icons"
@@ -67,28 +66,24 @@ export function Contact() {
 
         <Reveal delay={0.3}>
           <div className="mt-12 flex items-center justify-center gap-6">
-            <motion.a
-              whileHover={{ scale: 1.15, y: -2 }}
-              whileTap={{ scale: 0.95 }}
+            <a
               href={site.github}
               target="_blank"
               rel="noreferrer noopener"
-              className="text-muted-foreground hover:text-primary transition-colors hover:glow-sm p-3 glass-card rounded-full"
+              className="text-muted-foreground hover:text-primary transition-colors p-3 glass-card rounded-full"
               aria-label="GitHub profile"
             >
               <GitHubIcon className="size-6" />
-            </motion.a>
-            <motion.a
-              whileHover={{ scale: 1.15, y: -2 }}
-              whileTap={{ scale: 0.95 }}
+            </a>
+            <a
               href={site.linkedin}
               target="_blank"
               rel="noreferrer noopener"
-              className="text-muted-foreground hover:text-primary transition-colors hover:glow-sm p-3 glass-card rounded-full"
+              className="text-muted-foreground hover:text-primary transition-colors p-3 glass-card rounded-full"
               aria-label="LinkedIn profile"
             >
               <LinkedInIcon className="size-6" />
-            </motion.a>
+            </a>
           </div>
         </Reveal>
       </div>

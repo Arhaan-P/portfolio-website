@@ -5,7 +5,7 @@ import * as React from "react";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
 
 const variants: Variants = {
-  hidden: { opacity: 0, y: 12, transition: { duration: 0 } },
+  hidden: { opacity: 0, y: 8, transition: { duration: 0 } },
   visible: { opacity: 1, y: 0 },
 };
 
@@ -94,7 +94,7 @@ export function Reveal({
       transition={
         shouldReduceMotion
           ? { duration: 0 }
-          : { duration: 0.5, delay, ease: "easeOut" }
+          : { duration: 0.25, delay: Math.min(delay, 0.3), ease: "easeOut" }
       }
     >
       {children}
@@ -142,7 +142,7 @@ export function RevealItem({
       className={className}
       variants={variants}
       transition={
-        shouldReduceMotion ? { duration: 0 } : { duration: 0.4, ease: "easeOut" }
+        shouldReduceMotion ? { duration: 0 } : { duration: 0.25, ease: "easeOut" }
       }
     >
       {children}

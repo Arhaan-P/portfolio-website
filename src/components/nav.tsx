@@ -5,8 +5,6 @@ import Link from "next/link"
 import { Menu } from "lucide-react"
 import { motion, useScroll, useMotionValueEvent } from "framer-motion"
 
-import { Magnetic } from "@/components/motion/magnetic"
-
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -16,8 +14,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { useLenis } from "lenis/react"
-import { useReducedMotion } from "@/lib/use-reduced-motion"
 import { navLinks, site } from "@/data/site"
 
 export function Nav() {
@@ -26,20 +22,7 @@ export function Nav() {
   const [hidden, setHidden] = React.useState(false)
   const headerRef = React.useRef<HTMLElement>(null)
   const firstMenuLinkRef = React.useRef<HTMLAnchorElement>(null)
-  const reducedMotion = useReducedMotion()
   const { scrollY } = useScroll()
-  const lenis = useLenis()
-
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith('#') && lenis) {
-      e.preventDefault()
-      if (href === '#top') {
-        lenis.scrollTo(0, { immediate: reducedMotion })
-      } else {
-        lenis.scrollTo(href, { immediate: reducedMotion })
-      }
-    }
-  }
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0
@@ -96,7 +79,7 @@ export function Nav() {
         hidden: { y: "-100%" },
       }}
       animate={hidden ? "hidden" : "visible"}
-      transition={{ duration: 0.35, ease: "easeInOut" }}
+      transition={{ duration: 0.2, ease: "easeOut" }}
       className="sticky top-0 z-50 border-b border-border/10 bg-background/50 backdrop-blur-md supports-backdrop-filter:bg-background/40"
     >
       <nav
@@ -105,7 +88,6 @@ export function Nav() {
       >
         <Link
           href="#top"
-          onClick={(e) => handleLinkClick(e, "#top")}
           className="font-heading text-sm font-bold tracking-tighter hover:text-primary transition-colors flex items-center gap-2 group"
         >
           <span className="flex size-6 items-center justify-center rounded-full bg-primary/20 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
@@ -118,10 +100,9 @@ export function Nav() {
           {navLinks.map((link) => {
             const isActive = activeLink === link.href
             return (
-              <Magnetic key={link.href} intensity={0.1}>
-                <a
+              <a
+                key={link.href}
                   href={link.href}
-                  onClick={(e) => handleLinkClick(e, link.href)}
                   className={`relative px-4 py-2 text-sm font-medium transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring rounded-full ${
                     isActive ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
                   }`}
@@ -130,12 +111,11 @@ export function Nav() {
                     <motion.div
                       layoutId="active-pill"
                       className="absolute inset-0 -z-10 rounded-full bg-primary"
-                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
                     />
                   )}
                   <span className="relative z-10">{link.label}</span>
                 </a>
-              </Magnetic>
             )
           })}
         </div>
@@ -144,7 +124,7 @@ export function Nav() {
           <Button
             variant="outline"
             size="sm"
-            className="hidden sm:inline-flex rounded-full border-input hover:bg-muted hover:glow-sm transition-all"
+            className="hidden sm:inline-flex rounded-full border-input hover:bg-muted transition-colors duration-150 ease-out"
             nativeButton={false}
             render={<a href={site.resumeUrl} download />}
           >
@@ -179,10 +159,7 @@ export function Nav() {
                     key={link.href}
                     ref={i === 0 ? firstMenuLinkRef : undefined}
                     href={link.href}
-                    onClick={(e) => {
-                      handleLinkClick(e, link.href)
-                      setOpen(false)
-                    }}
+                    onClick={() => setOpen(false)}
                     className={`rounded-lg px-4 py-3 text-sm font-medium transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring ${
                       activeLink === link.href
                         ? "bg-primary/20 text-primary border border-primary/30"

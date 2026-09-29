@@ -41,7 +41,9 @@ export function ProjectDemo({ src, title }: { src: string; title: string }) {
       <div
         ref={boxRef}
         className={`relative w-full overflow-hidden rounded-2xl border border-border bg-secondary/40 ${
-          status === "idle" ? "aspect-4/3" : "aspect-1/2"
+          status === "idle"
+            ? "aspect-4/3"
+            : "aspect-1/2 motion-safe:animate-in motion-safe:fade-in motion-safe:zoom-in-95 motion-safe:duration-200 motion-safe:ease-out"
         }`}
       >
         {status !== "idle" && (

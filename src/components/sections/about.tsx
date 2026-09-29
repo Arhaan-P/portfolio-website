@@ -7,7 +7,7 @@ import { GraduationCap, MapPin } from "lucide-react";
 
 export function About() {
   const cardHoverClass =
-    "hover:-translate-y-0.5 transition-all duration-300 hover:glow-sm";
+    "hover:-translate-y-0.5 transition-transform duration-200 ease-out";
 
   return (
     <section id="about" className="mx-auto max-w-5xl px-4 py-20 sm:px-6">

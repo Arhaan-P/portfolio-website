@@ -4,34 +4,27 @@ import { Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/motion/reveal"
 import { GitHubIcon, LinkedInIcon } from "@/components/icons"
-import { motion, useScroll, useTransform } from "framer-motion"
-import { useReducedMotion } from "@/lib/use-reduced-motion"
+import { motion } from "framer-motion"
 import { proof, site } from "@/data/site"
-import { AnimeText } from "@/components/motion/anime-text"
+import { RoleRotator } from "@/components/motion/role-rotator"
 
 const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.3
+      staggerChildren: 0.06,
+      delayChildren: 0.2
     }
   }
 }
 
 const staggerItem = {
-  hidden: { opacity: 0, y: 10 },
-  visible: { opacity: 1, y: 0 }
+  hidden: { opacity: 0, y: 8 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.25, ease: "easeOut" as const } }
 }
 
 export function Hero() {
-  const shouldReduceMotion = useReducedMotion()
-  const { scrollY } = useScroll()
-  const y = useTransform(scrollY, [0, 800], [0, 200])
-  const opacity = useTransform(scrollY, [0, 500], [1, 0])
-  const scale = useTransform(scrollY, [0, 500], [1, 0.9])
-
   return (
     <section
       id="top"
@@ -39,10 +32,7 @@ export function Hero() {
     >
       <div aria-hidden className="hero-wash pointer-events-none absolute inset-0 -z-10" />
 
-      <motion.div
-        style={shouldReduceMotion ? undefined : { y, opacity, scale }}
-        className="w-full flex flex-col items-center justify-center gap-6 z-10"
-      >
+      <div className="w-full flex flex-col items-center justify-center gap-6 z-10">
         <Reveal delay={0.1} appear>
           <p className="font-mono text-sm sm:text-base text-primary uppercase tracking-wider font-semibold">
             Hi, I&apos;m
@@ -76,7 +66,7 @@ export function Hero() {
             ))}
           </motion.h1>
           <div className="text-2xl font-medium sm:text-3xl md:text-4xl text-muted-foreground min-h-[1.5em] flex items-center justify-center">
-            <AnimeText strings={site.roles} pause={3000} />
+            <RoleRotator strings={site.roles} pause={3000} />
           </div>
         </div>
 
@@ -113,13 +103,12 @@ export function Hero() {
         initial="hidden"
         animate="visible"
       >
-        {/* tabIndex -1: framer would otherwise add tabindex=0, a second tab stop before the link */}
-        <motion.div tabIndex={-1} variants={staggerItem} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <motion.div variants={staggerItem}>
           <Button size="lg" className="text-base px-8 h-12 rounded-full" nativeButton={false} render={<a href="#projects" />}>
             View Projects
           </Button>
         </motion.div>
-        <motion.div tabIndex={-1} variants={staggerItem} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <motion.div variants={staggerItem}>
           <Button
             size="lg"
             variant="outline"
@@ -140,40 +129,34 @@ export function Hero() {
       >
         <motion.a
           variants={staggerItem}
-          whileHover={{ scale: 1.15, y: -2 }}
-          whileTap={{ scale: 0.95 }}
           href={site.github}
           target="_blank"
           rel="noreferrer noopener"
-          className="text-muted-foreground hover:text-primary transition-colors hover:glow-sm p-2"
+          className="text-muted-foreground hover:text-primary transition-colors p-2"
           aria-label="GitHub profile"
         >
           <GitHubIcon className="size-6" />
         </motion.a>
         <motion.a
           variants={staggerItem}
-          whileHover={{ scale: 1.15, y: -2 }}
-          whileTap={{ scale: 0.95 }}
           href={site.linkedin}
           target="_blank"
           rel="noreferrer noopener"
-          className="text-muted-foreground hover:text-primary transition-colors hover:glow-sm p-2"
+          className="text-muted-foreground hover:text-primary transition-colors p-2"
           aria-label="LinkedIn profile"
         >
           <LinkedInIcon className="size-6" />
         </motion.a>
         <motion.a
           variants={staggerItem}
-          whileHover={{ scale: 1.15, y: -2 }}
-          whileTap={{ scale: 0.95 }}
           href={`mailto:${site.email}`}
-          className="text-muted-foreground hover:text-primary transition-colors hover:glow-sm p-2"
+          className="text-muted-foreground hover:text-primary transition-colors p-2"
           aria-label="Send an email"
         >
           <Mail className="size-6" />
         </motion.a>
       </motion.div>
-      </motion.div>
+      </div>
     </section>
   )
 }

@@ -70,7 +70,7 @@ export function ProjectGrid() {
 
                       <div className="mt-auto pt-4 flex flex-wrap gap-1.5">
                         {project.stack.map((tech) => (
-                          <Badge key={tech} variant="outline" className="text-xs bg-background/50 border-input hover:glow-sm hover:border-foreground/30 transition-colors">
+                          <Badge key={tech} variant="outline" className="text-xs bg-background/50 border-input hover:border-foreground/30 transition-colors">
                             {tech}
                           </Badge>
                         ))}

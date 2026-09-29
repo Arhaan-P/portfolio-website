@@ -7,7 +7,6 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { Nav } from "@/components/nav"
 import { site } from "@/data/site"
-import { LenisProvider } from "@/components/motion/lenis-provider"
 import { MotionProvider } from "@/components/motion/motion-provider"
 
 const geistSans = Geist({
@@ -65,7 +64,6 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <LenisProvider>
           <MotionProvider>
             <ThemeProvider>
               <TooltipProvider>
@@ -82,7 +80,6 @@ export default function RootLayout({
               </TooltipProvider>
             </ThemeProvider>
           </MotionProvider>
-        </LenisProvider>
       </body>
     </html>
   )

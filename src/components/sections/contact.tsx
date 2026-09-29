@@ -1,6 +1,7 @@
 "use client"
 
-import { Mail } from "lucide-react"
+import * as React from "react"
+import { Check, Copy, Download, Mail } from "lucide-react"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/motion/reveal"
@@ -9,10 +10,22 @@ import { site } from "@/data/site"
 import { AuroraBackground } from "@/components/motion/aurora-background"
 
 export function Contact() {
+  const [copied, setCopied] = React.useState(false)
+
+  async function copyEmail() {
+    try {
+      await navigator.clipboard.writeText(site.email)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      // Clipboard blocked (insecure context or permissions): the address stays visible to select by hand.
+    }
+  }
+
   return (
     <section id="contact" className="relative mx-auto w-full py-32 overflow-hidden flex flex-col items-center justify-center min-h-[60vh]">
       <AuroraBackground className="opacity-60" />
-      
+
       <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-6 w-full max-w-5xl">
         <Reveal>
           <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-gradient pb-2">
@@ -22,22 +35,36 @@ export function Contact() {
 
         <Reveal delay={0.1}>
           <p className="mt-4 text-lg text-muted-foreground font-medium max-w-xl mx-auto">
-            I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+            Hiring for an SDE or AI-engineer role? Email is the fastest way to
+            reach me, and the resume has the full picture.
           </p>
         </Reveal>
 
         <Reveal delay={0.2}>
-          <div className="mt-10 flex flex-col items-center gap-6">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Button size="lg" className="glow-md text-base px-8 h-14 rounded-full" nativeButton={false} render={<a href={`mailto:${site.email}`} />}>
-                <Mail className="mr-2 size-5" />
-                Say Hello
+          <div className="mt-10 flex flex-col items-center gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <Button size="lg" className="glow-md text-base px-8 h-12 rounded-full" nativeButton={false} render={<a href={`mailto:${site.email}`} />}>
+                <Mail className="size-5" />
+                Email me
               </Button>
-            </motion.div>
-            
+              <Button size="lg" variant="outline" className="text-base px-8 h-12 rounded-full" nativeButton={false} render={<a href={site.resumeUrl} download />}>
+                <Download className="size-5" />
+                Download resume
+              </Button>
+            </div>
+
+            <div className="flex items-center gap-1">
+              <span className="font-mono text-sm text-muted-foreground select-all">
+                {site.email}
+              </span>
+              <Button variant="ghost" size="sm" onClick={copyEmail} className="text-muted-foreground">
+                {copied ? <Check /> : <Copy />}
+                {copied ? "Copied" : "Copy"}
+              </Button>
+              <span className="sr-only" aria-live="polite">
+                {copied ? "Email address copied" : ""}
+              </span>
+            </div>
           </div>
         </Reveal>
 

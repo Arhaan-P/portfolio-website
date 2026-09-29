@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/motion/reveal"
 import { GitHubIcon, LinkedInIcon } from "@/components/icons"
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
-import { site } from "@/data/site"
+import { proof, site } from "@/data/site"
 import { AuroraBackground } from "@/components/motion/aurora-background"
 import { AnimeText } from "@/components/motion/anime-text"
 
@@ -87,6 +87,27 @@ export function Hero() {
         <p className="max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg mt-4">
           {site.tagline}
         </p>
+      </Reveal>
+
+      <Reveal delay={0.85} appear>
+        <p className="max-w-2xl text-balance text-sm font-medium text-foreground">
+          {site.seeking}
+        </p>
+      </Reveal>
+
+      <Reveal delay={0.9} appear className="w-full max-w-3xl">
+        <dl className="grid grid-cols-2 gap-x-6 gap-y-5 border-t border-border pt-6 sm:grid-cols-4">
+          {proof.map((item) => (
+            <div key={item.label} className="flex flex-col gap-1">
+              <dt className="order-2 text-xs leading-snug text-muted-foreground">
+                {item.label}
+              </dt>
+              <dd className="order-1 font-mono text-base font-semibold tabular-nums text-foreground">
+                {item.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
       </Reveal>
 
       <motion.div 

@@ -10,27 +10,28 @@ interface ThemeContextValue {
   resolvedTheme: "light" | "dark"
 }
 
+// Dark is the default: it's what a visitor gets until they choose otherwise.
 const ThemeContext = React.createContext<ThemeContextValue>({
-  theme: "system",
+  theme: "dark",
   setTheme: () => {},
-  resolvedTheme: "light",
+  resolvedTheme: "dark",
 })
 
 function getStoredTheme(): Theme {
-  if (typeof window === "undefined") return "system"
+  if (typeof window === "undefined") return "dark"
   const stored = localStorage.getItem("theme")
   if (stored === "light" || stored === "dark" || stored === "system") return stored
-  return "system"
+  return "dark"
 }
 
 function resolveTheme(theme: Theme): "light" | "dark" {
   if (theme === "light" || theme === "dark") return theme
-  if (typeof window === "undefined") return "light"
+  if (typeof window === "undefined") return "dark"
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = React.useState<Theme>("system")
+  const [theme, setThemeState] = React.useState<Theme>("dark")
   const [mounted, setMounted] = React.useState(false)
 
   React.useEffect(() => {
@@ -73,7 +74,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   if (!mounted) {
     return (
-      <ThemeContext.Provider value={{ theme: "system", setTheme, resolvedTheme: "light" }}>
+      <ThemeContext.Provider value={{ theme: "dark", setTheme, resolvedTheme: "dark" }}>
         {children}
       </ThemeContext.Provider>
     )

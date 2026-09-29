@@ -17,12 +17,16 @@ import {
 } from "@/components/ui/sheet"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { useLenis } from "lenis/react"
+import { useReducedMotion } from "@/lib/use-reduced-motion"
 import { navLinks, site } from "@/data/site"
 
 export function Nav() {
   const [open, setOpen] = React.useState(false)
   const [activeLink, setActiveLink] = React.useState<string>("#top")
   const [hidden, setHidden] = React.useState(false)
+  const headerRef = React.useRef<HTMLElement>(null)
+  const firstMenuLinkRef = React.useRef<HTMLAnchorElement>(null)
+  const reducedMotion = useReducedMotion()
   const { scrollY } = useScroll()
   const lenis = useLenis()
 
@@ -30,16 +34,18 @@ export function Nav() {
     if (href.startsWith('#') && lenis) {
       e.preventDefault()
       if (href === '#top') {
-        lenis.scrollTo(0)
+        lenis.scrollTo(0, { immediate: reducedMotion })
       } else {
-        lenis.scrollTo(href)
+        lenis.scrollTo(href, { immediate: reducedMotion })
       }
     }
   }
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious() ?? 0
-    if (latest > previous && latest > 150) {
+    // Never hide the header while keyboard focus is inside it.
+    const focusInside = headerRef.current?.contains(document.activeElement) ?? false
+    if (latest > previous && latest > 150 && !focusInside) {
       setHidden(true)
     } else {
       setHidden(false)
@@ -83,6 +89,8 @@ export function Nav() {
 
   return (
     <motion.header
+      ref={headerRef}
+      onFocusCapture={() => setHidden(false)}
       variants={{
         visible: { y: 0 },
         hidden: { y: "-100%" },
@@ -114,7 +122,7 @@ export function Nav() {
                 <a
                   href={link.href}
                   onClick={(e) => handleLinkClick(e, link.href)}
-                  className={`relative px-4 py-2 text-sm font-medium transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50 rounded-full ${
+                  className={`relative px-4 py-2 text-sm font-medium transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring rounded-full ${
                     isActive ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -157,20 +165,25 @@ export function Nav() {
             >
               <Menu className="size-5" />
             </SheetTrigger>
-            <SheetContent side="right" className="glass-card border-l-border">
+            <SheetContent
+              side="right"
+              className="glass-card border-l-border"
+              initialFocus={firstMenuLinkRef}
+            >
               <SheetHeader>
                 <SheetTitle>Menu</SheetTitle>
               </SheetHeader>
               <div className="flex flex-col gap-2 px-4 mt-6">
-                {navLinks.map((link) => (
+                {navLinks.map((link, i) => (
                   <a
                     key={link.href}
+                    ref={i === 0 ? firstMenuLinkRef : undefined}
                     href={link.href}
                     onClick={(e) => {
                       handleLinkClick(e, link.href)
                       setOpen(false)
                     }}
-                    className={`rounded-lg px-4 py-3 text-sm font-medium transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50 ${
+                    className={`rounded-lg px-4 py-3 text-sm font-medium transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring ${
                       activeLink === link.href
                         ? "bg-primary/20 text-primary border border-primary/30"
                         : "text-muted-foreground hover:bg-muted hover:text-foreground"

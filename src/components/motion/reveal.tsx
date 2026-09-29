@@ -1,12 +1,8 @@
 "use client";
 
-import {
-    motion,
-    useInView,
-    useReducedMotion,
-    type Variants,
-} from "framer-motion";
+import { motion, useInView, type Variants } from "framer-motion";
 import * as React from "react";
+import { useReducedMotion } from "@/lib/use-reduced-motion";
 
 const variants: Variants = {
   hidden: { opacity: 0, y: 12, transition: { duration: 0 } },
@@ -86,10 +82,8 @@ export function Reveal({
   const ref = React.useRef<HTMLDivElement>(null);
   const state = useScrollReveal(ref);
 
-  if (shouldReduceMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
+  // Same element in every case (a type swap would remount the subtree); reduced
+  // motion just makes the transition instant.
   return (
     <motion.div
       ref={appear ? undefined : ref}
@@ -97,7 +91,11 @@ export function Reveal({
       initial={appear ? "hidden" : false}
       animate={state === "hidden" ? "hidden" : "visible"}
       variants={variants}
-      transition={{ duration: 0.5, delay, ease: "easeOut" }}
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : { duration: 0.5, delay, ease: "easeOut" }
+      }
     >
       {children}
     </motion.div>
@@ -117,17 +115,13 @@ export function RevealGroup({
   const ref = React.useRef<HTMLDivElement>(null);
   const state = useScrollReveal(ref);
 
-  if (shouldReduceMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
   return (
     <motion.div
       ref={ref}
       className={className}
       initial={false}
       animate={state === "hidden" ? "hidden" : "visible"}
-      transition={{ staggerChildren: stagger }}
+      transition={shouldReduceMotion ? { duration: 0 } : { staggerChildren: stagger }}
     >
       {children}
     </motion.div>
@@ -143,15 +137,13 @@ export function RevealItem({
 }) {
   const shouldReduceMotion = useReducedMotion();
 
-  if (shouldReduceMotion) {
-    return <div className={className}>{children}</div>;
-  }
-
   return (
     <motion.div
       className={className}
       variants={variants}
-      transition={{ duration: 0.4, ease: "easeOut" }}
+      transition={
+        shouldReduceMotion ? { duration: 0 } : { duration: 0.4, ease: "easeOut" }
+      }
     >
       {children}
     </motion.div>

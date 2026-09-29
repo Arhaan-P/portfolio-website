@@ -1,7 +1,8 @@
 "use client"
 
 import { useRef, type ReactNode } from "react"
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useReducedMotion } from "@/lib/use-reduced-motion"
 import { Briefcase, GraduationCap, MapPin } from "lucide-react"
 import { Reveal, useScrollReveal } from "@/components/motion/reveal"
 import { experience, education } from "@/data/experience"
@@ -31,15 +32,10 @@ export function Experience() {
         <div className="absolute left-4 top-0 bottom-0 w-[2px] bg-border sm:left-1/2 sm:-translate-x-1/2" />
         
         {/* Animated Glowing Line */}
-        {!shouldReduceMotion && (
-          <motion.div 
-            className="absolute left-4 top-0 bottom-0 w-[2px] origin-top bg-gradient-to-b from-primary via-aurora-2 to-transparent sm:left-1/2 sm:-translate-x-1/2"
-            style={{ scaleY }}
-          />
-        )}
-        {shouldReduceMotion && (
-           <div className="absolute left-4 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary via-aurora-2 to-transparent sm:left-1/2 sm:-translate-x-1/2" />
-        )}
+        <motion.div
+          className="absolute left-4 top-0 bottom-0 w-[2px] origin-top bg-gradient-to-b from-primary via-aurora-2 to-transparent sm:left-1/2 sm:-translate-x-1/2"
+          style={shouldReduceMotion ? undefined : { scaleY }}
+        />
 
         <div className="flex flex-col gap-12">
           {/* Work Experience */}

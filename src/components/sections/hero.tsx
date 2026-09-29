@@ -4,7 +4,8 @@ import { Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/motion/reveal"
 import { GitHubIcon, LinkedInIcon } from "@/components/icons"
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useReducedMotion } from "@/lib/use-reduced-motion"
 import { proof, site } from "@/data/site"
 import { AnimeText } from "@/components/motion/anime-text"
 
@@ -55,7 +56,7 @@ export function Hero() {
               hidden: { opacity: 0 },
               visible: {
                 opacity: 1,
-                transition: shouldReduceMotion ? { duration: 0 } : { staggerChildren: 0.1, delayChildren: 0.2 }
+                transition: { staggerChildren: 0.1, delayChildren: 0.2 }
               }
             }}
             initial="hidden"
@@ -64,10 +65,7 @@ export function Hero() {
             {site.name.split(" ").map((word, i) => (
               <motion.span
                 key={i}
-                variants={shouldReduceMotion ? {
-                  hidden: { opacity: 0 },
-                  visible: { opacity: 1, transition: { duration: 0 } },
-                } : {
+                variants={{
                   hidden: { opacity: 0, y: 50, rotateX: -60 },
                   visible: { opacity: 1, y: 0, rotateX: 0, transition: { type: "spring", stiffness: 200, damping: 15 } }
                 }}
@@ -115,12 +113,13 @@ export function Hero() {
         initial="hidden"
         animate="visible"
       >
-        <motion.div variants={staggerItem} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        {/* tabIndex -1: framer would otherwise add tabindex=0, a second tab stop before the link */}
+        <motion.div tabIndex={-1} variants={staggerItem} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Button size="lg" className="text-base px-8 h-12 rounded-full" nativeButton={false} render={<a href="#projects" />}>
             View Projects
           </Button>
         </motion.div>
-        <motion.div variants={staggerItem} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <motion.div tabIndex={-1} variants={staggerItem} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
           <Button
             size="lg"
             variant="outline"

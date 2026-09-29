@@ -8,6 +8,7 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 import { Nav } from "@/components/nav"
 import { site } from "@/data/site"
 import { LenisProvider } from "@/components/motion/lenis-provider"
+import { MotionProvider } from "@/components/motion/motion-provider"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -59,26 +60,28 @@ export default function RootLayout({
           id="theme-init"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("theme");if(t==="dark"||((t||"system")==="system"&&window.matchMedia("(prefers-color-scheme:dark)").matches)){document.documentElement.classList.add("dark")}}catch(e){}})()`,
+            __html: `(function(){try{var t=localStorage.getItem("theme");if(t===null||t==="dark"||(t==="system"&&window.matchMedia("(prefers-color-scheme:dark)").matches)){document.documentElement.classList.add("dark")}}catch(e){}})()`,
           }}
         />
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <LenisProvider>
-          <ThemeProvider>
-            <TooltipProvider>
-              <a
-                href="#main-content"
-                className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-100 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
-              >
-                Skip to content
-              </a>
-              <Nav />
-              <main id="main-content" className="flex-1">
-                {children}
-              </main>
-            </TooltipProvider>
-          </ThemeProvider>
+          <MotionProvider>
+            <ThemeProvider>
+              <TooltipProvider>
+                <a
+                  href="#main-content"
+                  className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-100 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
+                >
+                  Skip to content
+                </a>
+                <Nav />
+                <main id="main-content" className="flex-1">
+                  {children}
+                </main>
+              </TooltipProvider>
+            </ThemeProvider>
+          </MotionProvider>
         </LenisProvider>
       </body>
     </html>

@@ -4,6 +4,7 @@ import { useScrollReveal } from "@/components/motion/reveal";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X, ZoomIn } from "lucide-react";
 import Image from "next/image";
+import { Dialog } from "@base-ui/react/dialog";
 import * as React from "react";
 
 /**
@@ -26,6 +27,7 @@ export function ProjectImage({
 }) {
   const [active, setActive] = React.useState(0);
   const [lightboxOpen, setLightboxOpen] = React.useState(false);
+  const closeRef = React.useRef<HTMLButtonElement>(null);
   const count = images.length;
   const ref = React.useRef<HTMLDivElement>(null);
   const covered = useScrollReveal(ref) === "hidden";
@@ -48,29 +50,16 @@ export function ProjectImage({
     return () => clearInterval(id);
   }, [count, lightboxOpen]);
 
-  /* keyboard nav for lightbox */
+  /* arrow keys in the lightbox (the dialog handles Escape, focus and scroll lock) */
   React.useEffect(() => {
     if (!lightboxOpen) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setLightboxOpen(false);
       if (e.key === "ArrowLeft") prev();
       if (e.key === "ArrowRight") next();
     };
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [lightboxOpen, prev, next]);
-
-  /* lock body scroll when lightbox is open */
-  React.useEffect(() => {
-    if (lightboxOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [lightboxOpen]);
 
   return (
     <>
@@ -215,106 +204,112 @@ export function ProjectImage({
         </div>
       )}
 
-      {/* ─── Lightbox overlay ─── */}
-      {lightboxOpen && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={`${alt}, enlarged`}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm"
-          onClick={() => setLightboxOpen(false)}
-        >
-          {/* Close button */}
-          <button
-            type="button"
-            aria-label="Close lightbox"
-            onClick={() => setLightboxOpen(false)}
-            className="absolute right-4 top-4 z-50 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20"
+      {/* ─── Lightbox overlay: base-ui Dialog traps focus, restores it to the opener, locks scroll ─── */}
+      <Dialog.Root open={lightboxOpen} onOpenChange={setLightboxOpen}>
+        <Dialog.Portal>
+          <Dialog.Backdrop className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm" />
+          <Dialog.Popup
+            initialFocus={closeRef}
+            className="fixed inset-0 z-50 flex items-center justify-center outline-none"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setLightboxOpen(false);
+            }}
           >
-            <X className="size-6" />
-          </button>
+            <Dialog.Title className="sr-only">{`${alt}, enlarged`}</Dialog.Title>
 
-          {/* Image counter */}
-          {count > 1 && (
-            <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-sm text-white/70">
-              {active + 1} / {count}
-            </span>
-          )}
+            {/* Close button */}
+            <button
+              ref={closeRef}
+              type="button"
+              aria-label="Close lightbox"
+              onClick={() => setLightboxOpen(false)}
+              className="absolute right-4 top-4 z-50 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            >
+              <X className="size-6" />
+            </button>
 
-          {/* Lightbox image */}
-          <div
-            className="relative mx-4 h-[85vh] w-[90vw] max-w-6xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {images.map((src, i) => (
-              <div
-                key={src}
-                className="absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out"
-                style={{ opacity: i === active ? 1 : 0 }}
-              >
-                <Image
-                  src={src}
-                  alt={label(i)}
-                  fill
-                  sizes="90vw"
-                  className="object-contain"
-                  priority
-                />
-              </div>
-            ))}
-          </div>
+            {/* Image counter */}
+            {count > 1 && (
+              <span className="absolute top-5 left-1/2 -translate-x-1/2 font-mono text-sm text-white/70">
+                {active + 1} / {count}
+              </span>
+            )}
 
-          {/* Lightbox arrows */}
-          {count > 1 && (
-            <>
-              <button
-                type="button"
-                aria-label="Previous screenshot"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  prev();
-                }}
-                className="absolute left-4 top-1/2 z-50 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/25"
-              >
-                <ChevronLeft className="size-6" />
-              </button>
-              <button
-                type="button"
-                aria-label="Next screenshot"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  next();
-                }}
-                className="absolute right-4 top-1/2 z-50 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/25"
-              >
-                <ChevronRight className="size-6" />
-              </button>
-            </>
-          )}
-
-          {/* Lightbox dots */}
-          {count > 1 && (
-            <div className="absolute bottom-6 inset-x-0 flex justify-center gap-2">
-              {images.map((_, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  aria-label={`Show screenshot ${i + 1}`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setActive(i);
-                  }}
-                  className={`size-2.5 rounded-full transition-all ${
-                    i === active
-                      ? "scale-110 bg-white"
-                      : "bg-white/30 hover:bg-white/60"
-                  }`}
-                />
+            {/* Lightbox image */}
+            <div
+              className="relative mx-4 h-[85vh] w-[90vw] max-w-6xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {images.map((src, i) => (
+                <div
+                  key={src}
+                  className="absolute inset-0 flex items-center justify-center transition-opacity duration-500 ease-in-out"
+                  style={{ opacity: i === active ? 1 : 0 }}
+                >
+                  <Image
+                    src={src}
+                    alt={label(i)}
+                    fill
+                    sizes="90vw"
+                    className="object-contain"
+                    priority
+                  />
+                </div>
               ))}
             </div>
-          )}
-        </div>
-      )}
+
+            {/* Lightbox arrows */}
+            {count > 1 && (
+              <>
+                <button
+                  type="button"
+                  aria-label="Previous screenshot"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    prev();
+                  }}
+                  className="absolute left-4 top-1/2 z-50 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                >
+                  <ChevronLeft className="size-6" />
+                </button>
+                <button
+                  type="button"
+                  aria-label="Next screenshot"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    next();
+                  }}
+                  className="absolute right-4 top-1/2 z-50 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                >
+                  <ChevronRight className="size-6" />
+                </button>
+              </>
+            )}
+
+            {/* Lightbox dots */}
+            {count > 1 && (
+              <div className="absolute bottom-6 inset-x-0 flex justify-center gap-2">
+                {images.map((_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    aria-label={`Show screenshot ${i + 1}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActive(i);
+                    }}
+                    className={`size-2.5 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
+                      i === active
+                        ? "scale-110 bg-white"
+                        : "bg-white/30 hover:bg-white/60"
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
+          </Dialog.Popup>
+        </Dialog.Portal>
+      </Dialog.Root>
     </>
   );
 }

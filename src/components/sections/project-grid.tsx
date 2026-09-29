@@ -12,7 +12,6 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { RevealGroup, RevealItem } from "@/components/motion/reveal"
-import { TiltCard } from "@/components/motion/tilt-card"
 import { standardProjects } from "@/data/projects"
 
 export function ProjectGrid() {
@@ -22,7 +21,7 @@ export function ProjectGrid() {
       data-nav="#projects"
       className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16 relative"
     >
-      <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-gradient inline-block">
+      <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-foreground inline-block">
         More projects
       </h2>
 
@@ -31,7 +30,7 @@ export function ProjectGrid() {
           {standardProjects.map((project) => (
             <div key={project.slug} className="h-full">
               <RevealItem className="h-full">
-                <TiltCard maxTilt={5} glare glareOpacity={0.1} className="h-full">
+                <div className="relative h-full">
                   <Card className="h-full flex flex-col glass-card bg-background/40 border-0 rounded-xl overflow-hidden">
                     <CardHeader>
                       <div className="flex items-start justify-between gap-2">
@@ -95,7 +94,7 @@ export function ProjectGrid() {
                       </CardFooter>
                     )}
                   </Card>
-                </TiltCard>
+                </div>
               </RevealItem>
             </div>
           ))}

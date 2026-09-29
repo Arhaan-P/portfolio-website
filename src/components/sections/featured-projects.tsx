@@ -1,7 +1,6 @@
 "use client";
 
 import { Reveal } from "@/components/motion/reveal";
-import { TiltCard } from "@/components/motion/tilt-card";
 import { Badge } from "@/components/ui/badge";
 import { featuredProjects } from "@/data/projects";
 import { ExternalLink } from "lucide-react";
@@ -17,12 +16,7 @@ export function FeaturedProjects() {
         return (
           <Reveal key={project.slug} delay={0.1}>
             <div className="gradient-border rounded-2xl">
-              <TiltCard
-                maxTilt={3}
-                glare
-                glareOpacity={0.1}
-                disabled={!!project.demoUrl}
-              >
+              <div className="relative">
                 <div className="glass-card flex flex-col overflow-hidden rounded-2xl lg:flex-row bg-background/50">
                   {/* Image/Placeholder Side */}
                   <div
@@ -153,7 +147,7 @@ export function FeaturedProjects() {
                     )}
                   </div>
                 </div>
-              </TiltCard>
+              </div>
             </div>
           </Reveal>
         );

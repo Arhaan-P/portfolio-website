@@ -1,8 +1,6 @@
 "use client";
 
-import { Counter } from "@/components/motion/counter";
 import { Reveal } from "@/components/motion/reveal";
-import { TiltCard } from "@/components/motion/tilt-card";
 import { education } from "@/data/experience";
 import { site } from "@/data/site";
 import { GraduationCap, MapPin } from "lucide-react";
@@ -14,14 +12,14 @@ export function About() {
   return (
     <section id="about" className="mx-auto max-w-5xl px-4 py-20 sm:px-6">
       <Reveal>
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-gradient inline-block pb-2">
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-foreground inline-block pb-2">
           About Me
         </h2>
       </Reveal>
 
       <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-3">
         {/* Bio Card - Large */}
-        <TiltCard maxTilt={2} glare={false} className="lg:col-span-2">
+        <div className="relative lg:col-span-2">
           <div className={`glass-card rounded-xl p-6 h-full ${cardHoverClass}`}>
             <Reveal delay={0.1}>
               <div className="flex flex-col h-full justify-center space-y-4">
@@ -43,11 +41,11 @@ export function About() {
               </div>
             </Reveal>
           </div>
-        </TiltCard>
+        </div>
 
         {/* Education + stats stacked beside the bio */}
         <div className="flex flex-col gap-4">
-          <TiltCard maxTilt={4} glare={false} className="h-full">
+          <div className="relative h-full">
             <div className={`glass-card rounded-xl p-6 h-full ${cardHoverClass}`}>
               <Reveal delay={0.2}>
                 <div className="flex flex-col h-full gap-4">
@@ -66,16 +64,16 @@ export function About() {
                 </div>
               </Reveal>
             </div>
-          </TiltCard>
+          </div>
 
           {/* Stats Card */}
-          <TiltCard maxTilt={4} glare={false} className="h-full">
+          <div className="relative h-full">
             <div className={`glass-card rounded-xl p-6 h-full ${cardHoverClass}`}>
               <Reveal delay={0.3}>
                 <div className="flex flex-col h-full justify-center gap-6">
                   <div>
                     <p className="text-2xl font-bold text-foreground">
-                      <Counter value={1} delay={0.4} />
+                      1
                     </p>
                     <p className="text-xs text-muted-foreground mt-1">
                       Dataset published (IEEE DataPort)
@@ -92,7 +90,7 @@ export function About() {
                 </div>
               </Reveal>
             </div>
-          </TiltCard>
+          </div>
         </div>
       </div>
     </section>

@@ -121,7 +121,7 @@ export function Nav() {
                   {isActive && (
                     <motion.div
                       layoutId="active-pill"
-                      className="absolute inset-0 -z-10 rounded-full bg-primary shadow-[0_0_15px_var(--glow-primary)]"
+                      className="absolute inset-0 -z-10 rounded-full bg-primary"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -172,7 +172,7 @@ export function Nav() {
                     }}
                     className={`rounded-lg px-4 py-3 text-sm font-medium transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50 ${
                       activeLink === link.href
-                        ? "bg-primary/20 text-primary border border-primary/30 glow-sm"
+                        ? "bg-primary/20 text-primary border border-primary/30"
                         : "text-muted-foreground hover:bg-white/5 hover:text-foreground"
                     }`}
                   >

@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/motion/reveal"
 import { GitHubIcon, LinkedInIcon } from "@/components/icons"
 import { site } from "@/data/site"
-import { AuroraBackground } from "@/components/motion/aurora-background"
 
 export function Contact() {
   const [copied, setCopied] = React.useState(false)
@@ -24,11 +23,9 @@ export function Contact() {
 
   return (
     <section id="contact" className="relative mx-auto w-full py-32 overflow-hidden flex flex-col items-center justify-center min-h-[60vh]">
-      <AuroraBackground className="opacity-60" />
-
       <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-6 w-full max-w-5xl">
         <Reveal>
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-gradient pb-2">
+          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground pb-2">
             Let&apos;s build something
           </h2>
         </Reveal>
@@ -43,7 +40,7 @@ export function Contact() {
         <Reveal delay={0.2}>
           <div className="mt-10 flex flex-col items-center gap-4">
             <div className="flex flex-wrap items-center justify-center gap-3">
-              <Button size="lg" className="glow-md text-base px-8 h-12 rounded-full" nativeButton={false} render={<a href={`mailto:${site.email}`} />}>
+              <Button size="lg" className="text-base px-8 h-12 rounded-full" nativeButton={false} render={<a href={`mailto:${site.email}`} />}>
                 <Mail className="size-5" />
                 Email me
               </Button>

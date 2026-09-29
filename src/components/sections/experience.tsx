@@ -4,7 +4,6 @@ import { useRef, type ReactNode } from "react"
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion"
 import { Briefcase, GraduationCap, MapPin } from "lucide-react"
 import { Reveal, useScrollReveal } from "@/components/motion/reveal"
-import { TiltCard } from "@/components/motion/tilt-card"
 import { experience, education } from "@/data/experience"
 
 export function Experience() {
@@ -21,7 +20,7 @@ export function Experience() {
   return (
     <section id="experience" ref={sectionRef} className="mx-auto max-w-5xl px-4 py-20 sm:px-6 relative">
       <Reveal>
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-gradient inline-block pb-2">
+        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-foreground inline-block pb-2">
           Experience
         </h2>
         <p className="mt-2 text-muted-foreground">Where I&apos;ve worked & studied</p>
@@ -50,7 +49,7 @@ export function Experience() {
               <div key={job.org + job.role} className="relative flex flex-col sm:flex-row sm:justify-between items-start sm:items-center w-full">
                 {/* Timeline Dot */}
                 <TimelineDot
-                  className="absolute left-4 sm:left-1/2 h-8 w-8 -translate-x-[15px] sm:-translate-x-1/2 rounded-full bg-background border-2 border-primary flex items-center justify-center z-10 pulse-ring shadow-[0_0_10px_var(--glow-primary)]"
+                  className="absolute left-4 sm:left-1/2 h-8 w-8 -translate-x-[15px] sm:-translate-x-1/2 rounded-full bg-background border-2 border-primary flex items-center justify-center z-10"
                 >
                   <Briefcase className="size-4 text-primary" />
                 </TimelineDot>
@@ -58,7 +57,7 @@ export function Experience() {
                 {/* Card */}
                 <div className={`w-full pl-12 sm:pl-0 sm:w-[calc(50%-2rem)] ${isEven ? 'sm:text-right sm:pr-8' : 'sm:ml-auto sm:pl-8'}`}>
                   <Reveal delay={0.1}>
-                    <TiltCard maxTilt={3} glare={false}>
+                    <div className="relative">
                       <div className="glass-card rounded-xl p-5 hover:-translate-y-0.5 hover:glow-sm transition-all duration-300 text-left">
                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
                           <h3 className="font-semibold text-lg text-foreground">{job.role}</h3>
@@ -84,7 +83,7 @@ export function Experience() {
                           ))}
                         </ul>
                       </div>
-                    </TiltCard>
+                    </div>
                   </Reveal>
                 </div>
               </div>
@@ -95,7 +94,7 @@ export function Experience() {
           <div className="relative flex flex-col sm:flex-row sm:justify-between items-start sm:items-center w-full">
             {/* Timeline Dot */}
             <TimelineDot
-              className="absolute left-4 sm:left-1/2 h-8 w-8 -translate-x-[15px] sm:-translate-x-1/2 rounded-full bg-background border-2 border-aurora-2 flex items-center justify-center z-10 shadow-[0_0_10px_var(--aurora-2)]"
+              className="absolute left-4 sm:left-1/2 h-8 w-8 -translate-x-[15px] sm:-translate-x-1/2 rounded-full bg-background border-2 border-aurora-2 flex items-center justify-center z-10"
             >
               <GraduationCap className="size-4 text-aurora-2" />
             </TimelineDot>
@@ -103,7 +102,7 @@ export function Experience() {
             {/* Card */}
             <div className={`w-full pl-12 sm:pl-0 sm:w-[calc(50%-2rem)] ${experience.length % 2 === 0 ? 'sm:text-right sm:pr-8' : 'sm:ml-auto sm:pl-8'}`}>
               <Reveal delay={0.1}>
-                <TiltCard maxTilt={3} glare={false}>
+                <div className="relative">
                   <div className="glass-card rounded-xl p-5 hover:-translate-y-0.5 hover:glow-sm transition-all duration-300 text-left border-aurora-2/20">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
                       <h3 className="font-semibold text-lg text-foreground">{education.degree}</h3>
@@ -124,7 +123,7 @@ export function Experience() {
                       {education.detail}
                     </p>
                   </div>
-                </TiltCard>
+                </div>
               </Reveal>
             </div>
           </div>

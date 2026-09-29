@@ -6,7 +6,6 @@ import { Reveal } from "@/components/motion/reveal"
 import { GitHubIcon, LinkedInIcon } from "@/components/icons"
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import { proof, site } from "@/data/site"
-import { AuroraBackground } from "@/components/motion/aurora-background"
 import { AnimeText } from "@/components/motion/anime-text"
 
 const staggerContainer = {
@@ -37,7 +36,7 @@ export function Hero() {
       id="top"
       className="relative mx-auto flex min-h-[90vh] w-full flex-col items-center justify-center px-4 py-24 sm:px-6 text-center overflow-hidden"
     >
-      <AuroraBackground className="opacity-80" />
+      <div aria-hidden className="hero-wash pointer-events-none absolute inset-0 -z-10" />
 
       <motion.div
         style={shouldReduceMotion ? undefined : { y, opacity, scale }}
@@ -51,7 +50,7 @@ export function Hero() {
 
         <div className="relative z-10 flex flex-col items-center gap-2">
           <motion.h1
-            className="text-5xl font-bold tracking-tighter sm:text-7xl md:text-8xl text-gradient pb-2 flex flex-wrap justify-center gap-[0.2em]"
+            className="text-5xl font-bold tracking-tighter sm:text-7xl md:text-8xl text-foreground pb-2 flex flex-wrap justify-center gap-[0.2em]"
             variants={{
               hidden: { opacity: 0 },
               visible: {
@@ -117,7 +116,7 @@ export function Hero() {
         animate="visible"
       >
         <motion.div variants={staggerItem} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Button size="lg" className="glow-md text-base px-8 h-12 rounded-full" nativeButton={false} render={<a href="#projects" />}>
+          <Button size="lg" className="text-base px-8 h-12 rounded-full" nativeButton={false} render={<a href="#projects" />}>
             View Projects
           </Button>
         </motion.div>

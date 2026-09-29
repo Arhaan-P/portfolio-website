@@ -267,7 +267,3 @@ export const projects: Project[] = [
 
 export const featuredProjects = projects.filter((p) => p.tier === "featured");
 export const standardProjects = projects.filter((p) => p.tier === "standard");
-
-export const allTags = Array.from(
-  new Set(projects.flatMap((p) => p.tags)),
-).sort();

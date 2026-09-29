@@ -58,7 +58,8 @@ export function Nav() {
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const id = `#${entry.target.id}`
+          // A section without its own nav link can borrow one via data-nav.
+          const id = (entry.target as HTMLElement).dataset.nav ?? `#${entry.target.id}`
           // Only update if this is a section we track in our nav
           if (navLinks.some((link) => link.href === id) || id === "#top") {
             setActiveLink(id)

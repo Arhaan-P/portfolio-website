@@ -26,6 +26,8 @@ export function ProjectImage({
   const count = images.length;
   const ref = React.useRef<HTMLDivElement>(null);
   const covered = useScrollReveal(ref) === "hidden";
+  const label = (i: number) =>
+    aspect === "wide" ? `${alt} architecture diagram` : `${alt}, screenshot ${i + 1}`;
 
   const prev = React.useCallback(
     () => setActive((i) => (i - 1 + count) % count),
@@ -107,9 +109,9 @@ export function ProjectImage({
             >
               <Image
                 src={src}
-                alt={`${alt}, screenshot ${i + 1}`}
+                alt={label(i)}
                 fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes={aspect === "wide" ? "(max-width: 1024px) 100vw, 960px" : "(max-width: 1024px) 100vw, 40vw"}
                 className="object-contain"
                 priority={i === 0}
               />
@@ -120,11 +122,15 @@ export function ProjectImage({
         {/* Click-to-zoom overlay */}
         <button
           type="button"
-          aria-label="Zoom image"
+          aria-label={`Zoom ${aspect === "wide" ? "diagram" : "image"}`}
           onClick={() => setLightboxOpen(true)}
-          className="absolute inset-0 z-10 flex cursor-zoom-in items-center justify-center bg-black/0 transition-colors hover:bg-black/20"
+          className="absolute inset-0 z-10 cursor-zoom-in bg-black/0 transition-colors hover:bg-black/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
         >
-          <ZoomIn className="size-8 text-white opacity-0 drop-shadow-lg transition-opacity group-hover:opacity-80" />
+          {/* Always visible so touch users (no hover) can find it too */}
+          <span className="absolute bottom-2 right-2 inline-flex items-center gap-1 rounded-md border border-border bg-background/85 px-2 py-1 text-xs font-medium text-foreground backdrop-blur-sm">
+            <ZoomIn aria-hidden className="size-3.5" />
+            Zoom
+          </span>
         </button>
 
         {/* Gradient overlay (photo captions only; flat diagrams don't need it) */}
@@ -188,6 +194,7 @@ export function ProjectImage({
         <div
           role="dialog"
           aria-modal="true"
+          aria-label={`${alt}, enlarged`}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm"
           onClick={() => setLightboxOpen(false)}
         >
@@ -221,7 +228,7 @@ export function ProjectImage({
               >
                 <Image
                   src={src}
-                  alt={`${alt}, screenshot ${i + 1}`}
+                  alt={label(i)}
                   fill
                   sizes="90vw"
                   className="object-contain"

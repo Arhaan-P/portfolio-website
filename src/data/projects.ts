@@ -3,6 +3,13 @@ export type ProjectLink = {
   href: string;
 };
 
+/** A metric from `metrics` split into a mono value and its label; `from` is that metric's index. */
+export type Readout = {
+  value: string;
+  label: string;
+  from: number;
+};
+
 export type Project = {
   slug: string;
   name: string;
@@ -15,6 +22,8 @@ export type Project = {
   approach: string[];
   stack: string[];
   metrics: string[];
+  /** 2–3 of the metrics above, shown as readouts at the top of a featured card. */
+  readouts?: Readout[];
   links: ProjectLink[];
   tags: string[];
   images?: string[];
@@ -59,6 +68,11 @@ export const projects: Project[] = [
       "Android + desktop gateway interoperability via a shared Python core",
       "Offline-first failsafe engine independent of cloud connectivity",
     ],
+    readouts: [
+      { value: "4-component", label: "distributed architecture (gateway, backend, frontend, SITL suite)", from: 0 },
+      { value: "Two-tier", label: "telemetry model with automatic bandwidth-aware allocation", from: 1 },
+      { value: "Android + desktop", label: "gateway interoperability via a shared Python core", from: 2 },
+    ],
     links: [
       {
         label: "Landing Page Repo",
@@ -102,6 +116,11 @@ export const projects: Project[] = [
       "16+ unified campus workflows",
       "24 serverless Supabase Edge Functions",
     ],
+    readouts: [
+      { value: "1,000+", label: "users in the first hour", from: 1 },
+      { value: "24", label: "serverless Supabase Edge Functions", from: 3 },
+      { value: "16+", label: "unified campus workflows", from: 2 },
+    ],
     links: [{ label: "Live Demo", href: "https://vhelp-demo.pages.dev/" }],
     demoUrl: "https://vhelp-demo.pages.dev/",
     tags: ["Flutter", "Supabase", "Firebase", "Full-Stack"],
@@ -129,6 +148,10 @@ export const projects: Project[] = [
     metrics: [
       "Server-side blockchain writes via 17 Supabase Edge Functions",
       "3 Solidity contracts on Polygon Amoy: pet registry, crowdfund ledger, and medical-hash registry",
+    ],
+    readouts: [
+      { value: "17", label: "Supabase Edge Functions for server-side blockchain writes", from: 0 },
+      { value: "3", label: "Solidity contracts on Polygon Amoy: pet registry, crowdfund ledger, medical-hash registry", from: 1 },
     ],
     links: [{ label: "Live Demo", href: "https://pawguard-demo.pages.dev/" }],
     demoUrl: "https://pawguard-demo.pages.dev/",
@@ -161,6 +184,11 @@ export const projects: Project[] = [
       "93.0% strict_pass@3 (±2.5 SE) over 105 challenges × 3 seeds",
       "1,084 contamination-free bugs via deterministic AST mutation",
       "Caught 5 of 298 passing runs that left the bug intact, invisible to pass@k alone",
+    ],
+    readouts: [
+      { value: "93.0%", label: "strict_pass@3 (±2.5 SE) over 105 challenges × 3 seeds", from: 0 },
+      { value: "1,084", label: "contamination-free bugs via deterministic AST mutation", from: 1 },
+      { value: "5 of 298", label: "passing runs caught that left the bug intact, invisible to pass@k alone", from: 2 },
     ],
     links: [],
     tags: ["AI", "LLM", "Research"],
@@ -233,6 +261,11 @@ export const projects: Project[] = [
       "12.77% pooled Equal Error Rate",
       "3/3 real FaceFusion face-swap clips correctly rejected in end-to-end validation",
       "1,056 augmented training videos generated from 66 original recordings",
+    ],
+    readouts: [
+      { value: "95.10% ± 3.08%", label: "AUC-ROC, per-fold mean (94.95% pooled), 13-fold subject-disjoint LOOCV", from: 0 },
+      { value: "87.01%", label: "pooled accuracy (87.04% ± 3.65% per-fold)", from: 1 },
+      { value: "3/3", label: "real FaceFusion face-swap clips correctly rejected in end-to-end validation", from: 3 },
     ],
     links: [
       {

@@ -32,10 +32,17 @@ export function ProjectDemo({ src, title }: { src: string; title: string }) {
   }, []);
 
   return (
-    <div className="mx-auto flex w-full max-w-75 flex-col items-center gap-3 sm:max-w-85">
+    <div
+      className={`mx-auto flex w-full flex-col items-center gap-3 ${
+        status === "idle" ? "" : "max-w-75 sm:max-w-85"
+      }`}
+    >
+      {/* Compact labelled tile until launched, then the phone-shaped frame the build needs */}
       <div
         ref={boxRef}
-        className="relative aspect-1/2 w-full overflow-hidden rounded-2xl border border-border bg-secondary/40"
+        className={`relative w-full overflow-hidden rounded-2xl border border-border bg-secondary/40 ${
+          status === "idle" ? "aspect-4/3" : "aspect-1/2"
+        }`}
       >
         {status !== "idle" && (
           <iframe
@@ -57,13 +64,19 @@ export function ProjectDemo({ src, title }: { src: string; title: string }) {
             type="button"
             disabled={status === "loading"}
             onClick={() => setStatus("loading")}
-            className="group absolute inset-0 flex flex-col items-center justify-center gap-4 bg-linear-to-br from-aurora-1/20 to-aurora-2/20 px-6 text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset disabled:cursor-wait"
+            className="group absolute inset-0 flex flex-col items-center justify-center gap-3 bg-linear-to-br from-aurora-1/20 to-aurora-2/20 px-6 text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset disabled:cursor-wait"
           >
-            <span className="flex size-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-transform motion-safe:group-hover:scale-105">
+            <span className="text-xs font-medium text-muted-foreground">
+              Live demo · Flutter web build
+            </span>
+            <span className="text-xl font-bold tracking-tight text-foreground">
+              {title}
+            </span>
+            <span className="mt-1 flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-transform motion-safe:group-hover:scale-105">
               {status === "loading" ? (
-                <Loader2 className="size-7 motion-safe:animate-spin" />
+                <Loader2 className="size-6 motion-safe:animate-spin" />
               ) : (
-                <Play className="size-7 translate-x-0.5" />
+                <Play className="size-6 translate-x-0.5" />
               )}
             </span>
             <span className="text-base font-semibold text-foreground">

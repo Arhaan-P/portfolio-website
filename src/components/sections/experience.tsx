@@ -33,7 +33,7 @@ export function Experience() {
         {/* Animated Glowing Line */}
         {!shouldReduceMotion && (
           <motion.div 
-            className="absolute left-4 top-0 bottom-0 w-[2px] origin-top bg-gradient-to-b from-primary via-aurora-2 to-transparent sm:left-1/2 sm:-translate-x-1/2 shadow-[0_0_8px_var(--glow-primary)]"
+            className="absolute left-4 top-0 bottom-0 w-[2px] origin-top bg-gradient-to-b from-primary via-aurora-2 to-transparent sm:left-1/2 sm:-translate-x-1/2"
             style={{ scaleY }}
           />
         )}

@@ -2,152 +2,198 @@
 
 import { Reveal } from "@/components/motion/reveal";
 import { Badge } from "@/components/ui/badge";
-import { featuredProjects } from "@/data/projects";
-import { ExternalLink } from "lucide-react";
+import { featuredProjects, type Project } from "@/data/projects";
+import { ChevronRight, ExternalLink } from "lucide-react";
 import { ProjectDemo } from "./project-demo";
 import { ProjectImage } from "./project-image";
 
+const readoutCols: Record<number, string> = {
+  2: "grid-cols-2",
+  3: "grid-cols-2 sm:grid-cols-3",
+};
+
+function CardHeader({ project }: { project: Project }) {
+  return (
+    <>
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+        <span className="text-sm font-medium text-accent-foreground bg-accent px-3 py-1 rounded-full">
+          {project.period}
+        </span>
+        {project.role && (
+          <span className="text-sm text-muted-foreground font-medium">
+            {project.role}
+          </span>
+        )}
+      </div>
+
+      <h3 className="mt-4 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+        {project.name}
+      </h3>
+
+      {project.readouts && project.readouts.length > 0 && (
+        <dl
+          className={`mt-5 grid gap-x-6 gap-y-4 border-t border-border pt-5 ${
+            readoutCols[project.readouts.length] ?? "grid-cols-2 sm:grid-cols-3"
+          }`}
+        >
+          {project.readouts.map((r) => (
+            <div key={r.from} className="flex flex-col gap-1">
+              <dt className="order-2 text-xs leading-snug text-muted-foreground">
+                {r.label}
+              </dt>
+              <dd className="order-1 font-mono text-base font-semibold tabular-nums text-foreground">
+                {r.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      )}
+
+      <p className="mt-5 text-base font-medium text-foreground/90 sm:text-lg">
+        {project.oneLiner}
+      </p>
+    </>
+  );
+}
+
+function CardFooter({ project }: { project: Project }) {
+  const shown = new Set(project.readouts?.map((r) => r.from));
+  const moreMetrics = project.metrics.filter((_, i) => !shown.has(i));
+  const hasDetails =
+    !!project.problem || project.approach.length > 0 || moreMetrics.length > 0;
+
+  return (
+    <>
+      <div className="mt-5 flex flex-wrap gap-2">
+        {project.stack.map((tech) => (
+          <Badge
+            key={tech}
+            variant="outline"
+            className="bg-background/50 hover:glow-sm transition-all hover:bg-white/5 border-white/10"
+          >
+            {tech}
+          </Badge>
+        ))}
+      </div>
+
+      {hasDetails && (
+        <details className="group/details mt-5 border-t border-border pt-4">
+          <summary className="flex w-fit cursor-pointer list-none items-center gap-1.5 rounded-sm text-sm font-medium text-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-details-marker]:hidden">
+            <ChevronRight
+              aria-hidden
+              className="size-4 transition-transform motion-reduce:transition-none group-open/details:rotate-90"
+            />
+            How it&apos;s built
+          </summary>
+
+          <div className="mt-4 space-y-4 text-sm leading-relaxed text-muted-foreground">
+            {project.problem && (
+              <p>
+                <strong className="text-foreground/80">Problem:</strong>{" "}
+                {project.problem}
+              </p>
+            )}
+            {project.approach.length > 0 && (
+              <ul className="space-y-1.5">
+                {project.approach.slice(0, 4).map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <span aria-hidden className="text-primary mt-0.5 shrink-0">
+                      ▹
+                    </span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {moreMetrics.length > 0 && (
+              <ul className="space-y-1.5 border-t border-border pt-4">
+                {moreMetrics.map((metric) => (
+                  <li key={metric} className="font-medium text-foreground/90">
+                    {metric}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </details>
+      )}
+
+      {project.links.length > 0 && (
+        <div className="mt-5 flex flex-wrap gap-4">
+          {project.links.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-aurora-1 transition-colors group"
+            >
+              {link.label}
+              <ExternalLink className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
+          ))}
+        </div>
+      )}
+    </>
+  );
+}
+
+function CardMedia({ project }: { project: Project }) {
+  if (project.demoUrl) {
+    return <ProjectDemo src={project.demoUrl} title={project.name} />;
+  }
+  if (project.images && project.images.length > 0) {
+    return (
+      <ProjectImage
+        images={project.images}
+        alt={project.name}
+        aspect={project.imageAspect}
+      />
+    );
+  }
+  return null;
+}
+
 export function FeaturedProjects() {
   return (
-    <div className="flex flex-col gap-16 md:gap-24">
+    <div className="flex flex-col gap-12 md:gap-16">
       {featuredProjects.map((project, index) => {
         const isEven = index % 2 === 0;
+        // Architecture diagrams span the full card so their labels stay readable.
+        const wide = project.imageAspect === "wide";
 
         return (
           <Reveal key={project.slug} delay={0.1}>
             <div className="gradient-border rounded-2xl">
-              <div className="relative">
-                <div className="glass-card flex flex-col overflow-hidden rounded-2xl lg:flex-row bg-background/50">
-                  {/* Image/Placeholder Side */}
-                  <div
-                    className={`relative w-full lg:w-1/2 p-6 lg:p-8 ${
-                      isEven ? "lg:order-1" : "lg:order-2"
-                    } flex items-center justify-center`}
-                  >
-                    {project.demoUrl ? (
-                      <ProjectDemo src={project.demoUrl} title={project.name} />
-                    ) : project.images && project.images.length > 0 ? (
-                      <div className="w-full relative group">
-                        <ProjectImage
-                          images={project.images}
-                          alt={project.name}
-                          aspect={project.imageAspect}
-                        />
-                      </div>
-                    ) : (
-                      <div className="w-full aspect-4/3 sm:aspect-16/10 m-4 lg:m-8 rounded-lg flex items-center justify-center bg-linear-to-br from-aurora-1/20 to-aurora-2/20 relative overflow-hidden">
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-size-[24px_24px] opacity-50" />
-                        <span className="text-6xl font-bold text-white/20 tracking-tighter mix-blend-overlay">
-                          {project.name
-                            .split(" ")
-                            .map((w) => w[0])
-                            .join("")
-                            .substring(0, 2)
-                            .toUpperCase()}
-                        </span>
-                      </div>
-                    )}
+              <article className="glass-card overflow-hidden rounded-2xl bg-background/50 p-6 sm:p-8">
+                {wide ? (
+                  <>
+                    <CardHeader project={project} />
+                    <div className="mt-6">
+                      <CardMedia project={project} />
+                    </div>
+                    <CardFooter project={project} />
+                  </>
+                ) : (
+                  <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
+                    <div
+                      className={`w-full lg:w-5/12 ${
+                        isEven ? "lg:order-1" : "lg:order-2"
+                      }`}
+                    >
+                      <CardMedia project={project} />
+                    </div>
+                    <div
+                      className={`w-full lg:w-7/12 ${
+                        isEven ? "lg:order-2" : "lg:order-1"
+                      }`}
+                    >
+                      <CardHeader project={project} />
+                      <CardFooter project={project} />
+                    </div>
                   </div>
-
-                  {/* Content Side */}
-                  <div
-                    className={`flex w-full flex-col justify-center p-6 sm:p-8 lg:w-1/2 lg:p-10 ${
-                      isEven ? "lg:order-2" : "lg:order-1"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between gap-4">
-                      <span className="text-sm font-medium text-accent-foreground bg-accent px-3 py-1 rounded-full">
-                        {project.period}
-                      </span>
-                      {project.role && (
-                        <span className="text-sm text-muted-foreground font-medium">
-                          {project.role}
-                        </span>
-                      )}
-                    </div>
-
-                    <h3 className="mt-4 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-                      {project.name}
-                    </h3>
-
-                    <p className="mt-3 text-lg font-medium text-foreground/90">
-                      {project.oneLiner}
-                    </p>
-
-                    <div className="mt-4 space-y-3 text-sm text-muted-foreground leading-relaxed">
-                      {project.problem && (
-                        <p>
-                          <strong className="text-foreground/80">
-                            Problem:
-                          </strong>{" "}
-                          {project.problem}
-                        </p>
-                      )}
-                      {project.approach && project.approach.length > 0 && (
-                        <div className="space-y-1">
-                          <strong className="text-foreground/80">
-                            Approach:
-                          </strong>
-                          <ul className="list-inside space-y-1 pl-2">
-                            {project.approach.slice(0, 4).map((item, i) => (
-                              <li key={i} className="flex gap-2">
-                                <span className="text-primary mt-1 shrink-0">
-                                  ▹
-                                </span>
-                                <span>{item}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-                    </div>
-
-                    {project.metrics && project.metrics.length > 0 && (
-                      <div className="mt-6 border-l-2 border-primary pl-4 py-1">
-                        <ul className="space-y-1.5">
-                          {project.metrics.map((metric, i) => (
-                            <li
-                              key={i}
-                              className="text-sm font-medium text-foreground/90"
-                            >
-                              {metric}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    <div className="mt-6 flex flex-wrap gap-2">
-                      {project.stack.map((tech) => (
-                        <Badge
-                          key={tech}
-                          variant="outline"
-                          className="bg-background/50 hover:glow-sm transition-all hover:bg-white/5 border-white/10"
-                        >
-                          {tech}
-                        </Badge>
-                      ))}
-                    </div>
-
-                    {project.links && project.links.length > 0 && (
-                      <div className="mt-8 flex flex-wrap gap-4">
-                        {project.links.map((link) => (
-                          <a
-                            key={link.href}
-                            href={link.href}
-                            target="_blank"
-                            rel="noreferrer noopener"
-                            className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-aurora-1 transition-colors group"
-                          >
-                            {link.label}
-                            <ExternalLink className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                          </a>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
+                )}
+              </article>
             </div>
           </Reveal>
         );

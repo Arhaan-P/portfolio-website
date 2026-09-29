@@ -69,7 +69,7 @@ function CardFooter({ project }: { project: Project }) {
           <Badge
             key={tech}
             variant="outline"
-            className="bg-background/50 hover:glow-sm transition-all hover:bg-white/5 border-white/10"
+            className="bg-background/50 hover:glow-sm transition-all hover:bg-muted border-input"
           >
             {tech}
           </Badge>

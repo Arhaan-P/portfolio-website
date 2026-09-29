@@ -78,6 +78,21 @@
           "oklch(0.92 0.01 270)",
           "oklch(0.95 0.01 270)"
         ]
+      },
+      "control-border-light-mode": {
+        "role": "neutral",
+        "displayName": "Control Edge (light)",
+        "canonical": "oklch(0.64 0.02 270)",
+        "tonalRamp": [
+          "oklch(0.2 0.02 270)",
+          "oklch(0.32 0.02 270)",
+          "oklch(0.44 0.02 270)",
+          "oklch(0.54 0.02 270)",
+          "oklch(0.64 0.02 270)",
+          "oklch(0.76 0.02 270)",
+          "oklch(0.88 0.015 270)",
+          "oklch(0.95 0.01 270)"
+        ]
       }
     },
     "typographyMeta": {
@@ -197,7 +212,7 @@
       },
       {
         "name": "The Token-Only Rule",
-        "body": "No hex or rgb in components. The .glow-bg radial in globals.css is a legacy exception, not precedent.",
+        "body": "No hex, rgb, or Tailwind palette colours (slate, blue, emerald…) in components; tints come from color-mix on a token. The one exception is white and black on the lightbox and carousel controls, which always sit on a dark overlay in both themes. Skill icons are monochrome text-foreground so they read in both themes.",
         "section": "colors"
       },
       {

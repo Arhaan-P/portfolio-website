@@ -9,7 +9,7 @@ export function Footer() {
 
   return (
     <>
-      <footer className="relative w-full bg-background/50 backdrop-blur-md border-t border-white/5 pt-8">
+      <footer className="relative w-full bg-background/50 backdrop-blur-md border-t border-border pt-8">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
           {/* Gradient divider line */}
           <div

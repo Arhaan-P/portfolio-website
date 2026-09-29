@@ -42,7 +42,7 @@ export function ProjectGrid() {
                         )}
                       </div>
                       {project.badge && (
-                        <Badge variant="default" className="mt-1 w-fit bg-aurora-2/20 text-aurora-2 hover:bg-aurora-2/30">
+                        <Badge variant="default" className="mt-1 w-fit bg-aurora-2/20 text-foreground hover:bg-aurora-2/30">
                           {project.badge}
                         </Badge>
                       )}
@@ -70,7 +70,7 @@ export function ProjectGrid() {
 
                       <div className="mt-auto pt-4 flex flex-wrap gap-1.5">
                         {project.stack.map((tech) => (
-                          <Badge key={tech} variant="outline" className="text-xs bg-background/50 border-white/10 hover:glow-sm hover:border-white/20 transition-colors">
+                          <Badge key={tech} variant="outline" className="text-xs bg-background/50 border-input hover:glow-sm hover:border-foreground/30 transition-colors">
                             {tech}
                           </Badge>
                         ))}
@@ -78,7 +78,7 @@ export function ProjectGrid() {
                     </CardContent>
 
                     {project.links && project.links.length > 0 && (
-                      <CardFooter className="flex flex-wrap gap-4 bg-transparent pt-4 pb-6 border-t border-white/5">
+                      <CardFooter className="flex flex-wrap gap-4 bg-transparent pt-4 pb-6 border-t border-border">
                         {project.links.map((link) => (
                           <a
                             key={link.href}

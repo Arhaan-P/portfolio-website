@@ -26,7 +26,7 @@ export function Skills() {
           {skillGroups.map((group, index) => (
             <div key={group.label}>
               <Reveal delay={0.1 * index} className="h-full">
-                <div className="h-full bg-card border border-border rounded-2xl p-6 hover:border-blue-500/30 transition-all duration-300 group shadow-lg shadow-black/20">
+                <div className="h-full bg-card border border-border rounded-2xl p-6 hover:border-primary/30 transition-all duration-300 group shadow-lg shadow-black/20">
                   <div className="flex items-center gap-3 mb-6 border-b border-border/50 pb-4">
                     <div className={`p-2 rounded-lg transition-colors ${group.iconBgClass} ${group.iconColorClass}`}>
                       {group.icon}

@@ -28,7 +28,7 @@ export function Experience() {
 
       <div className="mt-12 relative">
         {/* Static Background Line */}
-        <div className="absolute left-4 top-0 bottom-0 w-[2px] bg-white/5 sm:left-1/2 sm:-translate-x-1/2" />
+        <div className="absolute left-4 top-0 bottom-0 w-[2px] bg-border sm:left-1/2 sm:-translate-x-1/2" />
         
         {/* Animated Glowing Line */}
         {!shouldReduceMotion && (
@@ -96,7 +96,7 @@ export function Experience() {
             <TimelineDot
               className="absolute left-4 sm:left-1/2 h-8 w-8 -translate-x-[15px] sm:-translate-x-1/2 rounded-full bg-background border-2 border-aurora-2 flex items-center justify-center z-10"
             >
-              <GraduationCap className="size-4 text-aurora-2" />
+              <GraduationCap className="size-4 text-foreground" />
             </TimelineDot>
 
             {/* Card */}
@@ -106,7 +106,7 @@ export function Experience() {
                   <div className="glass-card rounded-xl p-5 hover:-translate-y-0.5 hover:glow-sm transition-all duration-300 text-left border-aurora-2/20">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
                       <h3 className="font-semibold text-lg text-foreground">{education.degree}</h3>
-                      <span className="text-sm font-medium text-aurora-2 bg-aurora-2/10 px-2 py-1 rounded-md shrink-0 w-fit">
+                      <span className="text-sm font-medium text-foreground bg-aurora-2/10 px-2 py-1 rounded-md shrink-0 w-fit">
                         {education.period}
                       </span>
                     </div>

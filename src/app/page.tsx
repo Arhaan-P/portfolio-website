@@ -11,7 +11,7 @@ import { Skills } from "@/components/sections/skills";
 export default function Home() {
   return (
     <>
-      <div className="relative z-10 bg-background shadow-[0_10px_50px_rgba(0,0,0,0.5)] pb-10">
+      <div className="relative z-10 bg-background shadow-[0_10px_50px_color-mix(in_oklch,var(--foreground)_40%,transparent)] pb-10">
         <Hero />
         <SectionDivider />
         <section

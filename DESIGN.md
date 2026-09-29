@@ -18,6 +18,7 @@ colors:
   foreground-light-mode: "oklch(0.145 0.015 270)"
   foreground-muted-light-mode: "oklch(0.5 0.02 270)"
   border-light-mode: "oklch(0.9 0.01 270)"
+  control-border-light-mode: "oklch(0.64 0.02 270)"
 typography:
   display:
     fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
@@ -124,7 +125,7 @@ A near-monochrome indigo-black palette with a single luminous blue-cyan signal; 
 - **Lab Signal Cyan** (`oklch(0.75 0.17 230)`): The one accent in dark mode. Used for the hero eyebrow, links, focus ring, primary buttons, and scrollbar hover. In light mode it becomes **Lab Signal Blue** (`oklch(0.55 0.18 255)`), and the text-on-primary flips accordingly.
 
 ### Secondary
-- **Aurora Violet** (`oklch(0.5 0.25 290)`): Quiet secondary tint on section dividers, the timeline line and education marker, project badges, and the animated hover border. Never a second interactive signal.
+- **Aurora Violet** (`oklch(0.5 0.25 290)`): Quiet secondary tint (fills, dividers, the timeline line, badge backgrounds, the animated hover border). Never used for text (it fails AA in both themes) and never a second interactive signal.
 
 ### Neutral
 - **Night Indigo** (`oklch(0.13 0.015 270)`): Page background in dark mode.
@@ -132,12 +133,13 @@ A near-monochrome indigo-black palette with a single luminous blue-cyan signal; 
 - **Raised Slate** (`oklch(0.2 0.025 270)`): Secondary and muted fills, and the elevated tier of chips.
 - **Moonlit Text** (`oklch(0.95 0.01 270)`): Primary text.
 - **Dim Signal Text** (`oklch(0.65 0.03 270)`): Supporting copy, tagline, metadata.
-- **Hairline** (`oklch(1 0 0 / 8%)`): Every border and divider in dark mode. Light mode uses `oklch(0.9 0.01 270)`.
+- **Hairline** (`oklch(1 0 0 / 8%)`): Every divider and card border in dark mode (`border-border`). Light mode uses `oklch(0.9 0.01 270)`.
+- **Control Edge** (`oklch(1 0 0 / 12%)` dark, `oklch(0.64 0.02 270)` light): The outline of controls that need an identifiable boundary (outline buttons, the Resume pill, stack badges, chips), via `border-input`. Light mode is darker than the hairline so it reaches 3:1 (about 3.2:1 on the page, 3.1:1 on cards).
 
 ### Named Rules
 **The One Signal Rule.** Cyan-blue is the only accent hue for interface meaning (interactive, current, focus). Violet is a tint on decoration only; if it ever marks something clickable or current, it is wrong.
 
-**The Token-Only Rule.** No hex or rgb in components. The `.glow-bg` radial in `globals.css` is a legacy exception, not precedent.
+**The Token-Only Rule.** No hex, rgb, or Tailwind palette colours (slate, blue, emerald…) in components; tints come from `color-mix` on a token. The one exception is white and black on the lightbox and carousel controls, which always sit on a dark overlay in both themes. Skill icons are monochrome `text-foreground` so they read in both themes.
 
 ## Typography
 

@@ -124,7 +124,7 @@ export function Hero() {
           <Button
             size="lg"
             variant="outline"
-            className="text-base px-8 h-12 rounded-full bg-background/50 backdrop-blur-md border-white/10 hover:bg-white/10"
+            className="text-base px-8 h-12 rounded-full bg-background/50 backdrop-blur-md border-input hover:bg-muted"
             nativeButton={false}
             render={<a href={site.resumeUrl} download />}
           >

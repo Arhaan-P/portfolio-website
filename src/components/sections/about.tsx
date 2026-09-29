@@ -79,7 +79,7 @@ export function About() {
                       Dataset published (IEEE DataPort)
                     </p>
                   </div>
-                  <div className="border-t border-white/5 pt-3">
+                  <div className="border-t border-border pt-3">
                     <p className="text-xs font-bold text-primary uppercase tracking-wider">
                       Research
                     </p>

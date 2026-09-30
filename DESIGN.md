@@ -1,6 +1,6 @@
 ---
 name: Arhaan Penwala Portfolio
-description: A dark-first single-page portfolio in cool indigo-black, with frosted glass panels and one luminous cyan-blue signal.
+description: A dark-first single-page portfolio in cool indigo-black, with translucent panels and one luminous cyan-blue signal.
 colors:
   primary: "oklch(0.75 0.17 230)"
   primary-on: "oklch(0.13 0.015 270)"
@@ -113,7 +113,7 @@ The tone is refined and restrained. Compact controls, hairline borders, and ligh
 **Key Characteristics:**
 - Dark-first, cool-tinted neutrals (hue 270); no pure black or white.
 - One accent hue family (blue-cyan, 230 dark / 255 light), with violet (290) as a quiet secondary tint (dividers, the timeline line, badges, the hover border).
-- Frosted glass surfaces, flat at rest, with glow and the animated border appearing only on hover or state. No text gradients, no tilt or glare, no counting animations.
+- Translucent glass-tint surfaces (no backdrop blur), flat at rest, with glow and the animated border appearing only on hover or state. No text gradients, no tilt or glare, no counting animations.
 - Geist for text, Geist Mono for small technical labels.
 - All color comes from OKLCH tokens in `globals.css`.
 
@@ -129,7 +129,7 @@ A near-monochrome indigo-black palette with a single luminous blue-cyan signal; 
 
 ### Neutral
 - **Night Indigo** (`oklch(0.13 0.015 270)`): Page background in dark mode.
-- **Glass Panel** (`oklch(0.17 0.02 270)`): Cards and popovers; rendered as translucent glass at 40% over the background.
+- **Glass Panel** (`oklch(0.17 0.02 270)`): Cards and popovers; a translucent tint at 40% over the background (no blur).
 - **Raised Slate** (`oklch(0.2 0.025 270)`): Secondary and muted fills, and the elevated tier of chips.
 - **Moonlit Text** (`oklch(0.95 0.01 270)`): Primary text.
 - **Dim Signal Text** (`oklch(0.65 0.03 270)`): Supporting copy, tagline, metadata.
@@ -173,7 +173,7 @@ Verify every change at 375px, 768px, and 1440px.
 
 ## Elevation & Depth
 
-Depth comes from translucent, blurred glass over the near-black page, not from drop shadows. Surfaces are flat at rest. Light enters only on interaction or state.
+Depth comes from translucent panels over the near-black page, not from drop shadows or blur. Surfaces are flat at rest. Light enters only on interaction or state.
 
 ### Shadow Vocabulary
 - **Glow small** (`box-shadow: 0 0 20px -5px var(--glow-primary)`): Hover glow under accent elements.
@@ -183,7 +183,7 @@ Depth comes from translucent, blurred glass over the near-black page, not from d
 ### Named Rules
 **The Flat-Until-Touched Rule.** Glow and the animated gradient border show up on hover, focus, or active state. At rest, a card is a flat pane of glass.
 
-**The Blur Must Compile Rule.** Glass is authored through Tailwind's `backdrop-blur` and `backdrop-saturate` utilities via `@apply`. A raw `backdrop-filter` declaration was silently dropped by the CSS pipeline, so do not rewrite it.
+**The One Blur Rule.** The sticky nav is the only element with `backdrop-filter`, because content scrolls under it. Cards, the footer, buttons and overlays are plain translucent surfaces from the glass tokens: blur is invisible on a flat background and costs a compositing layer each.
 
 ## Shapes
 
@@ -211,7 +211,7 @@ Softly rounded rectangles, all derived from one radius base (`--radius: 0.625rem
 - **Internal Padding:** About 24px.
 
 ### Navigation
-- Sticky top bar (translucent, blurred, hairline bottom border) with anchor links to About, Skills, Experience, Projects, and Contact. Mobile uses a slide-in sheet. The theme toggle is a binary light/dark switch. The mobile sheet does not apply dark styling (known open bug).
+- Sticky top bar (translucent, the one blurred surface, hairline bottom border) with anchor links to About, Skills, Experience, Projects, and Contact. Mobile uses a slide-in sheet. The theme toggle is a binary light/dark switch. The mobile sheet does not apply dark styling (known open bug).
 
 ### Hero name (signature)
 - The name is set in the display size in solid Moonlit Text. No gradient text anywhere. Words enter with a spring rise (skipped under reduced motion). Beneath sits a rotating role line in muted text. One still, low-opacity wash of the accent hue sits behind the hero; nothing drifts.
@@ -230,4 +230,4 @@ Softly rounded rectangles, all derived from one radius base (`--radius: 0.625rem
 - **Don't** hardcode hex, rgb, or Tailwind slate/gray utilities in components.
 - **Don't** hide content behind scroll-triggered reveals that leave blank space when they haven't fired.
 - **Don't** reintroduce Marquee, Typewriter, TextGenerate, or GridPattern without an explicit job for them.
-- **Don't** write a raw `backdrop-filter`; use the Tailwind `@apply` route.
+- **Don't** add `backdrop-filter` anywhere but the sticky nav.

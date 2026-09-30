@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef, type ReactNode } from "react"
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import { Briefcase, GraduationCap, MapPin } from "lucide-react"
 import { Reveal, useScrollReveal } from "@/components/motion/reveal"
 import { experience, education } from "@/data/experience"
@@ -123,7 +123,7 @@ function TimelineDot({ className, children }: { className: string; children: Rea
   const hidden = useScrollReveal(ref) === "hidden"
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       initial={false}
       animate={{ opacity: hidden ? 0 : 1 }}
@@ -131,6 +131,6 @@ function TimelineDot({ className, children }: { className: string; children: Rea
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   )
 }

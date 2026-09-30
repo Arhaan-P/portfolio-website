@@ -1,8 +1,15 @@
 "use client";
 
-import { motion, useInView, type Variants } from "framer-motion";
+import { m, useInView, type Variants } from "framer-motion";
 import * as React from "react";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
+
+// Above-the-fold intro items (`appear`) are already visible in the server HTML and only
+// rise into place, so the first paint shows readable text instead of waiting on hydration.
+const appearVariants: Variants = {
+  hidden: { y: 8, transition: { duration: 0 } },
+  visible: { y: 0 },
+};
 
 const variants: Variants = {
   hidden: { opacity: 0, y: 8, transition: { duration: 0 } },
@@ -85,12 +92,12 @@ export function Reveal({
   // Same element in every case (a type swap would remount the subtree); reduced
   // motion just makes the transition instant.
   return (
-    <motion.div
+    <m.div
       ref={appear ? undefined : ref}
       className={className}
       initial={appear ? "hidden" : false}
       animate={state === "hidden" ? "hidden" : "visible"}
-      variants={variants}
+      variants={appear ? appearVariants : variants}
       transition={
         shouldReduceMotion
           ? { duration: 0 }
@@ -98,7 +105,7 @@ export function Reveal({
       }
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -116,7 +123,7 @@ export function RevealGroup({
   const state = useScrollReveal(ref);
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={className}
       initial={false}
@@ -124,7 +131,7 @@ export function RevealGroup({
       transition={shouldReduceMotion ? { duration: 0 } : { staggerChildren: stagger }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -138,7 +145,7 @@ export function RevealItem({
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <motion.div
+    <m.div
       className={className}
       variants={variants}
       transition={
@@ -146,6 +153,6 @@ export function RevealItem({
       }
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

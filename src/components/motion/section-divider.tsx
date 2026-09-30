@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import { useReducedMotion } from "@/lib/use-reduced-motion"
 
 interface SectionDividerProps {
@@ -13,7 +13,7 @@ export function SectionDivider({ className = "" }: SectionDividerProps) {
   // One element in every case: reduced motion starts (and stays) at the final state.
   return (
     <div className={`mx-auto max-w-5xl px-4 sm:px-6 ${className}`}>
-      <motion.div
+      <m.div
         className="h-px"
         style={{
           background: "linear-gradient(90deg, transparent, var(--primary), var(--aurora-2), transparent)",

@@ -169,15 +169,11 @@
 
 /* ── Utility classes ─────────────────────────────────────────── */
 @layer utilities {
-  /* Glassmorphism card */
+  /* Translucent card surface from the glass tokens. No backdrop blur: the page
+     behind cards is a flat background, so it looks the same without the cost. */
   .glass-card {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
-    /* Written as raw backdrop-filter, the CSS pipeline silently dropped the
-       declaration from the compiled output (verified: absent from the built
-       stylesheet, while Tailwind's own backdrop-blur-* utilities survive it).
-       Routing through @apply uses Tailwind's utility machinery instead. */
-    @apply backdrop-blur-lg backdrop-saturate-[1.8];
   }
 
   /* Gradient border: fades in on hover, static (no rotation) */

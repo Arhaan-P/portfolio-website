@@ -189,9 +189,9 @@
       "name": "Glass Card",
       "kind": "card",
       "refersTo": "glass-card",
-      "description": "Frosted panel used for projects and experience; glow appears on hover.",
+      "description": "Translucent panel used for projects and experience; no blur, glow appears on hover.",
       "html": "<div class=\"ds-glass-card\"><h3>PolarisGCS</h3><p>Multi-drone ground control system.</p></div>",
-      "css": ".ds-glass-card { padding: 24px; border-radius: 10px; background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--card-foreground); backdrop-filter: blur(16px) saturate(1.8); transition: box-shadow .3s; } .ds-glass-card:hover { box-shadow: 0 0 40px -10px var(--glow-primary); } .ds-glass-card h3 { margin: 0 0 8px; font-size: 20px; font-weight: 600; } .ds-glass-card p { margin: 0; color: var(--muted-foreground); line-height: 1.6; }"
+      "css": ".ds-glass-card { padding: 24px; border-radius: 10px; background: var(--glass-bg); border: 1px solid var(--glass-border); color: var(--card-foreground); transition: box-shadow .3s; } .ds-glass-card:hover { box-shadow: 0 0 40px -10px var(--glow-primary); } .ds-glass-card h3 { margin: 0 0 8px; font-size: 20px; font-weight: 600; } .ds-glass-card p { margin: 0; color: var(--muted-foreground); line-height: 1.6; }"
     }
   ],
   "narrative": {
@@ -200,7 +200,7 @@
     "keyCharacteristics": [
       "Dark-first, cool-tinted neutrals (hue 270); no pure black or white.",
       "One accent hue family (blue-cyan), with violet as a quiet secondary tint on dividers, the timeline line, badges and the hover border.",
-      "Frosted glass surfaces, flat at rest, with glow and the animated border appearing only on hover or state. No text gradients, tilt, glare or counting animations.",
+      "Translucent glass-tint surfaces (no backdrop blur), flat at rest, with glow and the animated border appearing only on hover or state. No text gradients, tilt, glare or counting animations.",
       "Geist for text, Geist Mono for small technical labels.",
       "All color comes from OKLCH tokens in globals.css."
     ],
@@ -226,8 +226,8 @@
         "section": "elevation"
       },
       {
-        "name": "The Blur Must Compile Rule",
-        "body": "Glass is authored through Tailwind's backdrop-blur and backdrop-saturate utilities via @apply. A raw backdrop-filter declaration was silently dropped by the CSS pipeline, so do not rewrite it.",
+        "name": "The One Blur Rule",
+        "body": "The sticky nav is the only element with backdrop-filter, because content scrolls under it. Cards, the footer, buttons and overlays are plain translucent surfaces from the glass tokens.",
         "section": "elevation"
       },
       {
@@ -248,7 +248,7 @@
       "Don't hardcode hex, rgb, or Tailwind slate/gray utilities in components.",
       "Don't hide content behind scroll-triggered reveals that leave blank space when they haven't fired.",
       "Don't reintroduce Marquee, Typewriter, TextGenerate, or GridPattern without an explicit job for them.",
-      "Don't write a raw backdrop-filter; use the Tailwind @apply route."
+      "Don't add backdrop-filter anywhere but the sticky nav."
     ]
   }
 }

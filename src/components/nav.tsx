@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { Menu } from "lucide-react"
-import { motion, useScroll, useMotionValueEvent } from "framer-motion"
+import { m, useScroll, useMotionValueEvent } from "framer-motion"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -72,7 +72,7 @@ export function Nav() {
   }, [])
 
   return (
-    <motion.header
+    <m.header
       ref={headerRef}
       onFocusCapture={() => setHidden(false)}
       variants={{
@@ -104,18 +104,11 @@ export function Nav() {
               <a
                 key={link.href}
                   href={link.href}
-                  className={`relative px-4 py-2 text-sm font-medium transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring rounded-full ${
-                    isActive ? "text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+                  className={`relative px-4 py-2 text-sm font-medium transition-colors duration-150 ease-out outline-none focus-visible:ring-3 focus-visible:ring-ring rounded-full ${
+                    isActive ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
-                  {isActive && (
-                    <motion.div
-                      layoutId="active-pill"
-                      className="absolute inset-0 -z-10 rounded-full bg-primary"
-                      transition={{ duration: 0.2, ease: "easeOut" }}
-                    />
-                  )}
-                  <span className="relative z-10">{link.label}</span>
+                  {link.label}
                 </a>
             )
           })}
@@ -154,7 +147,7 @@ export function Nav() {
             </SheetTrigger>
             <SheetContent
               side="right"
-              className="glass-card border-l-border"
+              className="border-l-border"
               initialFocus={firstMenuLinkRef}
               instantClose={instantClose}
             >
@@ -197,7 +190,7 @@ export function Nav() {
           </Sheet>
         </div>
       </nav>
-    </motion.header>
+    </m.header>
   )
 }
 

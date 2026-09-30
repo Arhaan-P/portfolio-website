@@ -4,7 +4,7 @@ import { Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/motion/reveal"
 import { GitHubIcon, LinkedInIcon } from "@/components/icons"
-import { motion } from "framer-motion"
+import { m } from "framer-motion"
 import { proof, site } from "@/data/site"
 import { RoleRotator } from "@/components/motion/role-rotator"
 
@@ -40,12 +40,11 @@ export function Hero() {
         </Reveal>
 
         <div className="relative z-10 flex flex-col items-center gap-2">
-          <motion.h1
+          <m.h1
             className="text-5xl font-bold tracking-tighter sm:text-7xl md:text-8xl text-foreground pb-2 flex flex-wrap justify-center gap-[0.2em]"
             variants={{
-              hidden: { opacity: 0 },
+              hidden: {},
               visible: {
-                opacity: 1,
                 transition: { staggerChildren: 0.1, delayChildren: 0.2 }
               }
             }}
@@ -53,18 +52,18 @@ export function Hero() {
             animate="visible"
           >
             {site.name.split(" ").map((word, i) => (
-              <motion.span
+              <m.span
                 key={i}
                 variants={{
-                  hidden: { opacity: 0, y: 50, rotateX: -60 },
-                  visible: { opacity: 1, y: 0, rotateX: 0, transition: { type: "spring", stiffness: 200, damping: 15 } }
+                  hidden: { y: 50, rotateX: -60 },
+                  visible: { y: 0, rotateX: 0, transition: { type: "spring", stiffness: 200, damping: 15 } }
                 }}
                 style={{ display: "inline-block", transformOrigin: "bottom" }}
               >
                 {word}
-              </motion.span>
+              </m.span>
             ))}
-          </motion.h1>
+          </m.h1>
           <div className="text-2xl font-medium sm:text-3xl md:text-4xl text-muted-foreground min-h-[1.5em] flex items-center justify-center">
             <RoleRotator strings={site.roles} pause={3000} />
           </div>
@@ -97,37 +96,37 @@ export function Hero() {
         </dl>
       </Reveal>
 
-      <motion.div 
+      <m.div 
         className="flex flex-wrap items-center justify-center gap-4 pt-6 z-10"
         variants={staggerContainer}
         initial="hidden"
         animate="visible"
       >
-        <motion.div variants={staggerItem}>
+        <m.div variants={staggerItem}>
           <Button size="lg" className="text-base px-8 h-12 rounded-full" nativeButton={false} render={<a href="#projects" />}>
             View Projects
           </Button>
-        </motion.div>
-        <motion.div variants={staggerItem}>
+        </m.div>
+        <m.div variants={staggerItem}>
           <Button
             size="lg"
             variant="outline"
-            className="text-base px-8 h-12 rounded-full bg-background/50 backdrop-blur-md border-input hover:bg-muted"
+            className="text-base px-8 h-12 rounded-full bg-background/50 border-input hover:bg-muted"
             nativeButton={false}
             render={<a href={site.resumeUrl} download />}
           >
             Download Resume
           </Button>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
 
-      <motion.div 
+      <m.div 
         className="flex items-center gap-4 pt-8 z-10"
         variants={staggerContainer}
         initial="hidden"
         animate="visible"
       >
-        <motion.a
+        <m.a
           variants={staggerItem}
           href={site.github}
           target="_blank"
@@ -136,8 +135,8 @@ export function Hero() {
           aria-label="GitHub profile"
         >
           <GitHubIcon className="size-6" />
-        </motion.a>
-        <motion.a
+        </m.a>
+        <m.a
           variants={staggerItem}
           href={site.linkedin}
           target="_blank"
@@ -146,16 +145,16 @@ export function Hero() {
           aria-label="LinkedIn profile"
         >
           <LinkedInIcon className="size-6" />
-        </motion.a>
-        <motion.a
+        </m.a>
+        <m.a
           variants={staggerItem}
           href={`mailto:${site.email}`}
           className="text-muted-foreground hover:text-primary transition-colors p-2.5"
           aria-label="Send an email"
         >
           <Mail className="size-6" />
-        </motion.a>
-      </motion.div>
+        </m.a>
+      </m.div>
       </div>
     </section>
   )

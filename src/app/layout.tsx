@@ -4,7 +4,6 @@ import Script from "next/script"
 import "./globals.css"
 
 import { ThemeProvider } from "@/components/theme-provider"
-import { TooltipProvider } from "@/components/ui/tooltip"
 import { Nav } from "@/components/nav"
 import { site } from "@/data/site"
 import { MotionProvider } from "@/components/motion/motion-provider"
@@ -64,22 +63,20 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
-          <MotionProvider>
-            <ThemeProvider>
-              <TooltipProvider>
-                <a
-                  href="#main-content"
-                  className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-100 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
-                >
-                  Skip to content
-                </a>
-                <Nav />
-                <main id="main-content" className="flex-1">
-                  {children}
-                </main>
-              </TooltipProvider>
-            </ThemeProvider>
-          </MotionProvider>
+        <MotionProvider>
+          <ThemeProvider>
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-100 focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
+            >
+              Skip to content
+            </a>
+            <Nav />
+            <main id="main-content" className="flex-1">
+              {children}
+            </main>
+          </ThemeProvider>
+        </MotionProvider>
       </body>
     </html>
   )

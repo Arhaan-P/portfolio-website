@@ -110,7 +110,7 @@
       },
       "readout": {
         "displayName": "Readout",
-        "purpose": "Metric value on featured cards, Geist Mono 600 at 1.25rem."
+        "purpose": "Metric values: featured cards and the hero proof strip below lg, Geist Mono at 1.25rem."
       },
       "body-small": {
         "displayName": "Body-small",
@@ -123,6 +123,10 @@
       "lead": {
         "displayName": "Lead",
         "purpose": "Section subtitles, hero tagline and Contact line, 1.125rem."
+      },
+      "hero-readout": {
+        "displayName": "Hero readout",
+        "purpose": "Hero proof-strip values at lg and up, Geist Mono 700 at 1.5rem."
       }
     },
     "shadows": [

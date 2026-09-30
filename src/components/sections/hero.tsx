@@ -28,17 +28,11 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative mx-auto flex min-h-[90vh] w-full flex-col items-center justify-center px-4 py-24 sm:px-6 text-center overflow-hidden"
+      className="relative mx-auto flex w-full flex-col items-center justify-center px-4 py-10 sm:min-h-[90vh] sm:px-6 sm:py-24 text-center overflow-hidden"
     >
       <div aria-hidden className="hero-wash pointer-events-none absolute inset-0 -z-10" />
 
-      <div className="w-full flex flex-col items-center justify-center gap-6 z-10">
-        <Reveal delay={0.1} appear>
-          <p className="font-mono text-sm sm:text-base text-primary uppercase tracking-wider font-semibold">
-            Hi, I&apos;m
-          </p>
-        </Reveal>
-
+      <div className="w-full flex flex-col items-center justify-center gap-4 sm:gap-6 z-10">
         <div className="relative z-10 flex flex-col items-center gap-2">
           <m.h1
             className="text-5xl font-bold tracking-tighter sm:text-7xl md:text-8xl text-foreground pb-2 flex flex-wrap justify-center gap-[0.2em]"
@@ -82,15 +76,21 @@ export function Hero() {
         </p>
       </Reveal>
 
-      <Reveal delay={0.9} appear className="w-full max-w-3xl">
+      <Reveal delay={0.9} appear className="w-full max-w-3xl lg:max-w-4xl">
         <dl className="grid grid-cols-2 gap-x-6 gap-y-5 border-t border-border pt-6 sm:grid-cols-4">
           {proof.map((item) => (
             <div key={item.label} className="flex flex-col gap-1">
               <dt className="order-2 text-sm leading-snug text-muted-foreground">
                 {item.label}
               </dt>
-              <dd className="order-1 font-mono text-base font-semibold tabular-nums text-foreground">
+              <dd className="order-1 font-mono text-xl font-bold tabular-nums text-foreground lg:text-2xl">
                 {item.value}
+                {item.spread && " "}
+                {item.spread && (
+                  <span className="inline-block text-sm font-medium text-muted-foreground">
+                    {item.spread}
+                  </span>
+                )}
               </dd>
             </div>
           ))}

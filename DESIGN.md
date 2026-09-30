@@ -47,6 +47,11 @@ typography:
     fontSize: "1.125rem"
     fontWeight: 400
     lineHeight: 1.6
+  hero-readout:
+    fontFamily: "Geist Mono, ui-monospace, monospace"
+    fontSize: "1.5rem"
+    fontWeight: 700
+    lineHeight: 1.2
   body-small:
     fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
     fontSize: "0.875rem"
@@ -158,8 +163,9 @@ A near-monochrome indigo-black palette with a single luminous blue-cyan signal; 
 - **Headline** (700, 2.25rem, 1.15, tracking -0.025em): Every section heading, including Skills and Contact (`text-3xl sm:text-4xl`). One size, no exceptions.
 - **Title** (600, 1.25rem, 1.3): Role titles and card headings. Featured project names step up to 1.5rem→1.875rem so the name leads its card.
 - **Body** (400, 1rem, 1.625): Descriptions and the featured one-liner (weight 400, so it reads as prose under the readouts). Cap paragraphs near 65–75ch; the hero tagline is capped at `max-w-2xl`.
-- **Readout** (Geist Mono 600, 1.25rem, 1.2, tabular numerals): The value in a metric readout on featured cards. Highest-contrast small text; the hero strip uses the 1rem step.
+- **Readout** (Geist Mono 600, 1.25rem, 1.2, tabular numerals): The value in a metric readout on featured cards. Highest-contrast small text; the hero proof strip uses the same step (20px, bold) and goes to the Hero readout step at `lg` and up.
 - **Lead** (400, 1.125rem, 1.6): Section subtitles, the hero tagline, and the Contact line. The one step between Body and Title, used for a single supporting sentence under a heading.
+- **Hero readout** (Geist Mono 700, 1.5rem, 1.2, tabular numerals): The four proof values in the hero strip from `lg` (1024px) up, where the strip widens to `max-w-4xl` so "4-component" fits. Below `lg` they use Readout (20px). A value's spread (the "± 3.08%" after the AUC) is set in Body-small mono-muted beside it and wraps under it in narrow columns.
 - **Body-small** (400, 0.875rem, 1.5): Anything read as a sentence at reduced weight: readout captions, education line, bullets inside the disclosure, demo captions.
 - **Label** (Geist Mono 600, 0.875rem, tracking 0.05em, uppercase): Eyebrows like "Hi, I'm" and small metadata.
 - **Caption** (Geist Mono 500, 0.75rem): Chips and tags only (tech-stack badges, period tags, Research label). This is the floor: nothing on the page is smaller.

@@ -9,21 +9,12 @@ export function Footer() {
 
   return (
     <>
-      <footer className="relative w-full bg-background/50 border-t border-border pt-8">
+      <footer className="relative w-full bg-background/50 border-t border-border">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
-          {/* Gradient divider line */}
-          <div
-            className="w-full h-px opacity-50"
-            style={{
-              background:
-                "linear-gradient(90deg, transparent, var(--primary), var(--aurora-2), transparent)",
-            }}
-          />
-
           <div className="py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
             <div className="flex flex-col items-center sm:items-start gap-1">
               <p>
-                © {currentYear} {site.name}. All rights reserved.
+                © {currentYear} {site.name}
               </p>
             </div>
 

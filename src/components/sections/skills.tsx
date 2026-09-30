@@ -1,21 +1,15 @@
 "use client"
 
 import { Reveal } from "@/components/motion/reveal"
+import { SectionHeading } from "@/components/section-heading"
 import { skillGroups } from "@/data/skills"
 
 export function Skills() {
   return (
     <section id="skills" className="section-shell overflow-hidden">
-      <div className="glow-bg"></div>
-      
       <div className="relative z-10">
         <Reveal>
-          <div className="section-head">
-            <h2 className="section-title">Skills</h2>
-            <p className="section-sub">
-              Tools, languages, and technologies I use to build scalable and robust applications.
-            </p>
-          </div>
+          <SectionHeading href="#skills" title="Skills" />
         </Reveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

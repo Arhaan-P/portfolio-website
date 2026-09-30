@@ -3,6 +3,7 @@
 import { useRef, type ReactNode } from "react"
 import { m } from "framer-motion"
 import { Briefcase, GraduationCap, MapPin } from "lucide-react"
+import { SectionHeading } from "@/components/section-heading"
 import { Reveal, useScrollReveal } from "@/components/motion/reveal"
 import { experience, education } from "@/data/experience"
 
@@ -12,37 +13,30 @@ export function Experience() {
   return (
     <section id="experience" ref={sectionRef} className="section-shell">
       <Reveal>
-        <div className="section-head">
-          <h2 className="section-title">Experience</h2>
-          <p className="section-sub">Where I&apos;ve worked & studied</p>
-        </div>
+        <SectionHeading href="#experience" title="Experience" sub="Where I've worked & studied" />
       </Reveal>
 
       <div className="relative">
-        {/* Static Background Line */}
-        <div className="absolute left-4 top-0 bottom-0 w-[2px] bg-border sm:left-1/2 sm:-translate-x-1/2" />
-        
-        {/* Gradient line (static) */}
-        <div className="absolute left-4 top-0 bottom-0 w-[2px] bg-gradient-to-b from-primary via-aurora-2 to-transparent sm:left-1/2 sm:-translate-x-1/2" />
+        {/* One rail down the left at every width */}
+        <div className="absolute left-4 top-0 bottom-0 w-[2px] bg-border" />
 
         <div className="flex flex-col gap-12">
           {/* Work Experience */}
-          {experience.map((job, index) => {
-            const isEven = index % 2 === 0
+          {experience.map((job) => {
             return (
-              <div key={job.org + job.role} className="relative flex flex-col sm:flex-row sm:justify-between items-start sm:items-center w-full">
+              <div key={job.org + job.role} className="relative w-full">
                 {/* Timeline Dot */}
                 <TimelineDot
-                  className="absolute left-4 sm:left-1/2 h-8 w-8 -translate-x-[15px] sm:-translate-x-1/2 rounded-full bg-background border-2 border-primary flex items-center justify-center z-10"
+                  className="absolute left-4 top-5 h-8 w-8 -translate-x-[15px] rounded-full bg-background border-2 border-primary flex items-center justify-center z-10"
                 >
                   <Briefcase className="size-4 text-primary" />
                 </TimelineDot>
 
                 {/* Card */}
-                <div className={`w-full pl-12 sm:pl-0 sm:w-[calc(50%-2rem)] ${isEven ? 'sm:text-right sm:pr-8' : 'sm:ml-auto sm:pl-8'}`}>
+                <div className="w-full max-w-3xl pl-12">
                   <Reveal delay={0.1}>
                     <div className="relative">
-                      <div className="glass-card rounded-xl p-5 hover:-translate-y-0.5 transition-transform duration-200 ease-out text-left">
+                      <div className="glass-card rounded-xl p-5 hover:-translate-y-0.5 transition-transform duration-200 ease-out">
                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
                           <h3 className="font-semibold text-lg text-foreground">{job.role}</h3>
                           <span className="text-sm font-medium text-accent-foreground bg-accent px-2 py-1 rounded-md shrink-0 w-fit">
@@ -57,6 +51,17 @@ export function Experience() {
                             <span>{job.location}</span>
                           </div>
                         </div>
+
+                        {job.readouts && job.readouts.length > 0 && (
+                          <dl className="readout-grid mb-4 grid-cols-2">
+                            {job.readouts.map((r) => (
+                              <div key={r.value + r.label} className="readout">
+                                <dt className="readout-label">{r.label}</dt>
+                                <dd className="readout-value">{r.value}</dd>
+                              </div>
+                            ))}
+                          </dl>
+                        )}
 
                         <ul className="flex flex-col gap-2">
                           {job.bullets.map((bullet, i) => (
@@ -75,22 +80,22 @@ export function Experience() {
           })}
 
           {/* Education */}
-          <div className="relative flex flex-col sm:flex-row sm:justify-between items-start sm:items-center w-full">
+          <div className="relative w-full">
             {/* Timeline Dot */}
             <TimelineDot
-              className="absolute left-4 sm:left-1/2 h-8 w-8 -translate-x-[15px] sm:-translate-x-1/2 rounded-full bg-background border-2 border-aurora-2 flex items-center justify-center z-10"
+              className="absolute left-4 top-5 h-8 w-8 -translate-x-[15px] rounded-full bg-background border-2 border-primary flex items-center justify-center z-10"
             >
-              <GraduationCap className="size-4 text-foreground" />
+              <GraduationCap className="size-4 text-primary" />
             </TimelineDot>
 
             {/* Card */}
-            <div className={`w-full pl-12 sm:pl-0 sm:w-[calc(50%-2rem)] ${experience.length % 2 === 0 ? 'sm:text-right sm:pr-8' : 'sm:ml-auto sm:pl-8'}`}>
+            <div className="w-full max-w-3xl pl-12">
               <Reveal delay={0.1}>
                 <div className="relative">
-                  <div className="glass-card rounded-xl p-5 hover:-translate-y-0.5 transition-transform duration-200 ease-out text-left border-aurora-2/20">
+                  <div className="glass-card rounded-xl p-5 hover:-translate-y-0.5 transition-transform duration-200 ease-out">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
                       <h3 className="font-semibold text-lg text-foreground">{education.degree}</h3>
-                      <span className="text-sm font-medium text-foreground bg-aurora-2/10 px-2 py-1 rounded-md shrink-0 w-fit">
+                      <span className="text-sm font-medium text-accent-foreground bg-accent px-2 py-1 rounded-md shrink-0 w-fit">
                         {education.period}
                       </span>
                     </div>

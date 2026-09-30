@@ -5,6 +5,7 @@ import { Check, Copy, Download, Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/motion/reveal"
 import { GitHubIcon, LinkedInIcon } from "@/components/icons"
+import { SectionHeading } from "@/components/section-heading"
 import { site } from "@/data/site"
 
 export function Contact() {
@@ -23,16 +24,14 @@ export function Contact() {
   return (
     <section id="contact" className="relative mx-auto w-full py-32 overflow-hidden flex flex-col items-center justify-center min-h-[60vh]">
       <div className="relative z-10 flex flex-col items-center text-center px-4 sm:px-6 w-full max-w-5xl">
-        <Reveal>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-foreground pb-2">
-            Let&apos;s build something
-          </h2>
+        <Reveal className="w-full max-w-2xl">
+          <SectionHeading href="#contact" title="Contact" align="center" className="w-full" />
         </Reveal>
 
         <Reveal delay={0.1}>
           <p className="mt-4 text-lg text-muted-foreground font-medium max-w-xl mx-auto">
             Hiring for an SDE or AI-engineer role? Email is the fastest way to
-            reach me, and the resume has the full picture.
+            reach me.
           </p>
         </Reveal>
 
@@ -45,7 +44,7 @@ export function Contact() {
               </Button>
               <Button size="lg" variant="outline" className="text-base px-8 h-12 rounded-full" nativeButton={false} render={<a href={site.resumeUrl} download />}>
                 <Download className="size-5" />
-                Download resume
+                Resume
               </Button>
             </div>
 

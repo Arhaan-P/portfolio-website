@@ -1,97 +1,29 @@
 "use client";
 
 import { Reveal } from "@/components/motion/reveal";
-import { education } from "@/data/experience";
+import { SectionHeading } from "@/components/section-heading";
 import { site } from "@/data/site";
-import { GraduationCap, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 
 export function About() {
-  const cardHoverClass =
-    "hover:-translate-y-0.5 transition-transform duration-200 ease-out";
-
   return (
     <section id="about" className="section-shell">
       <Reveal>
-        <div className="section-head">
-          <h2 className="section-title">About Me</h2>
-        </div>
+        <SectionHeading href="#about" title="About" />
       </Reveal>
 
-      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        {/* Bio Card - Large */}
-        <div className="relative lg:col-span-2">
-          <div className={`glass-card rounded-xl p-6 h-full ${cardHoverClass}`}>
-            <Reveal delay={0.1}>
-              <div className="flex flex-col h-full justify-center space-y-4">
-                <h3 className="text-xl font-semibold">Who I am</h3>
-                <p className="text-base leading-relaxed text-muted-foreground">
-                  I build systems that hold up under real constraints: drone
-                  telemetry, a campus platform serving real students, an
-                  agent-eval benchmark rigorous enough to catch its own false
-                  positives. I care about failure modes as much as the happy path.
-                </p>
-                <p className="text-base leading-relaxed text-muted-foreground">
-                  Outside that, I&apos;m usually deep in a paper or an
-                  algorithmic problem for fun.
-                </p>
-                <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                  <MapPin className="size-4 text-primary" aria-hidden="true" />
-                  {site.location}
-                </p>
-              </div>
-            </Reveal>
+      <div className="glass-card max-w-3xl rounded-xl p-6">
+        <Reveal delay={0.1}>
+          <div className="space-y-4">
+            <p className="text-base leading-relaxed text-muted-foreground">
+              {site.bio}
+            </p>
+            <p className="flex items-center gap-1.5 text-sm text-muted-foreground">
+              <MapPin className="size-4 text-primary" aria-hidden="true" />
+              {site.location}
+            </p>
           </div>
-        </div>
-
-        {/* Education + stats stacked beside the bio */}
-        <div className="flex flex-col gap-4">
-          <div className="relative h-full">
-            <div className={`glass-card rounded-xl p-6 h-full ${cardHoverClass}`}>
-              <Reveal delay={0.2}>
-                <div className="flex flex-col h-full gap-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
-                    <GraduationCap className="size-5" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-lg">{education.degree}</p>
-                    <p className="text-sm font-medium text-muted-foreground mt-1">
-                      {education.school}
-                    </p>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      {education.detail}
-                    </p>
-                  </div>
-                </div>
-              </Reveal>
-            </div>
-          </div>
-
-          {/* Stats Card */}
-          <div className="relative h-full">
-            <div className={`glass-card rounded-xl p-6 h-full ${cardHoverClass}`}>
-              <Reveal delay={0.3}>
-                <div className="flex flex-col h-full justify-center gap-6">
-                  <div>
-                    <p className="text-2xl font-bold text-foreground">
-                      1
-                    </p>
-                    <p className="text-sm text-muted-foreground mt-1">
-                      Dataset published (IEEE DataPort)
-                    </p>
-                  </div>
-                  <div className="border-t border-border pt-3">
-                    <p className="text-xs font-bold text-primary uppercase tracking-wider">
-                      Research
-                    </p>
-                    <p className="text-sm text-muted-foreground mt-0.5">
-                      Journal Paper in Progress
-                    </p>
-                  </div>
-                </div>
-              </Reveal>
-            </div>
-          </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

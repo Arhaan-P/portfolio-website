@@ -1,6 +1,7 @@
 "use client";
 
 import { ExternalLink, Loader2, Play } from "lucide-react";
+import Image from "next/image";
 import * as React from "react";
 
 // The build lays its UI out for a phone-sized viewport and clips it in narrower
@@ -13,7 +14,18 @@ const LOGICAL_HEIGHT = 780;
  * The iframe mounts only on request: the build is a large download, and an
  * iframe captures wheel/touch scrolling that would otherwise scroll the page.
  */
-export function ProjectDemo({ src, title }: { src: string; title: string }) {
+export function ProjectDemo({
+  src,
+  title,
+  poster,
+  posterAlt,
+}: {
+  src: string;
+  title: string;
+  /** Still shown until launch, so the card has a picture before the build loads. */
+  poster?: string;
+  posterAlt?: string;
+}) {
   const [status, setStatus] = React.useState<"idle" | "loading" | "ready">(
     "idle",
   );
@@ -42,7 +54,9 @@ export function ProjectDemo({ src, title }: { src: string; title: string }) {
         ref={boxRef}
         className={`relative w-full overflow-hidden rounded-2xl border border-border bg-secondary/40 ${
           status === "idle"
-            ? "aspect-4/3"
+            ? poster
+              ? "aspect-5/3"
+              : "aspect-4/3"
             : "aspect-1/2 motion-safe:animate-in motion-safe:fade-in motion-safe:zoom-in-95 motion-safe:duration-200 motion-safe:ease-out"
         }`}
       >
@@ -61,18 +75,38 @@ export function ProjectDemo({ src, title }: { src: string; title: string }) {
             onLoad={() => setStatus("ready")}
           />
         )}
-        {status !== "ready" && (
+        {status === "idle" && poster && (
+          <>
+            <Image
+              src={poster}
+              alt={posterAlt ?? `${title} screens`}
+              fill
+              sizes="(max-width: 1024px) 100vw, 960px"
+              className="object-cover"
+            />
+            <button
+              type="button"
+              onClick={() => setStatus("loading")}
+              className="group absolute inset-0 flex flex-col items-center justify-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset"
+            >
+              <span className="flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-transform motion-safe:group-hover:scale-105">
+                <Play aria-hidden className="size-6 translate-x-0.5" />
+              </span>
+              <span className="rounded-full border border-border bg-background/90 px-3 py-1 text-sm font-semibold text-foreground">
+                Launch live demo
+              </span>
+            </button>
+          </>
+        )}
+        {status !== "ready" && !(status === "idle" && poster) && (
           <button
             type="button"
             disabled={status === "loading"}
             onClick={() => setStatus("loading")}
-            className="group absolute inset-0 flex flex-col items-center justify-center gap-3 bg-linear-to-br from-aurora-1/20 to-aurora-2/20 px-6 text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset disabled:cursor-wait"
+            className="group absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset disabled:cursor-wait"
           >
             <span className="text-sm font-medium text-muted-foreground">
               Live demo · Flutter web build
-            </span>
-            <span className="text-xl font-bold tracking-tight text-foreground">
-              {title}
             </span>
             <span className="mt-1 flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-transform motion-safe:group-hover:scale-105">
               {status === "loading" ? (

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="500" viewBox="0 0 1400 500" font-family="-apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#60a5fa" fill-opacity="0.85"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1400" height="500" fill="#0a0e14"/>
+
+  <!-- main path: drones -> gateway -> backend -> frontend -->
+  <line x1="280" y1="195" x2="364" y2="195" stroke="#60a5fa" stroke-width="2.5" stroke-opacity="0.6" marker-end="url(#arrow)"/>
+  <text x="325" y="180" text-anchor="middle" font-size="18" fill="#94a3b8">MAVLink</text>
+  <line x1="660" y1="195" x2="744" y2="195" stroke="#60a5fa" stroke-width="2.5" stroke-opacity="0.6" marker-end="url(#arrow)"/>
+  <text x="705" y="180" text-anchor="middle" font-size="18" fill="#94a3b8">WebSocket</text>
+  <line x1="1050" y1="195" x2="1134" y2="195" stroke="#60a5fa" stroke-width="2.5" stroke-opacity="0.6" marker-end="url(#arrow)"/>
+  <text x="1095" y="180" text-anchor="middle" font-size="18" fill="#94a3b8">REST / WS</text>
+
+  <!-- Tier 1 payload path, routed under the gateway -->
+  <polyline points="280,250 320,250 320,335 900,335 900,288" fill="none" stroke="#60a5fa" stroke-width="2" stroke-opacity="0.5" stroke-dasharray="8 6" marker-end="url(#arrow)"/>
+  <text x="610" y="323" text-anchor="middle" font-size="18" fill="#94a3b8">Tier 1 payload + video · direct POST</text>
+
+  <!-- SITL feeds simulated drones -->
+  <line x1="155" y1="380" x2="155" y2="288" stroke="#60a5fa" stroke-width="2.5" stroke-opacity="0.6" marker-end="url(#arrow)"/>
+
+  <!-- Drones -->
+  <rect x="30" y="110" width="250" height="170" rx="16" fill="#10151f" stroke="#60a5fa" stroke-opacity="0.45" stroke-width="1.5"/>
+  <text x="155" y="160" text-anchor="middle" font-size="26" font-weight="600" fill="#f1f5f9">Drones</text>
+  <text x="155" y="200" text-anchor="middle" font-size="18" fill="#94a3b8">real or SITL</text>
+  <text x="155" y="230" text-anchor="middle" font-size="18" fill="#94a3b8">Tier 1 and Tier 2</text>
+
+  <!-- Gateway -->
+  <rect x="370" y="110" width="290" height="170" rx="16" fill="#10151f" stroke="#60a5fa" stroke-opacity="0.45" stroke-width="1.5"/>
+  <text x="515" y="160" text-anchor="middle" font-size="26" font-weight="600" fill="#f1f5f9">Gateway</text>
+  <text x="515" y="200" text-anchor="middle" font-size="18" fill="#94a3b8">desktop (PySide6) or Android</text>
+  <text x="515" y="230" text-anchor="middle" font-size="18" fill="#94a3b8">sole path to the cloud</text>
+  <text x="515" y="258" text-anchor="middle" font-size="18" fill="#94a3b8">offline failsafe engine</text>
+
+  <!-- Backend -->
+  <rect x="750" y="110" width="300" height="170" rx="16" fill="#10151f" stroke="#60a5fa" stroke-opacity="0.45" stroke-width="1.5"/>
+  <text x="900" y="160" text-anchor="middle" font-size="26" font-weight="600" fill="#f1f5f9">Backend</text>
+  <text x="900" y="200" text-anchor="middle" font-size="18" fill="#94a3b8">FastAPI</text>
+  <text x="900" y="230" text-anchor="middle" font-size="18" fill="#94a3b8">PostgreSQL / TimescaleDB</text>
+  <text x="900" y="258" text-anchor="middle" font-size="18" fill="#94a3b8">Redis pub/sub</text>
+
+  <!-- Frontend -->
+  <rect x="1140" y="110" width="230" height="170" rx="16" fill="#10151f" stroke="#60a5fa" stroke-opacity="0.45" stroke-width="1.5"/>
+  <text x="1255" y="160" text-anchor="middle" font-size="26" font-weight="600" fill="#f1f5f9">Frontend</text>
+  <text x="1255" y="200" text-anchor="middle" font-size="18" fill="#94a3b8">React web app</text>
+  <text x="1255" y="230" text-anchor="middle" font-size="18" fill="#94a3b8">operator dashboard</text>
+
+  <!-- SITL suite -->
+  <rect x="30" y="380" width="250" height="90" rx="16" fill="#10151f" stroke="#60a5fa" stroke-opacity="0.45" stroke-width="1.5"/>
+  <text x="155" y="418" text-anchor="middle" font-size="22" font-weight="600" fill="#f1f5f9">SITL suite</text>
+  <text x="155" y="448" text-anchor="middle" font-size="18" fill="#94a3b8">simulated ArduPilot</text>
+</svg>

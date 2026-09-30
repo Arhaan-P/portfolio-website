@@ -183,7 +183,7 @@ export function Nav() {
                   }}
                   className="rounded-lg px-4 py-3 text-sm font-medium text-primary hover:bg-muted transition-colors text-center border border-primary/50"
                 >
-                  Download Resume
+                  Resume
                 </a>
               </div>
             </SheetContent>

@@ -15,28 +15,28 @@
   <!-- Saboteur -->
   <g>
     <rect x="40" y="318.5" width="260" height="150" rx="16" fill="#10151f" stroke="#60a5fa" stroke-opacity="0.45" stroke-width="1.5"/>
-    <text x="170" y="386.5" text-anchor="middle" font-size="24" font-weight="600" fill="#f1f5f9">Saboteur</text>
-    <text x="170" y="415.5" text-anchor="middle" font-size="14" fill="#94a3b8">deterministic AST mutation</text>
+    <text x="170" y="383.5" text-anchor="middle" font-size="24" font-weight="600" fill="#f1f5f9">Saboteur</text>
+    <text x="170" y="418.5" text-anchor="middle" font-size="20" fill="#94a3b8">deterministic AST mutation</text>
   </g>
 
   <!-- Agent -->
   <g>
     <rect x="390" y="318.5" width="260" height="150" rx="16" fill="#10151f" stroke="#60a5fa" stroke-opacity="0.45" stroke-width="1.5"/>
-    <text x="520" y="386.5" text-anchor="middle" font-size="24" font-weight="600" fill="#f1f5f9">Agent</text>
-    <text x="520" y="415.5" text-anchor="middle" font-size="14" fill="#94a3b8">LangGraph, 3 attempts</text>
+    <text x="520" y="383.5" text-anchor="middle" font-size="24" font-weight="600" fill="#f1f5f9">Agent</text>
+    <text x="520" y="418.5" text-anchor="middle" font-size="20" fill="#94a3b8">LangGraph, 3 attempts</text>
   </g>
 
   <!-- Sandbox -->
   <g>
     <rect x="740" y="318.5" width="260" height="150" rx="16" fill="#10151f" stroke="#60a5fa" stroke-opacity="0.45" stroke-width="1.5"/>
-    <text x="870" y="386.5" text-anchor="middle" font-size="24" font-weight="600" fill="#f1f5f9">Sandbox</text>
-    <text x="870" y="415.5" text-anchor="middle" font-size="14" fill="#94a3b8">network-isolated Docker</text>
+    <text x="870" y="383.5" text-anchor="middle" font-size="24" font-weight="600" fill="#f1f5f9">Sandbox</text>
+    <text x="870" y="418.5" text-anchor="middle" font-size="20" fill="#94a3b8">network-isolated Docker</text>
   </g>
 
   <!-- Eval -->
   <g>
     <rect x="1090" y="318.5" width="260" height="150" rx="16" fill="#10151f" stroke="#60a5fa" stroke-opacity="0.45" stroke-width="1.5"/>
-    <text x="1220" y="386.5" text-anchor="middle" font-size="24" font-weight="600" fill="#f1f5f9">Eval</text>
-    <text x="1220" y="415.5" text-anchor="middle" font-size="14" fill="#94a3b8">pass@k, SEM</text>
+    <text x="1220" y="383.5" text-anchor="middle" font-size="24" font-weight="600" fill="#f1f5f9">Eval</text>
+    <text x="1220" y="418.5" text-anchor="middle" font-size="20" fill="#94a3b8">pass@k, SEM</text>
   </g>
 </svg>

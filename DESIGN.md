@@ -112,9 +112,9 @@ components:
 
 ## Overview
 
-**Creative North Star: "The Night Lab"**
+**Creative North Star: "The Control Room"**
 
-A late-night engineering bench. The page sits on deep indigo-black, and the only light in the room comes from one cool cyan-blue signal, one still wash of the accent hue behind the hero, and frosted panels that read like instrument screens. It is quiet by default. Content, diagrams, and live demos lead, and the chrome stays out of their way.
+A dim ops console. Quiet near-black surfaces, one cool cyan-blue signal, and nothing lit that isn't reporting something. The character lives in the instruments: mono readouts of sourced numbers, panel headers that index each section, and architecture diagrams shown at full width. There is no ambient glow, wash or halo; content, diagrams and live demos lead, and the chrome stays out of their way.
 
 Light mode is a supported, fully usable counterpart: the same hue family (270 neutrals, 255 blue) on a cool off-white. Dark is the primary experience and the one every decision is made in first.
 
@@ -122,7 +122,7 @@ The tone is refined and restrained. Compact controls, hairline borders, and ligh
 
 **Key Characteristics:**
 - Dark-first, cool-tinted neutrals (hue 270); no pure black or white.
-- One accent hue family (blue-cyan, 230 dark / 255 light), with violet (290) as a quiet secondary tint (dividers, the timeline line, badges, the hover border).
+- One accent hue family (blue-cyan, 230 dark / 255 light), with violet (290) as a quiet secondary tint (badges, the hover border).
 - Translucent glass-tint surfaces (no backdrop blur), flat at rest, with glow and the animated border appearing only on hover or state. No text gradients, no tilt or glare, no counting animations.
 - Geist for text, Geist Mono for small technical labels.
 - All color comes from OKLCH tokens in `globals.css`.
@@ -132,10 +132,10 @@ The tone is refined and restrained. Compact controls, hairline borders, and ligh
 A near-monochrome indigo-black palette with a single luminous blue-cyan signal; violet is only a quiet secondary tint.
 
 ### Primary
-- **Lab Signal Cyan** (`oklch(0.75 0.17 230)`): The one accent in dark mode. Used for the hero eyebrow, links, focus ring, primary buttons, and scrollbar hover. In light mode it becomes **Lab Signal Blue** (`oklch(0.55 0.18 255)`), and the text-on-primary flips accordingly.
+- **Lab Signal Cyan** (`oklch(0.75 0.17 230)`): The one accent in dark mode. Used for links, focus ring, primary buttons, and scrollbar hover. In light mode it becomes **Lab Signal Blue** (`oklch(0.55 0.18 255)`), and the text-on-primary flips accordingly.
 
 ### Secondary
-- **Aurora Violet** (`oklch(0.5 0.25 290)`): Quiet secondary tint (fills, dividers, the timeline line, badge backgrounds, the animated hover border). Never used for text (it fails AA in both themes) and never a second interactive signal.
+- **Aurora Violet** (`oklch(0.5 0.25 290)`): Quiet secondary tint (fills, badge backgrounds, the hover border). Never used for text (it fails AA in both themes) and never a second interactive signal.
 
 ### Neutral
 - **Night Indigo** (`oklch(0.13 0.015 270)`): Page background in dark mode.
@@ -156,21 +156,22 @@ A near-monochrome indigo-black palette with a single luminous blue-cyan signal; 
 **Display / Body Font:** Geist (with system sans fallback)
 **Label / Mono Font:** Geist Mono
 
-**Character:** A clean geometric sans for everything readable, with a mono voice reserved for the small technical asides (eyebrows, tags) that make the page feel like a lab bench.
+**Character:** A clean geometric sans for everything readable, with a mono voice reserved for readouts, panel indexes and small technical tags that make the page feel like a lab bench.
 
 ### Hierarchy
 - **Display** (700, `clamp(3rem, 8vw, 6rem)`, 1, tracking -0.05em): The name in the hero only, in solid foreground colour.
 - **Headline** (700, 2.25rem, 1.15, tracking -0.025em): Every section heading, including Skills and Contact (`text-3xl sm:text-4xl`). One size, no exceptions.
 - **Title** (600, 1.25rem, 1.3): Role titles and card headings. Featured project names step up to 1.5rem→1.875rem so the name leads its card.
 - **Body** (400, 1rem, 1.625): Descriptions and the featured one-liner (weight 400, so it reads as prose under the readouts). Cap paragraphs near 65–75ch; the hero tagline is capped at `max-w-2xl`.
-- **Readout** (Geist Mono 600, 1.25rem, 1.2, tabular numerals): The value in a metric readout on featured cards. Highest-contrast small text; the hero proof strip uses the same step (20px, bold) and goes to the Hero readout step at `lg` and up.
+- **Readout** (Geist Mono 600, 1.25rem, 1.2, tabular numerals): The value in a metric readout (featured cards, Experience, About). Highest-contrast small text.
 - **Lead** (400, 1.125rem, 1.6): Section subtitles, the hero tagline, and the Contact line. The one step between Body and Title, used for a single supporting sentence under a heading.
-- **Hero readout** (Geist Mono 700, 1.5rem, 1.2, tabular numerals): The four proof values in the hero strip from `lg` (1024px) up, where the strip widens to `max-w-4xl` so "4-component" fits. Below `lg` they use Readout (20px). A value's spread (the "± 3.08%" after the AUC) is set in Body-small mono-muted beside it and wraps under it in narrow columns.
 - **Body-small** (400, 0.875rem, 1.5): Anything read as a sentence at reduced weight: readout captions, education line, bullets inside the disclosure, demo captions.
-- **Label** (Geist Mono 600, 0.875rem, tracking 0.05em, uppercase): Eyebrows like "Hi, I'm" and small metadata.
+- **Label** (Geist Mono 500, 0.875rem, tabular numerals): Panel-header indexes ("01"–"05") and small metadata.
 - **Caption** (Geist Mono 500, 0.75rem): Chips and tags only (tech-stack badges, period tags, Research label). This is the floor: nothing on the page is smaller.
 
 ### Named Rules
+**The One Readout Rule.** Every sourced number on the page (featured cards, Experience, About) uses the same readout: `.readout-grid` with a hairline top rule, a mono tabular value (`.readout-value`, Readout step) above a 14px muted label (`.readout-label`). Only numbers that already exist in `data/*.ts` become readouts.
+
 **The Mono-For-Machines Rule.** Geist Mono is for labels, readouts and technical asides, never for paragraphs.
 
 **The 12/14 Floor Rule.** Chips and mono labels are never below 12px; anything a person reads as a sentence is never below 14px. No literal sizes such as `text-[10px]`.
@@ -179,7 +180,9 @@ A near-monochrome indigo-black palette with a single luminous blue-cyan signal; 
 
 A single scrolling page in one column. Every content section shares one shell (`.section-shell`): `max-w-5xl` (1024px), a 16px side gutter that grows to 24px at `sm`, and `py-20 sm:py-24` vertical padding. "More projects" is deliberately tighter (`.section-shell-compact`, `py-12 sm:py-16`) because it only holds two cards. The hero (about 90vh, centered) and Contact are full-bleed sections with their own inner container. Grids collapse from multi-column to a single stack on narrow screens.
 
-Every section heading uses one block: `.section-head` (`mb-10 sm:mb-12`) holding a `.section-title` (Headline step) and, where there is one, a `.section-sub` (Lead step, `mt-3`). There are no eyebrow labels above section headings (the hero's "Hi, I'm" belongs to the name line).
+Every section heading is a panel header (`SectionHeading`, classes `.panel-title`, `.panel-index`, `.panel-rule`): a mono index that matches the section's position in the nav (Projects 01, Experience 02, Skills 03, About 04, Contact 05), the title at the Headline step, and a hairline rule to the edge, all on one line. The index and rule are `aria-hidden`, so the heading reads as its title. "More projects" continues section 01 and has no index. Contact centres the title between two rules. A `.section-sub` (Lead step, `mt-3`) follows where there is one. There are no labels above headings.
+
+Architecture diagrams (PolarisGCS, MutaFix, Deepfake) are the page's centerpieces: each featured card with a diagram shows it at full card width, cropped to its content so labels stay near the 12px floor, in the signal blue only (`#60a5fa` on `#0a0e14`). PolarisGCS shows its topology first and the map screenshot as the second image. VHELP, the production proof, leads the featured list at full card width: its live-demo tile shows a still of the app behind the launch button until the build is requested. "More projects" follows the featured cards directly, so section 01 stays in one piece.
 
 Anchor jumps use native scrolling with `scroll-padding-top: 4.5rem`, so headings land below the 64px sticky header.
 
@@ -229,7 +232,7 @@ Softly rounded rectangles, all derived from one radius base (`--radius: 0.625rem
 - Sticky top bar (translucent, the one blurred surface, hairline bottom border) with anchor links in page order: Projects, Experience, Skills, About, Contact. A compact 44px outline "Resume" pill sits before the theme switch at every width (28px from `sm` up). Mobile uses a solid slide-in sheet that closes at once on a link tap. The theme control is a switch announcing "Dark mode".
 
 ### Hero name (signature)
-- The name is set in the display size in solid Moonlit Text. No gradient text anywhere. Words enter with a spring rise (skipped under reduced motion). Beneath sits a rotating role line in muted text that swaps instantly (no letter animation). One still, low-opacity wash of the accent hue sits behind the hero; nothing drifts.
+- The name is set in the display size in solid Moonlit Text. No gradient text anywhere. Words enter with a spring rise (skipped under reduced motion). Beneath sits a rotating role line in muted text that swaps instantly (no letter animation). The hero sits on the flat page background; nothing drifts.
 
 ## Do's and Don'ts
 

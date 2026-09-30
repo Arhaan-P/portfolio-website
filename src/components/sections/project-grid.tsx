@@ -12,14 +12,13 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { RevealGroup, RevealItem } from "@/components/motion/reveal"
+import { SectionHeading } from "@/components/section-heading"
 import { standardProjects } from "@/data/projects"
 
 export function ProjectGrid() {
   return (
     <section id="more-projects" data-nav="#projects" className="section-shell-compact">
-      <div className="section-head">
-        <h2 className="section-title">More projects</h2>
-      </div>
+      <SectionHeading title="More projects" />
 
       <RevealGroup>
         <div className="grid gap-6 sm:grid-cols-2">

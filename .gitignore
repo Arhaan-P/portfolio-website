@@ -45,15 +45,6 @@ public/resume.tex
 CLAUDE.md
 
 # impeccable
-**/.impeccable/config.local.json
-**/.impeccable/hook.cache.json
-**/.impeccable/hook.pending.json
-**/.impeccable/*.png
-**/.impeccable/review/
-**/.impeccable/questions/
-**/.impeccable/live/server.json
-**/.impeccable/live/sessions/
-**/.impeccable/live/previews/
-**/.impeccable/live/cache/
+.impeccable/
 after.txt
 before.txt

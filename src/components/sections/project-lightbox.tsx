@@ -6,7 +6,7 @@ import { Dialog } from "@base-ui/react/dialog";
 import * as React from "react";
 
 /**
- * Full-screen viewer. Loaded on the first tap of a Zoom button, so its code
+ * Full-screen viewer. Loaded on the first tap of an image, so its code
  * stays out of the first load. base-ui's Dialog traps focus, restores it to
  * the opener and locks scroll.
  */
@@ -53,7 +53,7 @@ export default function ProjectLightbox({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Backdrop className="fixed inset-0 z-50 bg-black/85" />
+        <Dialog.Backdrop className="fixed inset-0 z-50 bg-black" />
         <Dialog.Popup
           initialFocus={closeRef}
           className="fixed inset-0 z-50 flex items-center justify-center outline-none"
@@ -86,22 +86,30 @@ export default function ProjectLightbox({
             className="relative mx-4 h-[85vh] w-[90vw] max-w-6xl touch-pan-x touch-pan-y touch-pinch-zoom"
             onClick={(e) => e.stopPropagation()}
           >
-            {images.map((src, i) => (
-              <div
-                key={src}
-                className="absolute inset-0 flex items-center justify-center transition-opacity duration-200 ease-out"
-                style={{ opacity: i === active ? 1 : 0 }}
-              >
-                <Image
-                  src={src}
-                  alt={label(i)}
-                  fill
-                  sizes="90vw"
-                  className="object-contain"
-                  priority
-                />
-              </div>
-            ))}
+            {images.map((src, i) => {
+              // Diagrams are unreadable at phone width, so below sm they render 1000px wide and pan sideways.
+              const diagram = src.endsWith(".svg");
+              return (
+                <div
+                  key={src}
+                  className={`absolute inset-0 transition-opacity duration-200 ease-out ${
+                    diagram ? "overflow-x-auto overscroll-x-contain" : ""
+                  } ${i === active ? "" : "pointer-events-none"}`}
+                  style={{ opacity: i === active ? 1 : 0 }}
+                >
+                  <div className={`relative h-full ${diagram ? "min-w-[1000px] sm:min-w-0" : ""}`}>
+                    <Image
+                      src={src}
+                      alt={label(i)}
+                      fill
+                      sizes={diagram ? "(max-width: 640px) 1000px, 90vw" : "90vw"}
+                      className="object-contain"
+                      priority
+                    />
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
           {/* Lightbox arrows */}
@@ -114,7 +122,7 @@ export default function ProjectLightbox({
                   e.stopPropagation();
                   prev();
                 }}
-                className="absolute left-4 top-1/2 z-50 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                className="absolute left-4 bottom-3 z-50 rounded-full sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 bg-white/10 p-3 text-white transition-colors hover:bg-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                 <ChevronLeft className="size-6" />
               </button>
@@ -125,7 +133,7 @@ export default function ProjectLightbox({
                   e.stopPropagation();
                   next();
                 }}
-                className="absolute right-4 top-1/2 z-50 -translate-y-1/2 rounded-full bg-white/10 p-3 text-white transition-colors hover:bg-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                className="absolute right-4 bottom-3 z-50 rounded-full sm:bottom-auto sm:top-1/2 sm:-translate-y-1/2 bg-white/10 p-3 text-white transition-colors hover:bg-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
               >
                 <ChevronRight className="size-6" />
               </button>

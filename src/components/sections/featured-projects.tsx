@@ -6,6 +6,7 @@ import { featuredProjects, type Project } from "@/data/projects";
 import { ChevronRight, ExternalLink } from "lucide-react";
 import { ProjectDemo } from "./project-demo";
 import { ProjectImage } from "./project-image";
+import { ProjectPhoneFan } from "./project-phone-fan";
 
 const readoutCols: Record<number, string> = {
   2: "grid-cols-2",
@@ -32,17 +33,23 @@ function CardHeader({ project }: { project: Project }) {
 
       {project.readouts && project.readouts.length > 0 && (
         <dl
-          className={`mt-5 grid gap-x-6 gap-y-4 border-t border-border pt-5 ${
+          className={`readout-grid mt-5 ${
             readoutCols[project.readouts.length] ?? "grid-cols-2 sm:grid-cols-3"
           }`}
         >
           {project.readouts.map((r) => (
-            <div key={r.from} className="flex flex-col gap-1">
-              <dt className="order-2 text-sm leading-snug text-muted-foreground">
+            <div key={r.from} className="readout">
+              <dt className="readout-label">
                 {r.label}
               </dt>
-              <dd className="order-1 font-mono text-xl font-semibold tabular-nums text-foreground">
+              <dd className="readout-value">
                 {r.value}
+                {r.spread && " "}
+                {r.spread && (
+                  <span className="inline-block text-sm font-medium text-muted-foreground">
+                    {r.spread}
+                  </span>
+                )}
               </dd>
             </div>
           ))}
@@ -59,6 +66,8 @@ function CardHeader({ project }: { project: Project }) {
 function CardFooter({ project }: { project: Project }) {
   const shown = new Set(project.readouts?.map((r) => r.from));
   const moreMetrics = project.metrics.filter((_, i) => !shown.has(i));
+  // The demo already offers "Open in new tab", so a link to the same build would repeat it.
+  const links = project.links.filter((l) => l.href !== project.demoUrl);
   const hasDetails =
     !!project.problem || project.approach.length > 0 || moreMetrics.length > 0;
 
@@ -118,9 +127,9 @@ function CardFooter({ project }: { project: Project }) {
         </details>
       )}
 
-      {project.links.length > 0 && (
+      {links.length > 0 && (
         <div className="mt-5 flex flex-wrap gap-4">
-          {project.links.map((link) => (
+          {links.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -140,9 +149,21 @@ function CardFooter({ project }: { project: Project }) {
 
 function CardMedia({ project }: { project: Project }) {
   if (project.demoUrl) {
-    return <ProjectDemo src={project.demoUrl} title={project.name} />;
+    return (
+      <ProjectDemo
+        src={project.demoUrl}
+        title={project.name}
+        poster={project.demoPoster}
+        posterAlt={project.demoPosterAlt}
+      />
+    );
   }
   if (project.images && project.images.length > 0) {
+    if (project.imageLayout === "fan") {
+      return (
+        <ProjectPhoneFan images={project.images} alt={project.name} alts={project.imageAlts} />
+      );
+    }
     return (
       <ProjectImage
         images={project.images}
@@ -161,8 +182,8 @@ export function FeaturedProjects() {
     <div className="flex flex-col gap-12 md:gap-16">
       {featuredProjects.map((project, index) => {
         const isEven = index % 2 === 0;
-        // Architecture diagrams span the full card so their labels stay readable.
-        const wide = project.imageAspect === "wide";
+        // Architecture diagrams and demo posters span the full card so their detail stays readable.
+        const wide = project.imageAspect === "wide" || !!project.demoPoster;
 
         return (
           <Reveal key={project.slug} delay={0.1}>
@@ -180,8 +201,8 @@ export function FeaturedProjects() {
                   <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:gap-10">
                     <div
                       className={`w-full lg:w-5/12 ${
-                        isEven ? "lg:order-1" : "lg:order-2"
-                      }`}
+                        project.imageLayout === "fan" ? "lg:self-stretch" : ""
+                      } ${isEven ? "lg:order-1" : "lg:order-2"}`}
                     >
                       <CardMedia project={project} />
                     </div>

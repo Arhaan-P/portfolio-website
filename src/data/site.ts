@@ -9,27 +9,12 @@ export const site = {
   linkedin: "https://www.linkedin.com/in/arhaan-penwala/",
   resumeUrl: "/arhaan_sde.pdf",
   location: "Chennai, India",
+  bio:
+    "I'm a B.Tech CSE student at VIT Chennai building distributed systems and applied ML. My experience spans software development at BPO Integra and AI research at IHCL. I lead VHELP, a campus app that reached 1,000+ users in its first hour, and I'm building PolarisGCS, a multi-drone ground control system. My gait-based deepfake detection research, with its dataset published on IEEE DataPort, is submitted to ISM 2026.",
   seeking:
     // Non-breaking hyphens (U+2011) keep "AI‑engineer" and "new‑grad" whole when the line wraps.
     "Seeking SDE and AI‑engineer internships and new‑grad roles.",
 } as const;
-
-/** Hero proof strip. Every figure is sourced from data/projects.ts or portfolio-context. */
-export const proof: readonly {
-  value: string;
-  /** Shown smaller beside the value, and wraps under it in narrow columns. */
-  spread?: string;
-  label: string;
-}[] = [
-  { value: "1,000+", label: "VHELP · users in the first hour" },
-  { value: "24", label: "VHELP · serverless Edge Functions" },
-  { value: "4-component", label: "PolarisGCS · drone-fleet topology" },
-  {
-    value: "95.10%",
-    spread: "± 3.08%",
-    label: "Deepfake detection · AUC-ROC (per-fold mean)",
-  },
-] as const;
 
 export const navLinks = [
   { href: "#projects", label: "Projects" },

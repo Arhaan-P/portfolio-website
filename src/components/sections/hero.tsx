@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/motion/reveal"
 import { GitHubIcon, LinkedInIcon } from "@/components/icons"
 import { m } from "framer-motion"
-import { proof, site } from "@/data/site"
+import { site } from "@/data/site"
 import { RoleRotator } from "@/components/motion/role-rotator"
 
 const staggerContainer = {
@@ -30,8 +30,6 @@ export function Hero() {
       id="top"
       className="relative mx-auto flex w-full flex-col items-center justify-center px-4 py-10 sm:min-h-[90vh] sm:px-6 sm:py-24 text-center overflow-hidden"
     >
-      <div aria-hidden className="hero-wash pointer-events-none absolute inset-0 -z-10" />
-
       <div className="w-full flex flex-col items-center justify-center gap-4 sm:gap-6 z-10">
         <div className="relative z-10 flex flex-col items-center gap-2">
           <m.h1
@@ -76,27 +74,6 @@ export function Hero() {
         </p>
       </Reveal>
 
-      <Reveal delay={0.9} appear className="w-full max-w-3xl lg:max-w-4xl">
-        <dl className="grid grid-cols-2 gap-x-6 gap-y-5 border-t border-border pt-6 sm:grid-cols-4">
-          {proof.map((item) => (
-            <div key={item.label} className="flex flex-col gap-1">
-              <dt className="order-2 text-sm leading-snug text-muted-foreground">
-                {item.label}
-              </dt>
-              <dd className="order-1 font-mono text-xl font-bold tabular-nums text-foreground lg:text-2xl">
-                {item.value}
-                {item.spread && " "}
-                {item.spread && (
-                  <span className="inline-block text-sm font-medium text-muted-foreground">
-                    {item.spread}
-                  </span>
-                )}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </Reveal>
-
       <m.div 
         className="flex flex-wrap items-center justify-center gap-4 pt-6 z-10"
         variants={staggerContainer}
@@ -116,7 +93,7 @@ export function Hero() {
             nativeButton={false}
             render={<a href={site.resumeUrl} download />}
           >
-            Download Resume
+            Resume
           </Button>
         </m.div>
       </m.div>

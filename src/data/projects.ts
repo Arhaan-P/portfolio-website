@@ -6,6 +6,8 @@ export type ProjectLink = {
 /** A metric from `metrics` split into a mono value and its label; `from` is that metric's index. */
 export type Readout = {
   value: string;
+  /** Shown smaller beside the value, and wraps under it in narrow columns. */
+  spread?: string;
   label: string;
   from: number;
 };
@@ -31,65 +33,18 @@ export type Project = {
   imageAlts?: string[];
   /** "wide" for banner-shaped diagrams; omit for phone/app screenshots. */
   imageAspect?: "wide";
-  /** CSS aspect-ratio for a "wide" image cropped tighter than 16:9, e.g. "1400 / 270". */
-  imageRatio?: string;
+  /** "fan" lays three phone screenshots out left / centre / right (in that image order), filling the media column. */
+  imageLayout?: "fan";
+  /** CSS aspect-ratio for a "wide" image cropped tighter than 16:9, e.g. "1400 / 270". One per image when they differ. */
+  imageRatio?: string | string[];
   /** Live web build embedded in place of screenshots (e.g. a Flutter web deploy). */
   demoUrl?: string;
+  /** Still shown behind the demo's launch button, so the card has a picture before the build loads. */
+  demoPoster?: string;
+  demoPosterAlt?: string;
 };
 
 export const projects: Project[] = [
-  {
-    slug: "polaris-gcs",
-    name: "PolarisGCS",
-    tier: "featured",
-    period: "Ongoing",
-    oneLiner:
-      "A multi-drone Ground Control System for planning missions, monitoring live flights, and reviewing flight history across a fleet.",
-    problem:
-      "Drone operators need a single cloud-hosted surface to command many drones at once, real and simulated, hobbyist and industrial, while keeping every drone reachable through one consistent path regardless of its radio hardware.",
-    approach: [
-      "Architected a 4-component distributed topology consisting of a gateway, backend, frontend, and SITL testing suite, where every drone reaches the cloud through a gateway; there is no direct drone-to-cloud path.",
-      "Engineered horizontal scaling by deploying stateless FastAPI instances that share live and persistent state through Redis pub/sub and PostgreSQL/TimescaleDB.",
-      "Built a two-tier telemetry model (industrial Tier 1 / hobbyist Tier 2) with automatic, gateway-owned bandwidth-aware rich/critical telemetry allocation per radio group.",
-      "Shipped a Kotlin + Jetpack Compose Android gateway wrapping the shared Python gateway core via Chaquopy, fully interoperable with the desktop gateway for multi-drone sessions.",
-      "Added an autonomous, offline-first failsafe policy engine that runs on the gateway independent of cloud connectivity.",
-    ],
-    stack: [
-      "FastAPI",
-      "PostgreSQL/TimescaleDB",
-      "Redis",
-      "React",
-      "TypeScript",
-      "PySide6",
-      "Kotlin",
-      "Jetpack Compose",
-      "MediaMTX",
-      "Docker",
-    ],
-    metrics: [
-      "4-component distributed architecture (gateway, backend, frontend, SITL suite)",
-      "Two-tier telemetry model with automatic bandwidth-aware allocation",
-      "Android + desktop gateway interoperability via a shared Python core",
-      "Offline-first failsafe engine independent of cloud connectivity",
-    ],
-    readouts: [
-      { value: "4-component", label: "distributed architecture (gateway, backend, frontend, SITL suite)", from: 0 },
-      { value: "Two-tier", label: "telemetry model with automatic bandwidth-aware allocation", from: 1 },
-      { value: "Android + desktop", label: "gateway interoperability via a shared Python core", from: 2 },
-    ],
-    links: [
-      {
-        label: "Landing Page Repo",
-        href: "https://github.com/PolarisGCS/Landing-Page/",
-      },
-      { label: "Website", href: "http://polarisgcs.pages.dev/" },
-    ],
-    tags: ["Systems", "Drones", "FastAPI", "React", "Kotlin"],
-    images: ["/projects/drones.webp"],
-    imageAlts: [
-      "PolarisGCS ground control interface: a satellite map with drone markers and flight paths, a mission panel on the right, and drone status cards along the bottom.",
-    ],
-  },
   {
     slug: "vhelp",
     name: "VHELP",
@@ -129,8 +84,67 @@ export const projects: Project[] = [
       { value: "16+", label: "unified campus workflows", from: 2 },
     ],
     links: [{ label: "Live Demo", href: "https://vhelp-demo.pages.dev/" }],
-    demoUrl: "https://vhelp-demo.pages.dev/",
+    images: ["/projects/vhelp2.webp", "/projects/vhelp3.webp", "/projects/vhelp1.webp"],
+    imageLayout: "fan",
+    imageAlts: [
+      "VHELP Academics screen: overall attendance of 80% (83 of 104 classes) with per-course percentages and a 'can skip' or 'don't skip' hint for each",
+      "VHELP Today screen: attendance rings per course, a week strip, and the day's classes with room, time and skip guidance",
+      "VHELP Campus screen: a Lost & Found banner above service shortcuts for repairs, food outlets, campus gallery, carpooling and hostel & mess",
+    ],
     tags: ["Flutter", "Supabase", "Firebase", "Full-Stack"],
+  },
+  {
+    slug: "polaris-gcs",
+    name: "PolarisGCS",
+    tier: "featured",
+    period: "Ongoing",
+    oneLiner:
+      "A multi-drone Ground Control System for planning missions, monitoring live flights, and reviewing flight history across a fleet.",
+    problem:
+      "Drone operators need a single cloud-hosted surface to command many drones at once, real and simulated, hobbyist and industrial, while keeping every drone reachable through one consistent path regardless of its radio hardware.",
+    approach: [
+      "Architected a 4-component distributed topology consisting of a gateway, backend, frontend, and SITL testing suite, where every drone reaches the cloud through a gateway; there is no direct drone-to-cloud path.",
+      "Engineered horizontal scaling by deploying stateless FastAPI instances that share live and persistent state through Redis pub/sub and PostgreSQL/TimescaleDB.",
+      "Built a two-tier telemetry model (industrial Tier 1 / hobbyist Tier 2) with automatic, gateway-owned bandwidth-aware rich/critical telemetry allocation per radio group.",
+      "Shipped a Kotlin + Jetpack Compose Android gateway wrapping the shared Python gateway core via Chaquopy, fully interoperable with the desktop gateway for multi-drone sessions.",
+      "Added an autonomous, offline-first failsafe policy engine that runs on the gateway independent of cloud connectivity.",
+    ],
+    stack: [
+      "FastAPI",
+      "PostgreSQL/TimescaleDB",
+      "Redis",
+      "React",
+      "TypeScript",
+      "PySide6",
+      "Kotlin",
+      "Jetpack Compose",
+      "MediaMTX",
+      "Docker",
+    ],
+    metrics: [
+      "4-component distributed architecture (gateway, backend, frontend, SITL suite)",
+      "Two-tier telemetry model with automatic bandwidth-aware allocation",
+      "Android + desktop gateway interoperability via a shared Python core",
+      "Offline-first failsafe engine independent of cloud connectivity",
+    ],
+    readouts: [
+      { value: "4-component", label: "distributed architecture (gateway, backend, frontend, SITL suite)", from: 0 },
+    ],
+    links: [
+      {
+        label: "Landing Page Repo",
+        href: "https://github.com/PolarisGCS/Landing-Page/",
+      },
+      { label: "Website", href: "http://polarisgcs.pages.dev/" },
+    ],
+    tags: ["Systems", "Drones", "FastAPI", "React", "Kotlin"],
+    images: ["/projects/polaris-gcs-architecture.svg", "/projects/drones.webp"],
+    imageAspect: "wide",
+    imageRatio: ["1400 / 500", "16 / 10"],
+    imageAlts: [
+      "PolarisGCS topology: drones (real or SITL, Tier 1 and Tier 2) connect over MAVLink to a gateway (desktop PySide6 or Android), the sole path to the cloud with an offline failsafe engine; the gateway talks WebSocket to the FastAPI backend with PostgreSQL/TimescaleDB and Redis pub/sub, which serves the React operator dashboard over REST and WebSocket. Tier 1 payload and video post directly to the backend, and a SITL suite supplies simulated ArduPilot drones.",
+      "PolarisGCS ground control interface: a satellite map with drone markers and flight paths, a mission panel on the right, and drone status cards along the bottom.",
+    ],
   },
   {
     slug: "pawguard",
@@ -274,7 +288,7 @@ export const projects: Project[] = [
       "1,056 augmented training videos generated from 66 original recordings",
     ],
     readouts: [
-      { value: "95.10% ± 3.08%", label: "AUC-ROC, per-fold mean (94.95% pooled), 13-fold subject-disjoint LOOCV", from: 0 },
+      { value: "95.10%", spread: "± 3.08%", label: "AUC-ROC, per-fold mean (94.95% pooled), 13-fold subject-disjoint LOOCV", from: 0 },
       { value: "87.01%", label: "pooled accuracy (87.04% ± 3.65% per-fold)", from: 1 },
       { value: "3/3", label: "real FaceFusion face-swap clips correctly rejected in end-to-end validation", from: 3 },
     ],
@@ -285,7 +299,8 @@ export const projects: Project[] = [
       },
     ],
     tags: ["ML", "PyTorch", "Computer Vision", "Research"],
-    images: ["/projects/deepfake-detection-architecture.svg"],
+    images: ["/projects/deepfake-detection-architecture-signal.svg"],
+    imageRatio: "1400 / 567",
     imageAlts: [
       "Gait-based deepfake detection pipeline: a query video passes through MediaPipe pose into a 78-dimension gait sequence, which a 133K-parameter temporal CNN compares against the claimed identity's stored gait profile to give an authentic, mismatch or suspected-deepfake verdict; evaluated at 94.95% pooled AUC-ROC.",
     ],

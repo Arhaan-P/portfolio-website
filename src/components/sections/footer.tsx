@@ -33,7 +33,7 @@ export function Footer() {
                   href={site.github}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="text-muted-foreground hover:text-primary transition-colors p-2"
+                  className="text-muted-foreground hover:text-primary transition-colors inline-flex size-11 items-center justify-center"
                   aria-label="GitHub profile"
                 >
                   <GitHubIcon className="size-4.5" />
@@ -42,14 +42,14 @@ export function Footer() {
                   href={site.linkedin}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="text-muted-foreground hover:text-primary transition-colors p-2"
+                  className="text-muted-foreground hover:text-primary transition-colors inline-flex size-11 items-center justify-center"
                   aria-label="LinkedIn profile"
                 >
                   <LinkedInIcon className="size-4.5" />
                 </a>
                 <a
                   href={`mailto:${site.email}`}
-                  className="text-muted-foreground hover:text-primary transition-colors p-2"
+                  className="text-muted-foreground hover:text-primary transition-colors inline-flex size-11 items-center justify-center"
                   aria-label="Send an email"
                 >
                   <Mail className="size-4.5" />

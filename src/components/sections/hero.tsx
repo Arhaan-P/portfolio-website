@@ -132,7 +132,7 @@ export function Hero() {
           href={site.github}
           target="_blank"
           rel="noreferrer noopener"
-          className="text-muted-foreground hover:text-primary transition-colors p-2"
+          className="text-muted-foreground hover:text-primary transition-colors p-2.5"
           aria-label="GitHub profile"
         >
           <GitHubIcon className="size-6" />
@@ -142,7 +142,7 @@ export function Hero() {
           href={site.linkedin}
           target="_blank"
           rel="noreferrer noopener"
-          className="text-muted-foreground hover:text-primary transition-colors p-2"
+          className="text-muted-foreground hover:text-primary transition-colors p-2.5"
           aria-label="LinkedIn profile"
         >
           <LinkedInIcon className="size-6" />
@@ -150,7 +150,7 @@ export function Hero() {
         <motion.a
           variants={staggerItem}
           href={`mailto:${site.email}`}
-          className="text-muted-foreground hover:text-primary transition-colors p-2"
+          className="text-muted-foreground hover:text-primary transition-colors p-2.5"
           aria-label="Send an email"
         >
           <Mail className="size-6" />

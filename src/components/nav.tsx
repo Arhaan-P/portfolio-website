@@ -21,6 +21,7 @@ export function Nav() {
   const [activeLink, setActiveLink] = React.useState<string>("#top")
   const [hidden, setHidden] = React.useState(false)
   const headerRef = React.useRef<HTMLElement>(null)
+  const [instantClose, setInstantClose] = React.useState(false)
   const firstMenuLinkRef = React.useRef<HTMLAnchorElement>(null)
   const { scrollY } = useScroll()
 
@@ -88,7 +89,7 @@ export function Nav() {
       >
         <Link
           href="#top"
-          className="font-heading text-sm font-bold tracking-tighter hover:text-primary transition-colors flex items-center gap-2 group"
+          className="font-heading text-sm font-bold tracking-tighter hover:text-primary transition-colors flex min-h-11 min-w-11 items-center gap-2 group"
         >
           <span className="flex size-6 items-center justify-center rounded-full bg-primary/20 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
             {site.name.charAt(0)}
@@ -124,7 +125,7 @@ export function Nav() {
           <Button
             variant="outline"
             size="sm"
-            className="hidden sm:inline-flex rounded-full border-input hover:bg-muted transition-colors duration-150 ease-out"
+            className="h-11 rounded-full border-input px-4 text-sm hover:bg-muted transition-colors duration-150 ease-out sm:h-7 sm:px-2.5 sm:text-[0.8rem]"
             nativeButton={false}
             render={<a href={site.resumeUrl} download />}
           >
@@ -132,13 +133,19 @@ export function Nav() {
           </Button>
           <ThemeToggle />
 
-          <Sheet open={open} onOpenChange={setOpen}>
+          <Sheet
+            open={open}
+            onOpenChange={(next) => {
+              if (next) setInstantClose(false)
+              setOpen(next)
+            }}
+          >
             <SheetTrigger
               render={
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="md:hidden"
+                  className="size-11 md:hidden"
                   aria-label="Open menu"
                 />
               }
@@ -149,6 +156,7 @@ export function Nav() {
               side="right"
               className="glass-card border-l-border"
               initialFocus={firstMenuLinkRef}
+              instantClose={instantClose}
             >
               <SheetHeader>
                 <SheetTitle>Menu</SheetTitle>
@@ -159,7 +167,10 @@ export function Nav() {
                     key={link.href}
                     ref={i === 0 ? firstMenuLinkRef : undefined}
                     href={link.href}
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                      setInstantClose(true)
+                      setOpen(false)
+                    }}
                     className={`rounded-lg px-4 py-3 text-sm font-medium transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring ${
                       activeLink === link.href
                         ? "bg-primary/20 text-primary border border-primary/30"
@@ -173,7 +184,10 @@ export function Nav() {
                 <a
                   href={site.resumeUrl}
                   download
-                  onClick={() => setOpen(false)}
+                  onClick={() => {
+                    setInstantClose(true)
+                    setOpen(false)
+                  }}
                   className="rounded-lg px-4 py-3 text-sm font-medium text-primary hover:bg-muted transition-colors text-center border border-primary/50"
                 >
                   Download Resume

@@ -53,7 +53,7 @@ export function Contact() {
               <span className="font-mono text-sm text-muted-foreground select-all">
                 {site.email}
               </span>
-              <Button variant="ghost" size="sm" onClick={copyEmail} className="text-muted-foreground">
+              <Button variant="ghost" size="sm" onClick={copyEmail} className="text-muted-foreground relative after:absolute after:inset-x-0 after:-inset-y-2.5 after:content-['']">
                 {copied ? <Check /> : <Copy />}
                 {copied ? "Copied" : "Copy"}
               </Button>

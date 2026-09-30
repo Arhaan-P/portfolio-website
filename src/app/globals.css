@@ -147,6 +147,8 @@
   }
   html {
     @apply font-sans;
+    /* Anchor jumps stop below the 64px sticky header. */
+    scroll-padding-top: 4.5rem;
   }
 
   /* Custom scrollbar */

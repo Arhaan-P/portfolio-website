@@ -94,7 +94,7 @@ export function ProjectDemo({ src, title }: { src: string; title: string }) {
         href={src}
         target="_blank"
         rel="noreferrer noopener"
-        className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-aurora-1 transition-colors group"
+        className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-primary hover:text-aurora-1 transition-colors group"
       >
         Open in new tab
         <ExternalLink className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />

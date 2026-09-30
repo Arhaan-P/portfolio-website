@@ -13,6 +13,7 @@ export function ThemeToggle() {
     <Button
       variant="ghost"
       size="icon"
+      className="size-11"
       role="switch"
       aria-checked={isDark}
       aria-label="Dark mode"

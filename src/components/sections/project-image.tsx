@@ -116,7 +116,7 @@ export function ProjectImage({
                 e.stopPropagation();
                 prev();
               }}
-              className="absolute left-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/50 p-1.5 text-white opacity-0 backdrop-blur-sm transition-opacity hover:bg-black/70 group-hover:opacity-100"
+              className="absolute left-2 top-1/2 z-20 -translate-y-1/2 flex size-11 items-center justify-center rounded-full bg-black/50 text-white opacity-0 backdrop-blur-sm [@media(hover:none)]:opacity-100 transition-opacity hover:bg-black/70 group-hover:opacity-100"
             >
               <ChevronLeft className="size-4" />
             </button>
@@ -127,7 +127,7 @@ export function ProjectImage({
                 e.stopPropagation();
                 next();
               }}
-              className="absolute right-2 top-1/2 z-20 -translate-y-1/2 rounded-full bg-black/50 p-1.5 text-white opacity-0 backdrop-blur-sm transition-opacity hover:bg-black/70 group-hover:opacity-100"
+              className="absolute right-2 top-1/2 z-20 -translate-y-1/2 flex size-11 items-center justify-center rounded-full bg-black/50 text-white opacity-0 backdrop-blur-sm [@media(hover:none)]:opacity-100 transition-opacity hover:bg-black/70 group-hover:opacity-100"
             >
               <ChevronRight className="size-4" />
             </button>
@@ -146,12 +146,16 @@ export function ProjectImage({
                   e.stopPropagation();
                   setActive(i);
                 }}
-                className={`size-2 rounded-full transition-colors duration-150 ${
-                  i === active
-                    ? "bg-white"
-                    : "bg-white/40 hover:bg-white/70"
-                }`}
-              />
+                className="group/dot flex size-6 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              >
+                <span
+                  className={`size-2 rounded-full transition-colors duration-150 ${
+                    i === active
+                      ? "bg-white"
+                      : "bg-white/40 group-hover/dot:bg-white/70"
+                  }`}
+                />
+              </button>
             ))}
           </div>
         )}
@@ -162,7 +166,7 @@ export function ProjectImage({
           <button
             type="button"
             onClick={() => setLightboxOpen(true)}
-            className="inline-flex items-center gap-1 rounded-md border border-border bg-background/85 px-2 py-1 text-xs font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="relative after:absolute after:inset-x-0 after:-inset-y-2.5 after:content-[''] inline-flex items-center gap-1 rounded-md border border-border bg-background/85 px-2 py-1 text-xs font-medium text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <ZoomIn aria-hidden className="size-3.5" />
             Zoom diagram
@@ -189,7 +193,7 @@ export function ProjectImage({
               type="button"
               aria-label="Close lightbox"
               onClick={() => setLightboxOpen(false)}
-              className="absolute right-4 top-4 z-50 rounded-full bg-white/10 p-2 text-white transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              className="absolute right-3 top-3 z-50 rounded-full bg-white/10 p-2.5 text-white transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
               <X className="size-6" />
             </button>
@@ -203,7 +207,7 @@ export function ProjectImage({
 
             {/* Lightbox image */}
             <div
-              className="relative mx-4 h-[85vh] w-[90vw] max-w-6xl"
+              className="relative mx-4 h-[85vh] w-[90vw] max-w-6xl touch-pan-x touch-pan-y touch-pinch-zoom"
               onClick={(e) => e.stopPropagation()}
             >
               {images.map((src, i) => (
@@ -264,12 +268,16 @@ export function ProjectImage({
                       e.stopPropagation();
                       setActive(i);
                     }}
-                    className={`size-2.5 rounded-full transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white ${
-                      i === active
-                        ? "bg-white"
-                        : "bg-white/30 hover:bg-white/60"
-                    }`}
-                  />
+                    className="group/dot flex size-6 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                  >
+                    <span
+                      className={`size-2.5 rounded-full transition-colors duration-150 ${
+                        i === active
+                          ? "bg-white"
+                          : "bg-white/30 group-hover/dot:bg-white/60"
+                      }`}
+                    />
+                  </button>
                 ))}
               </div>
             )}

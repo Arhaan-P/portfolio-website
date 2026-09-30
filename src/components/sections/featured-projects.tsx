@@ -78,7 +78,7 @@ function CardFooter({ project }: { project: Project }) {
 
       {hasDetails && (
         <details className="group/details mt-5 border-t border-border pt-4">
-          <summary className="flex w-fit cursor-pointer list-none items-center gap-1.5 rounded-sm text-sm font-medium text-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-details-marker]:hidden">
+          <summary className="flex min-h-11 w-fit cursor-pointer list-none items-center gap-1.5 rounded-sm text-sm font-medium text-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring [&::-webkit-details-marker]:hidden">
             <ChevronRight
               aria-hidden
               className="size-4 transition-transform motion-reduce:transition-none group-open/details:rotate-90"
@@ -126,7 +126,7 @@ function CardFooter({ project }: { project: Project }) {
               href={link.href}
               target="_blank"
               rel="noreferrer noopener"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-aurora-1 transition-colors group"
+              className="inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-primary hover:text-aurora-1 transition-colors group"
             >
               {link.label}
               <ExternalLink className="size-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />

@@ -109,7 +109,7 @@ export default function ProjectLightbox({
             <>
               <button
                 type="button"
-                aria-label="Previous screenshot"
+                aria-label="Previous image"
                 onClick={(e) => {
                   e.stopPropagation();
                   prev();
@@ -120,7 +120,7 @@ export default function ProjectLightbox({
               </button>
               <button
                 type="button"
-                aria-label="Next screenshot"
+                aria-label="Next image"
                 onClick={(e) => {
                   e.stopPropagation();
                   next();
@@ -139,7 +139,7 @@ export default function ProjectLightbox({
                 <button
                   key={i}
                   type="button"
-                  aria-label={`Show screenshot ${i + 1}`}
+                  aria-label={`Show image ${i + 1}`}
                   onClick={(e) => {
                     e.stopPropagation();
                     setActive(i);

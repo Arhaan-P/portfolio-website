@@ -10,15 +10,15 @@ export function Experience() {
   const sectionRef = useRef<HTMLElement>(null)
 
   return (
-    <section id="experience" ref={sectionRef} className="mx-auto max-w-5xl px-4 py-20 sm:px-6 relative">
+    <section id="experience" ref={sectionRef} className="section-shell">
       <Reveal>
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-foreground inline-block pb-2">
-          Experience
-        </h2>
-        <p className="mt-2 text-muted-foreground">Where I&apos;ve worked & studied</p>
+        <div className="section-head">
+          <h2 className="section-title">Experience</h2>
+          <p className="section-sub">Where I&apos;ve worked & studied</p>
+        </div>
       </Reveal>
 
-      <div className="mt-12 relative">
+      <div className="relative">
         {/* Static Background Line */}
         <div className="absolute left-4 top-0 bottom-0 w-[2px] bg-border sm:left-1/2 sm:-translate-x-1/2" />
         

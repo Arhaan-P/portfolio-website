@@ -14,18 +14,10 @@ export default function Home() {
       <div className="relative z-10 bg-background shadow-[0_10px_50px_color-mix(in_oklch,var(--foreground)_40%,transparent)] pb-10">
         <Hero />
         <SectionDivider />
-        <section
-          id="projects"
-          className="mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:py-28 relative"
-        >
-          <div className="mb-12">
-            <p className="font-mono text-sm text-primary uppercase tracking-wider font-semibold">
-              Portfolio
-            </p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-foreground inline-block">
-              Featured Projects
-            </h2>
-            <p className="mt-4 text-lg text-muted-foreground max-w-2xl">
+        <section id="projects" className="section-shell">
+          <div className="section-head">
+            <h2 className="section-title">Featured Projects</h2>
+            <p className="section-sub">
               A selection of my recent work in building distributed systems,
               scalable architectures, and machine learning pipelines.
             </p>

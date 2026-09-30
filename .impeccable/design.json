@@ -119,6 +119,10 @@
       "caption": {
         "displayName": "Caption",
         "purpose": "Chips and tags, Geist Mono 0.75rem. The minimum size on the page."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Section subtitles, hero tagline and Contact line, 1.125rem."
       }
     },
     "shadows": [
@@ -181,7 +185,7 @@
       "name": "Skill Badge",
       "kind": "chip",
       "refersTo": "skill-badge",
-      "description": "Technology chip with an icon; fills with accent on hover.",
+      "description": "Technology chip with a monochrome icon; fills with accent on hover.",
       "html": "<span class=\"ds-skill-badge\">FastAPI</span>",
       "css": ".ds-skill-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; background: var(--background); border: 1px solid var(--border); border-radius: 10px; font-size: 14px; font-weight: 500; color: color-mix(in oklch, var(--foreground) 80%, transparent); box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05); cursor: default; transition: all .15s; } .ds-skill-badge:hover { background: var(--accent); color: var(--accent-foreground); border-color: color-mix(in oklch, var(--primary) 40%, transparent); }"
     },
@@ -234,6 +238,11 @@
         "name": "The 12/14 Floor Rule",
         "body": "Chips and mono labels are never below 12px; anything a person reads as a sentence is never below 14px. No literal sizes such as text-[10px].",
         "section": "typography"
+      },
+      {
+        "name": "The One Shell Rule",
+        "body": "Every content section uses .section-shell (max-w-5xl, 16px/24px gutter, py-20 sm:py-24) and one .section-head heading block. Only More projects is compact.",
+        "section": "layout"
       }
     ],
     "dos": [

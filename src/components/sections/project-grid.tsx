@@ -16,16 +16,12 @@ import { standardProjects } from "@/data/projects"
 
 export function ProjectGrid() {
   return (
-    <section
-      id="more-projects"
-      data-nav="#projects"
-      className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16 relative"
-    >
-      <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-foreground inline-block">
-        More projects
-      </h2>
+    <section id="more-projects" data-nav="#projects" className="section-shell-compact">
+      <div className="section-head">
+        <h2 className="section-title">More projects</h2>
+      </div>
 
-      <RevealGroup className="mt-8">
+      <RevealGroup>
         <div className="grid gap-6 sm:grid-cols-2">
           {standardProjects.map((project) => (
             <div key={project.slug} className="h-full">

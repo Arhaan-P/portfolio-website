@@ -147,6 +147,7 @@ function CardMedia({ project }: { project: Project }) {
       <ProjectImage
         images={project.images}
         alt={project.name}
+        alts={project.imageAlts}
         aspect={project.imageAspect}
         ratio={project.imageRatio}
       />

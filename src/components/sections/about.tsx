@@ -10,14 +10,14 @@ export function About() {
     "hover:-translate-y-0.5 transition-transform duration-200 ease-out";
 
   return (
-    <section id="about" className="mx-auto max-w-5xl px-4 py-20 sm:px-6">
+    <section id="about" className="section-shell">
       <Reveal>
-        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-foreground inline-block pb-2">
-          About Me
-        </h2>
+        <div className="section-head">
+          <h2 className="section-title">About Me</h2>
+        </div>
       </Reveal>
 
-      <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
         {/* Bio Card - Large */}
         <div className="relative lg:col-span-2">
           <div className={`glass-card rounded-xl p-6 h-full ${cardHoverClass}`}>

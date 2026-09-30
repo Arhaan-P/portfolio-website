@@ -42,6 +42,11 @@ typography:
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.625
+  lead:
+    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "1.125rem"
+    fontWeight: 400
+    lineHeight: 1.6
   body-small:
     fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
     fontSize: "0.875rem"
@@ -154,6 +159,7 @@ A near-monochrome indigo-black palette with a single luminous blue-cyan signal; 
 - **Title** (600, 1.25rem, 1.3): Role titles and card headings. Featured project names step up to 1.5rem→1.875rem so the name leads its card.
 - **Body** (400, 1rem, 1.625): Descriptions and the featured one-liner (weight 400, so it reads as prose under the readouts). Cap paragraphs near 65–75ch; the hero tagline is capped at `max-w-2xl`.
 - **Readout** (Geist Mono 600, 1.25rem, 1.2, tabular numerals): The value in a metric readout on featured cards. Highest-contrast small text; the hero strip uses the 1rem step.
+- **Lead** (400, 1.125rem, 1.6): Section subtitles, the hero tagline, and the Contact line. The one step between Body and Title, used for a single supporting sentence under a heading.
 - **Body-small** (400, 0.875rem, 1.5): Anything read as a sentence at reduced weight: readout captions, education line, bullets inside the disclosure, demo captions.
 - **Label** (Geist Mono 600, 0.875rem, tracking 0.05em, uppercase): Eyebrows like "Hi, I'm" and small metadata.
 - **Caption** (Geist Mono 500, 0.75rem): Chips and tags only (tech-stack badges, period tags, Research label). This is the floor: nothing on the page is smaller.
@@ -165,11 +171,15 @@ A near-monochrome indigo-black palette with a single luminous blue-cyan signal; 
 
 ## Layout
 
-A single scrolling page in one column, with sections stacked at generous vertical rhythm (about 96px section padding, `py-24`) and a 16px side gutter that grows to 24px at `sm`. The hero is centered and takes about 90vh. Later sections sit in centered containers, and grids collapse from multi-column to a single stack on narrow screens. Smooth scrolling is provided by Lenis.
+A single scrolling page in one column. Every content section shares one shell (`.section-shell`): `max-w-5xl` (1024px), a 16px side gutter that grows to 24px at `sm`, and `py-20 sm:py-24` vertical padding. "More projects" is deliberately tighter (`.section-shell-compact`, `py-12 sm:py-16`) because it only holds two cards. The hero (about 90vh, centered) and Contact are full-bleed sections with their own inner container. Grids collapse from multi-column to a single stack on narrow screens.
 
-Known drift: container max-widths are not consistent across sections (5xl, 6xl, and effectively 3xl in Contact). The target is one shared content width.
+Every section heading uses one block: `.section-head` (`mb-10 sm:mb-12`) holding a `.section-title` (Headline step) and, where there is one, a `.section-sub` (Lead step, `mt-3`). There are no eyebrow labels above section headings (the hero's "Hi, I'm" belongs to the name line).
 
-Verify every change at 375px, 768px, and 1440px.
+Anchor jumps use native scrolling with `scroll-padding-top: 4.5rem`, so headings land below the 64px sticky header.
+
+Touch: every interactive element is at least 44×44px on touch layouts, and never below 24px. Text links use `min-h-11`; small pills extend their hit area with a pseudo-element.
+
+Verify every change at 320px, 375px, 768px, and 1440px, in both themes.
 
 ## Elevation & Depth
 
@@ -199,22 +209,21 @@ Softly rounded rectangles, all derived from one radius base (`--radius: 0.625rem
 - **Focus:** A 3px ring in the primary color at 50%. Press nudges the button down 1px.
 
 ### Chips (Skill badges)
-- **Style:** Background-colored pill with a hairline border, 8px × 12px padding, `text-sm` medium in 80% foreground, a small brand icon, and `shadow-sm`.
+- **Style:** Background-colored pill with a hairline border, 8px × 12px padding, `text-sm` medium in 80% foreground, a small monochrome icon (`text-foreground`, so it reads in both themes), and `shadow-sm`.
 - **Hover:** Fills with the accent tone and lightens its border to primary at 40%.
-- **Open bugs:** Text color contrast in light mode, and some CDN Devicon icons rendering faint.
 
 ### Cards / Containers
-- **Corner Style:** 10px.
-- **Background:** Glass Panel at 40% over the page (60% in light mode).
-- **Border:** 1px hairline at 10% white in dark mode.
+- **Corner Style:** 14px (`rounded-xl`) for every card, including Skills.
+- **Background:** Glass Panel tint at 40% over the page (60% in light mode), no blur.
+- **Border:** 1px `--glass-border` hairline.
 - **Shadow Strategy:** Flat at rest; see Elevation & Depth.
 - **Internal Padding:** About 24px.
 
 ### Navigation
-- Sticky top bar (translucent, the one blurred surface, hairline bottom border) with anchor links to About, Skills, Experience, Projects, and Contact. Mobile uses a slide-in sheet. The theme toggle is a binary light/dark switch. The mobile sheet does not apply dark styling (known open bug).
+- Sticky top bar (translucent, the one blurred surface, hairline bottom border) with anchor links in page order: Projects, Experience, Skills, About, Contact. A compact 44px outline "Resume" pill sits before the theme switch at every width (28px from `sm` up). Mobile uses a solid slide-in sheet that closes at once on a link tap. The theme control is a switch announcing "Dark mode".
 
 ### Hero name (signature)
-- The name is set in the display size in solid Moonlit Text. No gradient text anywhere. Words enter with a spring rise (skipped under reduced motion). Beneath sits a rotating role line in muted text. One still, low-opacity wash of the accent hue sits behind the hero; nothing drifts.
+- The name is set in the display size in solid Moonlit Text. No gradient text anywhere. Words enter with a spring rise (skipped under reduced motion). Beneath sits a rotating role line in muted text that swaps instantly (no letter animation). One still, low-opacity wash of the accent hue sits behind the hero; nothing drifts.
 
 ## Do's and Don'ts
 

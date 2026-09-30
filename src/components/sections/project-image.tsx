@@ -16,11 +16,14 @@ const ProjectLightbox = dynamic(() => import("./project-lightbox"), { ssr: false
 export function ProjectImage({
   images,
   alt,
+  alts,
   aspect = "standard",
   ratio,
 }: {
   images: string[];
   alt: string;
+  /** Per-image descriptions; falls back to the project name if one is missing. */
+  alts?: string[];
   /** "standard" for phone/app screenshots, "wide" for banner-shaped diagrams. */
   aspect?: "standard" | "wide";
   /** Overrides the 16:9 box for a wide diagram cropped tighter, e.g. "1400 / 270". */
@@ -34,8 +37,7 @@ export function ProjectImage({
     setLightboxOpen(true);
   };
   const count = images.length;
-  const label = (i: number) =>
-    aspect === "wide" ? `${alt} architecture diagram` : `${alt}, screenshot ${i + 1}`;
+  const label = (i: number) => alts?.[i] ?? `${alt}, image ${i + 1}`;
 
   const prev = React.useCallback(
     () => setActive((i) => (i - 1 + count) % count),
@@ -106,7 +108,7 @@ export function ProjectImage({
           <>
             <button
               type="button"
-              aria-label="Previous screenshot"
+              aria-label="Previous image"
               onClick={(e) => {
                 e.stopPropagation();
                 prev();
@@ -117,7 +119,7 @@ export function ProjectImage({
             </button>
             <button
               type="button"
-              aria-label="Next screenshot"
+              aria-label="Next image"
               onClick={(e) => {
                 e.stopPropagation();
                 next();
@@ -136,7 +138,7 @@ export function ProjectImage({
               <button
                 key={i}
                 type="button"
-                aria-label={`Show screenshot ${i + 1}`}
+                aria-label={`Show image ${i + 1}`}
                 onClick={(e) => {
                   e.stopPropagation();
                   setActive(i);

@@ -5,20 +5,16 @@ import { skillGroups } from "@/data/skills"
 
 export function Skills() {
   return (
-    <section id="skills" className="relative mx-auto max-w-5xl px-6 py-24 overflow-hidden">
+    <section id="skills" className="section-shell overflow-hidden">
       <div className="glow-bg"></div>
       
       <div className="relative z-10">
         <Reveal>
-          <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div>
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-3 text-foreground">
-                Skills
-              </h2>
-              <p className="text-muted-foreground text-lg max-w-2xl">
-                Tools, languages, and technologies I use to build scalable and robust applications.
-              </p>
-            </div>
+          <div className="section-head">
+            <h2 className="section-title">Skills</h2>
+            <p className="section-sub">
+              Tools, languages, and technologies I use to build scalable and robust applications.
+            </p>
           </div>
         </Reveal>
 
@@ -26,7 +22,7 @@ export function Skills() {
           {skillGroups.map((group, index) => (
             <div key={group.label}>
               <Reveal delay={0.1 * index} className="h-full">
-                <div className="h-full bg-card border border-border rounded-2xl p-6 hover:border-primary/30 transition-colors duration-150 ease-out group shadow-lg shadow-black/20">
+                <div className="glass-card h-full rounded-xl p-6 hover:border-primary/30 transition-colors duration-150 ease-out group">
                   <div className="flex items-center gap-3 mb-6 border-b border-border/50 pb-4">
                     <div className={`p-2 rounded-lg transition-colors ${group.iconBgClass} ${group.iconColorClass}`}>
                       {group.icon}

@@ -27,6 +27,8 @@ export type Project = {
   links: ProjectLink[];
   tags: string[];
   images?: string[];
+  /** One description per image, in order. Says what the image shows, not what kind of file it is. */
+  imageAlts?: string[];
   /** "wide" for banner-shaped diagrams; omit for phone/app screenshots. */
   imageAspect?: "wide";
   /** CSS aspect-ratio for a "wide" image cropped tighter than 16:9, e.g. "1400 / 270". */
@@ -84,6 +86,9 @@ export const projects: Project[] = [
     ],
     tags: ["Systems", "Drones", "FastAPI", "React", "Kotlin"],
     images: ["/projects/drones.webp"],
+    imageAlts: [
+      "PolarisGCS ground control interface: a satellite map with drone markers and flight paths, a mission panel on the right, and drone status cards along the bottom.",
+    ],
   },
   {
     slug: "vhelp",
@@ -195,6 +200,9 @@ export const projects: Project[] = [
     links: [],
     tags: ["AI", "LLM", "Research"],
     images: ["/projects/mutafix-architecture-cropped.svg"],
+    imageAlts: [
+      "MutaFix pipeline: Saboteur (deterministic AST mutation) feeds Agent (LangGraph, 3 attempts), then Sandbox (network-isolated Docker), then Eval (pass@k, SEM).",
+    ],
     imageAspect: "wide",
     imageRatio: "1400 / 270",
   },
@@ -278,6 +286,9 @@ export const projects: Project[] = [
     ],
     tags: ["ML", "PyTorch", "Computer Vision", "Research"],
     images: ["/projects/deepfake-detection-architecture.svg"],
+    imageAlts: [
+      "Gait-based deepfake detection pipeline: a query video passes through MediaPipe pose into a 78-dimension gait sequence, which a 133K-parameter temporal CNN compares against the claimed identity's stored gait profile to give an authentic, mismatch or suspected-deepfake verdict; evaluated at 94.95% pooled AUC-ROC.",
+    ],
     imageAspect: "wide",
   },
   {

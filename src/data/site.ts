@@ -3,7 +3,7 @@ export const site = {
   role: "Software Engineer",
   roles: ["Software Engineer", "AI/ML Engineer"],
   tagline:
-    "I build distributed systems, scalable architectures, and applied ML pipelines, from a multi-drone ground control system to a campus super-app serving over a thousand students.",
+    "I build distributed systems, scalable architectures, and applied ML pipelines, from a multi-drone ground control system to a campus super-app that reached over a thousand users in its first hour.",
   email: "arhaanpenwala9@gmail.com",
   github: "https://github.com/Arhaan-P",
   linkedin: "https://www.linkedin.com/in/arhaan-penwala/",

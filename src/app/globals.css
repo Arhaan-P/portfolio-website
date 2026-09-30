@@ -210,6 +210,23 @@
     opacity: 1;
   }
 
+  /* Section rhythm: one content width, one gutter, one vertical padding, one heading gap. */
+  .section-shell {
+    @apply relative mx-auto w-full max-w-5xl px-4 py-20 sm:px-6 sm:py-24;
+  }
+  .section-shell-compact {
+    @apply relative mx-auto w-full max-w-5xl px-4 py-12 sm:px-6 sm:py-16;
+  }
+  .section-head {
+    @apply mb-10 sm:mb-12;
+  }
+  .section-title {
+    @apply text-3xl font-bold tracking-tight text-foreground sm:text-4xl;
+  }
+  .section-sub {
+    @apply mt-3 max-w-2xl text-lg text-muted-foreground;
+  }
+
   /* Hero backdrop: one still wash of the primary hue, no motion */
   .hero-wash {
     background: radial-gradient(

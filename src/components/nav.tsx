@@ -118,7 +118,7 @@ export function Nav() {
           <Button
             variant="outline"
             size="sm"
-            className="h-11 rounded-full border-input px-4 text-sm hover:bg-muted transition-colors duration-150 ease-out sm:h-7 sm:px-2.5 sm:text-[0.8rem]"
+            className="h-11 rounded-full border-input px-4 text-sm hover:bg-muted transition-colors duration-150 ease-out sm:h-7 sm:px-2.5"
             nativeButton={false}
             render={<a href={site.resumeUrl} download />}
           >

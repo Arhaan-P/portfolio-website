@@ -205,6 +205,8 @@
     mask-composite: exclude;
     opacity: 0;
     transition: opacity 200ms ease-out;
+    /* Decorative only: it covers the whole card, so it must never take clicks. */
+    pointer-events: none;
   }
   .gradient-border:hover::before {
     opacity: 1;

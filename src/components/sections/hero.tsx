@@ -61,6 +61,7 @@ export function Hero() {
                 style={{ display: "inline-block", transformOrigin: "bottom" }}
               >
                 {word}
+                {i < site.name.split(" ").length - 1 && " "}
               </m.span>
             ))}
           </m.h1>

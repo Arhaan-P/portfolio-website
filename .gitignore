@@ -45,3 +45,6 @@ portfolio-context/
 .playwright-mcp/
 public/resume.tex
 CLAUDE.md
+.impeccable/
+.gitignore
+.gitignore

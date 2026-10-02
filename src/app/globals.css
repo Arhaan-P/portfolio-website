@@ -4,19 +4,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* ── Animated gradient border support ────────────────────────── */
-@property --angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-@property --gradient-position {
-  syntax: "<percentage>";
-  initial-value: 0%;
-  inherits: false;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -97,8 +84,6 @@
   --sidebar-ring: oklch(0.708 0 0);
 
   /* Custom design tokens */
-  --glow-primary: oklch(0.55 0.18 255 / 20%);
-  --glow-accent: oklch(0.6 0.22 290 / 15%);
   --glass-bg: oklch(0.97 0.003 270 / 60%);
   --glass-border: oklch(0.9 0.01 270 / 60%);
   --aurora-1: oklch(0.7 0.15 250);
@@ -141,8 +126,6 @@
   --sidebar-ring: oklch(0.556 0 0);
 
   /* Custom design tokens: dark */
-  --glow-primary: oklch(0.75 0.17 230 / 25%);
-  --glow-accent: oklch(0.7 0.25 290 / 20%);
   --glass-bg: oklch(0.17 0.02 270 / 40%);
   --glass-border: oklch(1 0 0 / 10%);
   --aurora-1: oklch(0.55 0.2 250);
@@ -191,49 +174,6 @@
     @apply backdrop-blur-lg backdrop-saturate-[1.8];
   }
 
-  /* Animated gradient border */
-  .gradient-border {
-    position: relative;
-    overflow: hidden;
-    border-radius: var(--radius-lg);
-  }
-  .gradient-border::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    padding: 1px;
-    border-radius: inherit;
-    background: conic-gradient(
-      from var(--angle),
-      var(--aurora-1),
-      var(--aurora-2),
-      var(--aurora-3),
-      var(--aurora-1)
-    );
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    animation: spin-border 4s linear infinite;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-  .gradient-border:hover::before {
-    opacity: 1;
-  }
-
-  /* Glow effect */
-  .glow-sm {
-    box-shadow: 0 0 20px -5px var(--glow-primary);
-  }
-  .glow-md {
-    box-shadow: 0 0 40px -10px var(--glow-primary);
-  }
-
   /* Gradient text */
   .text-gradient {
     background: linear-gradient(
@@ -242,16 +182,9 @@
       var(--aurora-2) 50%,
       var(--primary) 100%
     );
-    background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: gradient-shift 4s ease-in-out infinite;
-  }
-
-  /* Pulse ring animation for dots */
-  .pulse-ring {
-    animation: pulse-ring 2s ease-out infinite;
   }
 
   /* Skills Section */
@@ -264,8 +197,8 @@
     height: 80vh;
     background: radial-gradient(
       circle,
-      rgba(29, 78, 216, 0.05) 0%,
-      rgba(0, 0, 0, 0) 70%
+      color-mix(in oklab, var(--primary) 5%, transparent) 0%,
+      transparent 70%
     );
     z-index: -1;
     pointer-events: none;
@@ -277,36 +210,7 @@
 }
 
 /* ── Keyframes ───────────────────────────────────────────────── */
-@keyframes spin-border {
-  from {
-    --angle: 0deg;
-  }
-  to {
-    --angle: 360deg;
-  }
-}
 
-@keyframes gradient-shift {
-  0%,
-  100% {
-    background-position: 0% center;
-  }
-  50% {
-    background-position: 200% center;
-  }
-}
-
-@keyframes pulse-ring {
-  0% {
-    box-shadow: 0 0 0 0 var(--glow-primary);
-  }
-  70% {
-    box-shadow: 0 0 0 8px oklch(0.75 0.17 230 / 0%);
-  }
-  100% {
-    box-shadow: 0 0 0 0 oklch(0.75 0.17 230 / 0%);
-  }
-}
 
 @keyframes aurora-shift {
   0%,

@@ -24,10 +24,7 @@ export default function Home() {
           className="mx-auto max-w-5xl px-4 py-20 sm:px-6 sm:py-28 relative"
         >
           <div className="mb-12">
-            <p className="font-mono text-sm text-primary uppercase tracking-wider font-semibold">
-              Portfolio
-            </p>
-            <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-gradient inline-block">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-foreground inline-block">
               Featured Projects
             </h2>
             <p className="mt-4 text-lg text-muted-foreground max-w-2xl">

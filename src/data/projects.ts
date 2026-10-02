@@ -20,6 +20,8 @@ export type Project = {
   images?: string[];
   /** "wide" for banner-shaped diagrams; omit for phone/app screenshots. */
   imageAspect?: "wide";
+  /** Width / height of the diagram, so its frame matches the (cropped) artwork. */
+  imageRatio?: number;
   /** Live web build embedded in place of screenshots (e.g. a Flutter web deploy). */
   demoUrl?: string;
 };
@@ -68,6 +70,7 @@ export const projects: Project[] = [
     ],
     tags: ["Systems", "Drones", "FastAPI", "React", "Kotlin"],
     images: ["/projects/drones.webp"],
+    imageRatio: 1919 / 909,
   },
   {
     slug: "vhelp",
@@ -158,14 +161,15 @@ export const projects: Project[] = [
       "pytest",
     ],
     metrics: [
-      "93.0% strict_pass@3 (±2.5 SE) over 105 challenges × 3 seeds",
-      "1,084 contamination-free bugs via deterministic AST mutation",
-      "Caught 5 of 298 passing runs that left the bug intact, invisible to pass@k alone",
+      "93.0% hand-verified fixes within 3 attempts (strict_pass@3, ±2.5 SE) over 105 challenges × 3 seeds",
+      "1,084 contamination-free bugs (never seen in training) via deterministic AST mutation",
+      "Caught 5 of 298 runs that passed the tests but left the bug intact, which pass@k alone would count as successes",
     ],
     links: [],
     tags: ["AI", "LLM", "Research"],
     images: ["/projects/mutafix-architecture.svg"],
     imageAspect: "wide",
+    imageRatio: 1400 / 231,
   },
   {
     slug: "queez",
@@ -228,9 +232,9 @@ export const projects: Project[] = [
       "Pandas",
     ],
     metrics: [
-      "94.95% pooled AUC-ROC (95.10% ± 3.08% per-fold, 13-fold subject-disjoint LOOCV)",
+      "94.95% pooled AUC-ROC, how well genuine and fake are separated (95.10% ± 3.08% per-fold, 13-fold subject-disjoint leave-one-out cross-validation)",
       "87.01% pooled accuracy (87.04% ± 3.65% per-fold)",
-      "12.77% pooled Equal Error Rate",
+      "12.77% pooled Equal Error Rate, the point where false accepts equal false rejects",
       "3/3 real FaceFusion face-swap clips correctly rejected in end-to-end validation",
       "1,056 augmented training videos generated from 66 original recordings",
     ],
@@ -243,6 +247,7 @@ export const projects: Project[] = [
     tags: ["ML", "PyTorch", "Computer Vision", "Research"],
     images: ["/projects/deepfake-detection-architecture.svg"],
     imageAspect: "wide",
+    imageRatio: 1400 / 589,
   },
   {
     slug: "junk-wunk",
@@ -267,7 +272,3 @@ export const projects: Project[] = [
 
 export const featuredProjects = projects.filter((p) => p.tier === "featured");
 export const standardProjects = projects.filter((p) => p.tier === "standard");
-
-export const allTags = Array.from(
-  new Set(projects.flatMap((p) => p.tags)),
-).sort();

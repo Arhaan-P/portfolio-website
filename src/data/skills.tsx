@@ -63,8 +63,60 @@ export type SkillGroup = {
   colSpan?: number;
 };
 
-const ic = (Icon: React.ComponentType<{ className?: string }>, colorClass: string) => (
-  <Icon className={`w-4 h-4 ${colorClass}`} />
+// Brand colours are kept as authored unless they fall below 3:1 on the badge
+// surface, in which case they are mixed toward black (light theme) or white
+// (dark theme) just far enough to clear it. Approximate surface luminances.
+const LIGHT_SURFACE = 0.94;
+const DARK_SURFACE = 0.005;
+
+const channels = (hex: string) =>
+  [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+
+const luminance = ([r, g, b]: number[]) => {
+  const lin = (v: number) => {
+    const c = v / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  };
+  return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+};
+
+const contrast = (a: number, b: number) =>
+  (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
+
+function legible(hex: string, surface: number, toward: 0 | 255) {
+  const base = channels(hex);
+  for (let t = 0; t <= 1; t += 0.05) {
+    const mixed = base.map((v) => Math.round(v + (toward - v) * t));
+    if (contrast(luminance(mixed), surface) >= 3 || t >= 0.95) {
+      return `#${mixed.map((v) => v.toString(16).padStart(2, "0")).join("")}`;
+    }
+  }
+  return hex;
+}
+
+const ic = (Icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>, colorClass: string) => {
+  const hex = colorClass.match(/text-\[(#[0-9a-fA-F]{6})\]/)?.[1];
+  // Classes that already carry a dark: variant are authored per theme; leave them.
+  if (!hex || colorClass.includes("dark:")) {
+    return <Icon className={`w-4 h-4 ${colorClass}`} />;
+  }
+  return (
+    <Icon
+      className="w-4 h-4 text-(color:--ic-light) dark:text-(color:--ic-dark)"
+      style={
+        {
+          "--ic-light": legible(hex, LIGHT_SURFACE, 0),
+          "--ic-dark": legible(hex, DARK_SURFACE, 255),
+        } as React.CSSProperties
+      }
+    />
+  );
+};
+
+const GeminiMark = ({ className, style }: { className?: string; style?: React.CSSProperties }) => (
+  <svg className={className} style={style} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M11 2L12.5 8.5L19 10L12.5 11.5L11 18L9.5 11.5L3 10L9.5 8.5L11 2ZM17.5 15.5L18.25 18.75L21.5 19.5L18.25 20.25L17.5 23.5L16.75 20.25L13.5 19.5L16.75 18.75L17.5 15.5Z"></path>
+  </svg>
 );
 
 export const skillGroups: SkillGroup[] = [
@@ -107,7 +159,7 @@ export const skillGroups: SkillGroup[] = [
       { name: "HTML5", iconNode: ic(SiHtml5, "text-[#E34F26]") },
       { name: "CSS3", iconNode: ic(SiCss, "text-[#1572B6]") },
       { name: "Flutter", iconNode: ic(SiFlutter, "text-[#02569B]") },
-      { name: "Riverpod", iconNode: <Blocks className="w-4 h-4 text-[#00D2B4]" /> },
+      { name: "Riverpod", iconNode: ic(Blocks, "text-[#00D2B4]") },
       { name: "Jetpack Compose", iconNode: ic(SiJetpackcompose, "text-[#4285F4]") },
       { name: "PySide6", iconNode: ic(SiQt, "text-[#41CD52]") },
       { name: "Leaflet", iconNode: ic(SiLeaflet, "text-[#199900]") },
@@ -126,8 +178,8 @@ export const skillGroups: SkillGroup[] = [
       { name: "Node.js", iconNode: ic(SiNodedotjs, "text-[#5FA04E]") },
       { name: "Express.js", iconNode: ic(SiExpress, "text-foreground") },
       { name: "FastAPI", iconNode: ic(SiFastapi, "text-[#009688]") },
-      { name: "REST APIs", iconNode: <Network className="w-4 h-4 text-emerald-400" /> },
-      { name: "WebSockets", iconNode: <Network className="w-4 h-4 text-emerald-400" /> },
+      { name: "REST APIs", iconNode: ic(Network, "text-[#34d399]") },
+      { name: "WebSockets", iconNode: ic(Network, "text-[#34d399]") },
       { name: "Socket.IO", iconNode: ic(SiSocketdotio, "text-foreground") },
       { name: "Deno Edge Functions", iconNode: ic(SiDeno, "text-foreground") },
       { name: "JWT Authentication", iconNode: ic(SiJsonwebtokens, "text-[#000000] dark:text-white") },
@@ -148,20 +200,16 @@ export const skillGroups: SkillGroup[] = [
       { name: "pydantic-ai", iconNode: ic(SiPydantic, "text-[#E92063]") },
       {
         name: "Gemini API",
-        iconNode: (
-          <svg className="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M11 2L12.5 8.5L19 10L12.5 11.5L11 18L9.5 11.5L3 10L9.5 8.5L11 2ZM17.5 15.5L18.25 18.75L21.5 19.5L18.25 20.25L17.5 23.5L16.75 20.25L13.5 19.5L16.75 18.75L17.5 15.5Z"></path>
-          </svg>
-        ),
+        iconNode: ic(GeminiMark, "text-[#c084fc]"),
       },
       { name: "PyTorch", iconNode: ic(SiPytorch, "text-[#EE4C2C]") },
       { name: "Scikit-learn", iconNode: ic(SiScikitlearn, "text-[#F7931E]") },
-      { name: "XGBoost", iconNode: <Cpu className="w-4 h-4 text-purple-400" /> },
+      { name: "XGBoost", iconNode: ic(Cpu, "text-[#c084fc]") },
       { name: "Pandas", iconNode: ic(SiPandas, "text-[#150458] dark:text-white") },
       { name: "NumPy", iconNode: ic(SiNumpy, "text-[#013243] dark:text-[#4DABCF]") },
-      { name: "MediaPipe", iconNode: <Cpu className="w-4 h-4 text-purple-400" /> },
-      { name: "Grad-CAM", iconNode: <Cpu className="w-4 h-4 text-purple-400" /> },
-      { name: "tree-sitter", iconNode: <Cpu className="w-4 h-4 text-purple-400" /> },
+      { name: "MediaPipe", iconNode: ic(Cpu, "text-[#c084fc]") },
+      { name: "Grad-CAM", iconNode: ic(Cpu, "text-[#c084fc]") },
+      { name: "tree-sitter", iconNode: ic(Cpu, "text-[#c084fc]") },
     ],
   },
   {
@@ -198,7 +246,7 @@ export const skillGroups: SkillGroup[] = [
       { name: "AWS (EC2, Cognito, S3)", iconClass: "devicon-amazonwebservices-plain-wordmark colored text-2xl" },
       { name: "Azure", iconClass: "devicon-azure-plain colored text-lg" },
       { name: "GitHub Actions", iconNode: ic(SiGithubactions, "text-[#2088FF]") },
-      { name: "CI/CD", iconNode: <Network className="w-4 h-4 text-orange-400" /> },
+      { name: "CI/CD", iconNode: ic(Network, "text-[#fb923c]") },
       { name: "Git", iconNode: ic(SiGit, "text-[#F05032]") },
       { name: "Linux", iconNode: ic(SiLinux, "text-[#FCC624]") },
       { name: "Kubernetes", iconNode: ic(SiKubernetes, "text-[#326CE5]") },
@@ -215,7 +263,7 @@ export const skillGroups: SkillGroup[] = [
     ),
     skills: [
       { name: "Solidity", iconNode: ic(SiSolidity, "text-foreground") },
-      { name: "Hardhat", iconNode: <Blocks className="w-4 h-4 text-[#FFF100]" /> },
+      { name: "Hardhat", iconNode: ic(Blocks, "text-[#FFF100]") },
       { name: "Polygon Amoy", iconNode: ic(SiPolygon, "text-[#8247E5]") },
     ],
   },
@@ -251,23 +299,23 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       {
         name: "Google AI Essentials",
-        iconNode: <SiGoogle className="w-4 h-4 text-[#4285F4]" />,
+        iconNode: ic(SiGoogle, "text-[#4285F4]"),
       },
       {
         name: "Google Prompting Essentials",
-        iconNode: <SiGoogle className="w-4 h-4 text-[#4285F4]" />,
+        iconNode: ic(SiGoogle, "text-[#4285F4]"),
       },
       {
         name: "Google AI Professional",
-        iconNode: <SiGoogle className="w-4 h-4 text-[#4285F4]" />,
+        iconNode: ic(SiGoogle, "text-[#4285F4]"),
       },
       {
         name: "Cisco Introduction to Cybersecurity",
-        iconNode: <SiCisco className="w-4 h-4 text-[#1BA0D7]" />,
+        iconNode: ic(SiCisco, "text-[#1BA0D7]"),
       },
       {
         name: "IBM AI Fundamentals",
-        iconNode: <BadgeCheck className="w-4 h-4 text-[#052FAD]" />,
+        iconNode: ic(BadgeCheck, "text-[#052FAD]"),
       },
       {
         name: "AWS Academy Graduate: Cloud Architecting",

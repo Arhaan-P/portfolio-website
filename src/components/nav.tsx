@@ -97,9 +97,9 @@ export function Nav() {
         <Link
           href="#top"
           onClick={(e) => handleLinkClick(e, "#top")}
-          className="font-heading text-sm font-bold tracking-tighter hover:text-primary transition-colors flex items-center gap-2 group"
+          className="font-heading text-sm font-bold tracking-tighter hover:text-primary transition-colors flex min-h-11 min-w-11 items-center gap-2 group"
         >
-          <span className="flex size-6 items-center justify-center rounded-full bg-primary/20 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+          <span className="flex size-6 items-center justify-center rounded-full bg-primary/20 text-accent-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
             {site.name.charAt(0)}
           </span>
           <span className="hidden sm:inline-block">{site.name}</span>
@@ -120,7 +120,7 @@ export function Nav() {
                   {isActive && (
                     <motion.div
                       layoutId="active-pill"
-                      className="absolute inset-0 -z-10 rounded-full bg-primary shadow-[0_0_15px_var(--glow-primary)]"
+                      className="absolute inset-0 -z-10 rounded-full bg-primary"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -135,7 +135,7 @@ export function Nav() {
           <Button
             variant="outline"
             size="sm"
-            className="hidden sm:inline-flex rounded-full border-white/10 hover:bg-white/10 hover:glow-sm transition-all"
+            className="hidden sm:inline-flex rounded-full border-border hover:bg-accent transition-all"
             nativeButton={false}
             render={<a href={site.resumeUrl} download />}
           >
@@ -149,14 +149,14 @@ export function Nav() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="md:hidden"
+                  className="size-11 md:hidden"
                   aria-label="Open menu"
                 />
               }
             >
               <Menu className="size-5" />
             </SheetTrigger>
-            <SheetContent side="right" className="glass-card border-l-white/10">
+            <SheetContent side="right" className="glass-card border-l-border">
               <SheetHeader>
                 <SheetTitle>Menu</SheetTitle>
               </SheetHeader>
@@ -171,19 +171,19 @@ export function Nav() {
                     }}
                     className={`rounded-lg px-4 py-3 text-sm font-medium transition-colors outline-none focus-visible:ring-3 focus-visible:ring-ring/50 ${
                       activeLink === link.href
-                        ? "bg-primary/20 text-primary border border-primary/30 glow-sm"
-                        : "text-muted-foreground hover:bg-white/5 hover:text-foreground"
+                        ? "bg-primary/20 text-primary border border-primary/30 "
+                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
                     }`}
                   >
                     {link.label}
                   </a>
                 ))}
-                <div className="h-px bg-white/10 my-2" />
+                <div className="h-px bg-border my-2" />
                 <a
                   href={site.resumeUrl}
                   download
                   onClick={() => setOpen(false)}
-                  className="rounded-lg px-4 py-3 text-sm font-medium text-primary hover:bg-white/5 transition-colors text-center border border-primary/50"
+                  className="rounded-lg px-4 py-3 text-sm font-medium text-primary hover:bg-muted transition-colors text-center border border-primary/50"
                 >
                   Download Resume
                 </a>

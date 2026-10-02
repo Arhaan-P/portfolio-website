@@ -9,7 +9,7 @@ export function Footer() {
 
   return (
     <>
-      <footer className="relative w-full bg-background/50 backdrop-blur-md border-t border-white/5 pt-8">
+      <footer className="relative w-full bg-background/50 backdrop-blur-md border-t border-border pt-8">
         <div className="mx-auto max-w-5xl px-4 sm:px-6">
           {/* Gradient divider line */}
           <div
@@ -23,7 +23,7 @@ export function Footer() {
           <div className="py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
             <div className="flex flex-col items-center sm:items-start gap-1">
               <p>
-                © {currentYear} {site.name}. All rights reserved.
+                © {currentYear} {site.name}
               </p>
             </div>
 
@@ -33,7 +33,7 @@ export function Footer() {
                   href={site.github}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="text-muted-foreground hover:text-primary transition-colors hover:glow-sm p-2"
+                  className="text-muted-foreground hover:text-primary transition-colors inline-flex size-11 items-center justify-center"
                   aria-label="GitHub profile"
                 >
                   <GitHubIcon className="size-4.5" />
@@ -42,14 +42,14 @@ export function Footer() {
                   href={site.linkedin}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="text-muted-foreground hover:text-primary transition-colors hover:glow-sm p-2"
+                  className="text-muted-foreground hover:text-primary transition-colors inline-flex size-11 items-center justify-center"
                   aria-label="LinkedIn profile"
                 >
                   <LinkedInIcon className="size-4.5" />
                 </a>
                 <a
                   href={`mailto:${site.email}`}
-                  className="text-muted-foreground hover:text-primary transition-colors hover:glow-sm p-2"
+                  className="text-muted-foreground hover:text-primary transition-colors inline-flex size-11 items-center justify-center"
                   aria-label="Send an email"
                 >
                   <Mail className="size-4.5" />

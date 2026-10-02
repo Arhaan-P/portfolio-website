@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useRef, useState } from "react"
-import { useReducedMotion } from "framer-motion"
+import { useReducedMotion } from "@/lib/use-reduced-motion"
 import anime from "animejs"
 
 interface AnimeTextProps {
@@ -22,6 +22,13 @@ export function AnimeText({ strings, className = "", pause = 2500 }: AnimeTextPr
     const id = setInterval(() => setIndex((prev) => prev + 1), pause)
     return () => clearInterval(id)
   }, [shouldReduceMotion, strings.length, pause])
+
+  // The container is written imperatively in both modes (React renders no
+  // children), so flipping modes after mount can't leave stale nodes behind.
+  useEffect(() => {
+    if (!shouldReduceMotion || !containerRef.current || strings.length === 0) return
+    containerRef.current.textContent = strings[index % strings.length]
+  }, [shouldReduceMotion, strings, index])
 
   useEffect(() => {
     if (shouldReduceMotion) return
@@ -75,19 +82,17 @@ export function AnimeText({ strings, className = "", pause = 2500 }: AnimeTextPr
     }
   }, [index, strings, pause, shouldReduceMotion])
 
-  if (shouldReduceMotion) {
-    return (
-      <span className={`inline-flex items-center justify-center ${className}`}>
-        {strings[index % strings.length] ?? ""}
-      </span>
-    )
-  }
-
+  // The visual text is rebuilt every few seconds, so screen readers get the
+  // full role list once instead of a stream of changing fragments.
   return (
-    <span
-      ref={containerRef}
-      className={`inline-flex flex-wrap items-center justify-center ${className}`}
-      style={{ perspective: "1000px" }}
-    />
+    <>
+      <span
+        ref={containerRef}
+        aria-hidden="true"
+        className={`inline-flex flex-wrap items-center justify-center ${className}`}
+        style={shouldReduceMotion ? undefined : { perspective: "1000px" }}
+      />
+      <span className="sr-only">{strings.join(", ")}</span>
+    </>
   )
 }

@@ -4,7 +4,8 @@ import { Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/motion/reveal"
 import { GitHubIcon, LinkedInIcon } from "@/components/icons"
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useReducedMotion } from "@/lib/use-reduced-motion"
 import { site } from "@/data/site"
 import { AuroraBackground } from "@/components/motion/aurora-background"
 import { AnimeText } from "@/components/motion/anime-text"
@@ -95,16 +96,16 @@ export function Hero() {
         initial="hidden"
         animate="visible"
       >
-        <motion.div variants={staggerItem} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-          <Button size="lg" className="glow-md text-base px-8 h-12 rounded-full" nativeButton={false} render={<a href="#projects" />}>
+        <motion.div variants={staggerItem}>
+          <Button size="lg" className="text-base px-8 h-12 rounded-full motion-safe:transition-transform motion-safe:hover:scale-105 motion-safe:active:scale-95" nativeButton={false} render={<a href="#projects" />}>
             View Projects
           </Button>
         </motion.div>
-        <motion.div variants={staggerItem} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+        <motion.div variants={staggerItem}>
           <Button
             size="lg"
             variant="outline"
-            className="text-base px-8 h-12 rounded-full bg-background/50 backdrop-blur-md border-white/10 hover:bg-white/10"
+            className="text-base px-8 h-12 rounded-full bg-background/50 backdrop-blur-md border-border hover:bg-accent motion-safe:transition-transform motion-safe:hover:scale-105 motion-safe:active:scale-95"
             nativeButton={false}
             render={<a href={site.resumeUrl} download />}
           >
@@ -126,7 +127,7 @@ export function Hero() {
           href={site.github}
           target="_blank"
           rel="noreferrer noopener"
-          className="text-muted-foreground hover:text-primary transition-colors hover:glow-sm p-2"
+          className="text-muted-foreground hover:text-primary transition-colors inline-flex size-11 items-center justify-center"
           aria-label="GitHub profile"
         >
           <GitHubIcon className="size-6" />
@@ -138,7 +139,7 @@ export function Hero() {
           href={site.linkedin}
           target="_blank"
           rel="noreferrer noopener"
-          className="text-muted-foreground hover:text-primary transition-colors hover:glow-sm p-2"
+          className="text-muted-foreground hover:text-primary transition-colors inline-flex size-11 items-center justify-center"
           aria-label="LinkedIn profile"
         >
           <LinkedInIcon className="size-6" />
@@ -148,7 +149,7 @@ export function Hero() {
           whileHover={{ scale: 1.15, y: -2 }}
           whileTap={{ scale: 0.95 }}
           href={`mailto:${site.email}`}
-          className="text-muted-foreground hover:text-primary transition-colors hover:glow-sm p-2"
+          className="text-muted-foreground hover:text-primary transition-colors inline-flex size-11 items-center justify-center"
           aria-label="Send an email"
         >
           <Mail className="size-6" />
